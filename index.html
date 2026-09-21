@@ -632,7 +632,6 @@ ul{margin:0;padding:0;list-style:none}
 .racao-tag.idade{background:var(--purple-soft);color:#6B31B8}
 .racao-tag.preco{background:var(--accent-soft);color:#B47800}
 .racao-tag.destaque{background:linear-gradient(135deg,#F4D57E,#E8B848);color:#6B4A00}
-/* v10.2 novos estilos */
 .principio-ativo{font-size:10px;color:var(--muted);font-weight:700;margin-top:3px;line-height:1.4}
 .apresentacao-tag{display:inline-block;font-size:9px;font-weight:800;background:var(--blue-soft);color:#3157C9;padding:2px 6px;border-radius:6px;margin-top:5px;text-transform:uppercase}
 .idade-info-card{background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border:1.5px solid #D9C4F5;border-radius:12px;padding:11px 13px;font-size:11.5px;font-weight:700;color:#6B31B8;line-height:1.5;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start}
@@ -665,7 +664,7 @@ ul{margin:0;padding:0;list-style:none}
           <svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 4 5 7c0 1.6 1 3 2.5 3.8C5.6 12 4 14 4 16.5 4 19.5 7.5 22 12 22s8-2.5 8-5.5c0-2.5-1.6-4.5-3.5-5.7C18 10 19 8.6 19 7c0-3-3-5-7-5z"/></svg>
         </div>
         <div>
-          <div class="hdr-title">PetVida <span class="hdr-version">v10.2</span></div>
+          <div class="hdr-title">PetVida <span class="hdr-version">v10.3</span></div>
           <div class="hdr-sub" id="hdrSub">Cuide bem do seu melhor amigo</div>
         </div>
       </div>
@@ -827,8 +826,8 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    CONFIGURAÇÃO GLOBAL
 ============================================================ */
-const APP_VERSION = 'v10.2';
-const APP_VERSION_DATE = '2025-01-27';
+const APP_VERSION = 'v10.3';
+const APP_VERSION_DATE = '2025-01-28';
 
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyASdpnMWSeVFPGkzGZoSmk0Kxq6JI9gsqM",
@@ -1572,10 +1571,14 @@ function redimensionarImagem(dataUrl, maxSize, qualidade, cb){
   img.src = dataUrl;
 }
 
-/* PROTOCOLO VACINAL */
+/* ============================================================
+   ✅ v10.3 — PROTOCOLO COM DIAS PARA VERMÍFUGO
+   - `dias` tem prioridade sobre `sem` para cálculo
+   - verm1 = 15 dias (não 14)
+============================================================ */
 const PROTOCOLO = {
   cao: [
-    {id:'verm1', nome:'Vermifugação inicial', sem:2, obs:'15 dias.', tipo:'vermifugo'},
+    {id:'verm1', nome:'Vermifugação inicial', sem:2, dias:15, obs:'15 dias após o nascimento.', tipo:'vermifugo'},
     {id:'v10_1', nome:'V10 — 1ª dose', sem:6, obs:'Cinomose, parvovirose.', tipo:'v10'},
     {id:'giar1', nome:'Giárdia', sem:8, obs:'Regiões endêmicas.', tipo:'giardia'},
     {id:'v10_2', nome:'V10 — 2ª dose', sem:9, obs:'21-30 dias.', tipo:'v10'},
@@ -1586,7 +1589,7 @@ const PROTOCOLO = {
     {id:'rabref', nome:'Reforço Antirrábica', sem:52, obs:'Anual.', tipo:'rabica'}
   ],
   gato: [
-    {id:'verm1', nome:'Vermifugação inicial', sem:2, obs:'15 dias.', tipo:'vermifugo'},
+    {id:'verm1', nome:'Vermifugação inicial', sem:2, dias:15, obs:'15 dias após o nascimento.', tipo:'vermifugo'},
     {id:'v3_1', nome:'V3/V4/V5 — 1ª dose', sem:6, obs:'Rinotraqueíte, calicivirose.', tipo:'v3'},
     {id:'felv1', nome:'FeLV — 1ª dose', sem:8, obs:'Leucemia Felina.', tipo:'felv'},
     {id:'v3_2', nome:'V3/V4/V5 — 2ª dose', sem:9, obs:'21-30 dias.', tipo:'v3'},
@@ -1597,6 +1600,14 @@ const PROTOCOLO = {
     {id:'rabref', nome:'Reforço Antirrábica', sem:52, obs:'Anual.', tipo:'rabica'}
   ]
 };
+
+/* ✅ v10.3 — Helper: converte item do protocolo em dias totais */
+function getIntervaloDiasItem(item){
+  if(!item) return 0;
+  if(item.dias !== undefined) return item.dias;
+  return (item.sem || 0) * 7;
+}
+
 const MARCAS_VACINA = {
   cao: {
     v10:['Vanguard (Zoetis)','Nobivac (MSD)','Defensor (Zoetis)','Recombitek (Boehringer)'],
@@ -1628,15 +1639,17 @@ const INTERVALOS_MARCA = {
     rabica: {'Raivac (Biovet)':52,'Defensor R (Zoetis)':52,'Rabisin (Boehringer)':52,'Rabigen (Virbac)':52,default:52},
     gripe: {'Nobivac KC (MSD)':52,'Bronchi-Shield (Elanco)':52,default:52},
     giardia: {'GiardiaVax (Zoetis)':3,default:3},
-    vermifugo: {'Vermi Plus (VetBras)':2,'Drontal':2,'Interceptor':2,'Milbemax':2,default:2}
+    vermifugo: {'Vermi Plus (VetBras)':15,'Drontal Plus':15,'Endogard':15,'Vermivet':15,'Panacur':15,'Drontal':15,'Interceptor':15,'Milbemax':15,default:15}
   },
   gato: {
     v3: {'Felocell (Zoetis)':3,'Purevax (Boehringer)':3,'Nobivac Tricat (MSD)':3,default:3},
     rabica: {'Raivac (Biovet)':52,'Defensor R (Zoetis)':52,'Rabisin (Boehringer)':52,default:52},
     felv: {'Fel-O-Vax (Zoetis)':3,'Leucogen (Virbac)':3,default:3},
-    vermifugo: {'Vermi Plus (VetBras)':2,'Drontal Cat':2,'Milbemax':2,'Profender':2,default:2}
+    vermifugo: {'Vermi Plus (VetBras)':15,'Drontal Cat':15,'Milbemax':15,'Profender':15,'Panacur':15,default:15}
   }
 };
+
+/* ✅ v10.3 — getIntervaloSemanasMarca só é usado para não-vermífugo */
 function getIntervaloSemanasMarca(especie, tipo, marca){
   const porTipo = (INTERVALOS_MARCA[especie] || {})[tipo];
   if(!porTipo) return null;
@@ -1659,7 +1672,7 @@ function recomendarMarcas(pet, tipoVacina){
 }
 
 /* ============================================================
-   v10.2 — PRODUTOS DE PREVENÇÃO (EXPANDIDO)
+   PRODUTOS DE PREVENÇÃO
 ============================================================ */
 const PRODUTOS_ANTIPULGAS = {
   'Bravecto': {intervalo: 84, tipo: 'comprimido', principio: 'Fluralaner', apresentacao: 'Comprimido mastigável'},
@@ -1706,7 +1719,6 @@ function getIntervaloProduto(nome, tabela){
 function getIntervaloVermifugo(nome, pet){
   const info = PRODUTOS_VERMIFUGO[nome];
   if(!info) return 90;
-  // Se pet é filhote (< 6 meses) e o produto tem intervaloFilhote, usa ele
   if(pet && pet.nascimento){
     const meses = idadeDetalhada(pet) ? idadeDetalhada(pet).meses : 99;
     if(meses < 6 && info.intervaloFilhote) return info.intervaloFilhote;
@@ -1726,7 +1738,6 @@ function proximaAplicacaoProduto(lista, tabela, pet){
   return {produto: ult.produto, data: prox, dias, intervalo, status: dias < 0 ? 'late' : dias <= 7 ? 'warn' : 'ok'};
 }
 
-/* FREQUÊNCIA DE BANHO POR PORTE */
 const FREQ_BANHO = {
   pequeno: {dias: 21, label: '15-30 dias', shampoo: 'Hipoalergênico para filhotes/pequeno porte'},
   medio: {dias: 30, label: '21-30 dias', shampoo: 'Neutro pH balanceado'},
@@ -1902,7 +1913,6 @@ function padraoCrescimento(pet){
   return PADRAO_CRESCIMENTO[esp][porte] || PADRAO_CRESCIMENTO[esp].medio;
 }
 
-/* BASE DE RAÇÕES */
 const RACOES_DB = [
   {id:'r01', marca:'Royal Canin', nome:'Mini Puppy', esp:'cao', porte:'pequeno', idade:'filhote', proteina:'31%', peso:'1kg / 2,5kg / 4kg', preco:'R$ 65-180', indicacao:'Pinscher, Yorkshire, Maltês, Shih Tzu filhotes', foto:'royal-canin-mini-puppy'},
   {id:'r02', marca:'Premier', nome:'Filhotes Raças Pequenas', esp:'cao', porte:'pequeno', idade:'filhote', proteina:'30%', peso:'2,5kg / 7,5kg / 15kg', preco:'R$ 55-160', indicacao:'Filhotes de pequeno porte 2-12 meses', foto:'premier-pet-filhote'},
@@ -2019,20 +2029,11 @@ function setFiltroRacaoIdade(i){ state.racaoFiltroIdade = i; renderRacoes(); }
 
 const RACAS = [
 {id:'srd_c',nome:'SRD (Vira-lata)',esp:'cao',porte:'Variável',emoji:'🐕',peso:'5–40 kg',altura:'25–70 cm',vida:'12–16 anos',origem:'Brasil',temp:['Resistente'],resumo:'Cão mais comum do Brasil.',cuidados:['Escovação semanal'],saude:['Menor predisposição'],racao:'Ração conforme porte.'},
-{id:'mucucho',nome:'Mucucho',esp:'cao',porte:'Grande',emoji:'🐕',peso:'30–50 kg',altura:'56–70 cm',vida:'10–14 anos',origem:'Venezuela',temp:['Rústico'],resumo:'Trabalho.',cuidados:['Exercício intenso'],saude:['Displasia'],racao:'Ração large breed.'},
-{id:'rafeiro',nome:'Rafeiro Brasileiro',esp:'cao',porte:'Grande',emoji:'🐕',peso:'30–45 kg',altura:'55–70 cm',vida:'10–14 anos',origem:'Brasil',temp:['Guardião'],resumo:'Fazenda.',cuidados:['Exercício diário'],saude:['Displasia'],racao:'Ração premium.'},
-{id:'terrier_br',nome:'Terrier Brasileiro',esp:'cao',porte:'Pequeno/Médio',emoji:'🐕',peso:'6–10 kg',altura:'33–40 cm',vida:'12–15 anos',origem:'Brasil',temp:['Vivaz'],resumo:'Terrier brasileiro.',cuidados:['Exercício 30-45 min'],saude:['Luxação'],racao:'Ração pequeno/médio.'},
-{id:'pe_roxo',nome:'Pê-roxo',esp:'cao',porte:'Médio',emoji:'🐕',peso:'15–22 kg',altura:'45–55 cm',vida:'10–13 anos',origem:'Brasil',temp:['Trabalhador'],resumo:'Fazenda.',cuidados:['Exercício'],saude:['Displasia'],racao:'Ração large breed.'},
-{id:'pinscher_alemao',nome:'Pinscher Alemão',esp:'cao',porte:'Médio',emoji:'🐕',peso:'14–20 kg',altura:'45–50 cm',vida:'12–14 anos',origem:'Alemanha',temp:['Vigilante'],resumo:'Porte médio.',cuidados:['Exercício 45-60 min'],saude:['Displasia'],racao:'Ração médio porte.'},
-{id:'pinscher_medio',nome:'Pinscher Médio',esp:'cao',porte:'Médio',emoji:'🐕',peso:'7–14 kg',altura:'35–45 cm',vida:'12–15 anos',origem:'Alemanha',temp:['Alerta'],resumo:'Intermediário.',cuidados:['Exercício diário'],saude:['Luxação'],racao:'Ração médio porte.'},
-{id:'pinscher_anao',nome:'Pinscher Anão',esp:'cao',porte:'Pequeno',emoji:'🐕',peso:'4–7 kg',altura:'25–32 cm',vida:'12–16 anos',origem:'Alemanha',temp:['Enérgico'],resumo:'Variação menor.',cuidados:['Exercício leve'],saude:['Luxação'],racao:'Ração pequeno porte.'},
-{id:'pinscher_miniatura',nome:'Pinscher Miniatura',esp:'cao',porte:'Pequeno',emoji:'🐕',peso:'3–5 kg',altura:'25–30 cm',vida:'12–16 anos',origem:'Alemanha',temp:['Corajoso'],resumo:'Alarme.',cuidados:['Exercício diário'],saude:['Luxação'],racao:'Ração pequeno porte.'},
 {id:'labrador',nome:'Labrador Retriever',esp:'cao',porte:'Grande',emoji:'🦮',peso:'25–36 kg',altura:'54–57 cm',vida:'10–12 anos',origem:'Canadá',temp:['Dócil'],resumo:'Mais popular.',cuidados:['Exercício'],saude:['Displasia'],racao:'Ração grande porte.'},
 {id:'golden',nome:'Golden Retriever',esp:'cao',porte:'Grande',emoji:'🐕‍🦺',peso:'25–34 kg',altura:'51–61 cm',vida:'10–12 anos',origem:'Escócia',temp:['Afetuoso'],resumo:'Famílias.',cuidados:['Escovação diária'],saude:['Displasia'],racao:'Ração premium.'},
 {id:'poodle',nome:'Poodle',esp:'cao',porte:'Pequeno/Médio',emoji:'🐩',peso:'4–25 kg',altura:'24–45 cm',vida:'12–17 anos',origem:'Alemanha/França',temp:['Inteligente'],resumo:'Inteligente.',cuidados:['Tosa mensal'],saude:['Catarata'],racao:'Ração por porte.'},
 {id:'shihtzu',nome:'Shih Tzu',esp:'cao',porte:'Pequeno',emoji:'🐶',peso:'4–7 kg',altura:'20–28 cm',vida:'10–16 anos',origem:'Tibete',temp:['Companheiro'],resumo:'Companhia.',cuidados:['Escovação diária'],saude:['Braquicefálico'],racao:'Ração pequeno porte.'},
 {id:'yorkshire',nome:'Yorkshire Terrier',esp:'cao',porte:'Pequeno',emoji:'🐕',peso:'2–3,5 kg',altura:'18–20 cm',vida:'13–16 anos',origem:'Inglaterra',temp:['Destemido'],resumo:'Pequeno.',cuidados:['Tosa 4-6 sem'],saude:['Luxação'],racao:'Ração mini.'},
-{id:'lhasa',nome:'Lhasa Apso',esp:'cao',porte:'Pequeno',emoji:'🐶',peso:'5–8 kg',altura:'25–28 cm',vida:'12–15 anos',origem:'Tibete',temp:['Independente'],resumo:'Templos.',cuidados:['Escovação diária'],saude:['Rins'],racao:'Ração pequeno porte.'},
 {id:'pastor',nome:'Pastor Alemão',esp:'cao',porte:'Grande',emoji:'🐕‍🦺',peso:'22–40 kg',altura:'55–65 cm',vida:'9–13 anos',origem:'Alemanha',temp:['Leal'],resumo:'Trabalho.',cuidados:['Exercício'],saude:['Displasia'],racao:'Ração large breed.'},
 {id:'rottweiler',nome:'Rottweiler',esp:'cao',porte:'Grande',emoji:'🐕',peso:'35–60 kg',altura:'56–69 cm',vida:'8–10 anos',origem:'Alemanha',temp:['Protetor'],resumo:'Guarda.',cuidados:['Adestramento'],saude:['Displasia'],racao:'Ração premium.'},
 {id:'pug',nome:'Pug',esp:'cao',porte:'Pequeno',emoji:'🐶',peso:'6–8 kg',altura:'25–30 cm',vida:'12–15 anos',origem:'China',temp:['Brincalhão'],resumo:'Companheiro.',cuidados:['Evitar calor'],saude:['Braquicefálico'],racao:'Ração pequeno porte.'},
@@ -2041,6 +2042,9 @@ const RACAS = [
 {id:'border',nome:'Border Collie',esp:'cao',porte:'Médio',emoji:'🐕',peso:'14–20 kg',altura:'46–54 cm',vida:'12–15 anos',origem:'Escócia',temp:['Inteligente'],resumo:'O mais inteligente.',cuidados:['Exercício 2h/dia'],saude:['Displasia'],racao:'Ração ativo.'},
 {id:'husky',nome:'Siberian Husky',esp:'cao',porte:'Médio/Grande',emoji:'🐺',peso:'16–27 kg',altura:'50–60 cm',vida:'12–14 anos',origem:'Sibéria',temp:['Brincalhão'],resumo:'Energia.',cuidados:['Exercício'],saude:['Displasia'],racao:'Ração médio/grande.'},
 {id:'maltes',nome:'Maltês',esp:'cao',porte:'Pequeno',emoji:'🐶',peso:'2–4 kg',altura:'20–25 cm',vida:'12–15 anos',origem:'Malta',temp:['Doce'],resumo:'Elegante.',cuidados:['Escovação'],saude:['Luxação'],racao:'Ração mini.'},
+{id:'lhasa',nome:'Lhasa Apso',esp:'cao',porte:'Pequeno',emoji:'🐶',peso:'5–8 kg',altura:'25–28 cm',vida:'12–15 anos',origem:'Tibete',temp:['Independente'],resumo:'Templos.',cuidados:['Escovação diária'],saude:['Rins'],racao:'Ração pequeno porte.'},
+{id:'pinscher_medio',nome:'Pinscher Médio',esp:'cao',porte:'Médio',emoji:'🐕',peso:'7–14 kg',altura:'35–45 cm',vida:'12–15 anos',origem:'Alemanha',temp:['Alerta'],resumo:'Intermediário.',cuidados:['Exercício diário'],saude:['Luxação'],racao:'Ração médio porte.'},
+{id:'pinscher_miniatura',nome:'Pinscher Miniatura',esp:'cao',porte:'Pequeno',emoji:'🐕',peso:'3–5 kg',altura:'25–30 cm',vida:'12–16 anos',origem:'Alemanha',temp:['Corajoso'],resumo:'Alarme.',cuidados:['Exercício diário'],saude:['Luxação'],racao:'Ração pequeno porte.'},
 {id:'spitz',nome:'Spitz Alemão',esp:'cao',porte:'Pequeno',emoji:'🐶',peso:'1,8–3,5 kg',altura:'18–24 cm',vida:'12–16 anos',origem:'Alemanha',temp:['Vivaz'],resumo:'Bolinha.',cuidados:['Escovação 3x/sem'],saude:['Luxação'],racao:'Ração mini.'},
 {id:'fila',nome:'Fila Brasileiro',esp:'cao',porte:'Grande',emoji:'🐕',peso:'40–70 kg',altura:'60–75 cm',vida:'9–12 anos',origem:'Brasil',temp:['Protetor'],resumo:'Brasileira.',cuidados:['Adestramento'],saude:['Displasia'],racao:'Ração large breed.'},
 {id:'srd_g',nome:'SRD (Gato)',esp:'gato',porte:'Médio',emoji:'🐈',peso:'3–5 kg',altura:'23–25 cm',vida:'12–18 anos',origem:'Brasil',temp:['Resistente'],resumo:'Comum.',cuidados:['Escovação'],saude:['Menor predisposição'],racao:'Ração gatos adultos.'},
@@ -2824,29 +2828,53 @@ function normalizarVacina(v){
   if(typeof v === 'string') return {data: v, marca:'', lote:'', vet:'', clinica:'', obs:''};
   return v;
 }
+/* ✅ v10.3 — Cálculo com dias para vermífugo */
 function calcularDueVacina(pet, v){
   const lista = PROTOCOLO[pet.especie] || [];
-  const mesmaSerie = lista.filter(x => x.tipo === v.tipo && x.sem < v.sem);
+  const isVerm = v.tipo === 'vermifugo';
+  const vDias = getIntervaloDiasItem(v);
+  
+  // 1. Procura anterior da mesma série (mesmo tipo, menor "sem")
+  const mesmaSerie = lista.filter(x => x.tipo === v.tipo && (x.sem || 0) < (v.sem || 0));
   for(let i = mesmaSerie.length - 1; i >= 0; i--){
     const ant = mesmaSerie[i];
     const rawAnt = pet.vacinas && pet.vacinas[ant.id];
     const antAplicada = normalizarVacina(rawAnt);
     if(antAplicada && antAplicada.data){
+      const baseDate = new Date(antAplicada.data + 'T12:00:00');
+      if(isVerm){
+        // Para vermífugo, diferença em dias
+        const dias = Math.max(1, vDias - getIntervaloDiasItem(ant));
+        return addDays(baseDate, dias);
+      }
       const semanas = getIntervaloEntre(pet, ant, v, antAplicada.marca);
-      return addWeeks(new Date(antAplicada.data + 'T12:00:00'), semanas);
+      return addWeeks(baseDate, semanas);
     }
   }
+  
+  // 2. Procura qualquer anterior (por índice)
   const idx = lista.findIndex(x => x.id === v.id);
   for(let i = idx - 1; i >= 0; i--){
     const ant = lista[i];
     const rawAnt = pet.vacinas && pet.vacinas[ant.id];
     const antAplicada = normalizarVacina(rawAnt);
     if(antAplicada && antAplicada.data){
+      const baseDate = new Date(antAplicada.data + 'T12:00:00');
+      if(isVerm){
+        // Padrão 15 dias se for vermífugo
+        return addDays(baseDate, 15);
+      }
       const semanas = getIntervaloEntre(pet, ant, v, antAplicada.marca);
-      return addWeeks(new Date(antAplicada.data + 'T12:00:00'), semanas);
+      return addWeeks(baseDate, semanas);
     }
   }
-  return addWeeks(new Date(pet.nascimento + 'T12:00:00'), v.sem);
+  
+  // 3. Fallback: nascimento + intervalo
+  const baseDate = new Date(pet.nascimento + 'T12:00:00');
+  if(isVerm){
+    return addDays(baseDate, vDias);
+  }
+  return addWeeks(baseDate, v.sem);
 }
 function statusVacina(pet, v){
   const raw = pet.vacinas && pet.vacinas[v.id];
@@ -2861,7 +2889,7 @@ function statusVacina(pet, v){
 }
 function dueVeioDeCascata(pet, v){
   const lista = PROTOCOLO[pet.especie] || [];
-  const mesmaSerie = lista.filter(x => x.tipo === v.tipo && x.sem < v.sem);
+  const mesmaSerie = lista.filter(x => x.tipo === v.tipo && (x.sem || 0) < (v.sem || 0));
   for(let i = mesmaSerie.length - 1; i >= 0; i--){
     const rawAnt = pet.vacinas && pet.vacinas[mesmaSerie[i].id];
     if(normalizarVacina(rawAnt)) return true;
@@ -2967,11 +2995,11 @@ function quickItem(emoji, cor, label, fn){
 }
 function blocoDica(){
   const dicas = [
-    {tag:'💊 v10.2', t:'Base de medicações expandida', p:'Vermi Plus, Drontal Plus, Endogard, Bravecto Plus e muito mais, com princípio ativo e intervalos de filhote.'},
+    {tag:'🪱 v10.3', t:'Vermífugo 15 dias', p:'A vermifugação inicial agora é calculada como 15 dias (não 2 semanas). Veja na aba Vacinas → Vermifugação inicial.'},
+    {tag:'💊 v10.2', t:'Base de medicações expandida', p:'Vermi Plus, Drontal Plus, Endogard, Bravecto Plus, Simparic Plus e muito mais.'},
     {tag:'🍖 v10.1', t:'Top 10 rações por pet', p:'Recomendações personalizadas por porte, idade e raça, com fotos e preços.'},
     {tag:'📏 v10', t:'Curva de crescimento', p:'Compare o peso real do seu filhote com o padrão esperado.'},
     {tag:'🛍️ v10', t:'Lista de compras', p:'Organize as compras e acompanhe os gastos mensais.'},
-    {tag:'🛁 v10', t:'Banho & tosa', p:'Registre banhos, frequência ideal por porte e shampoo recomendado.'},
     {tag:'📄 v10', t:'PDF da carteira', p:'Gere o PDF da carteira de vacinação e da ficha completa do pet.'}
   ];
   const d = dicas[Math.floor(Math.random()*dicas.length)];
@@ -3084,8 +3112,9 @@ function renderVacinas(){
     if(st.status === 'ok'){
       dateTxt = '✅ Aplicada em ' + fmtData(st.aplicada.data);
       if(st.aplicada.marca){
-        const iv = getIntervaloSemanasMarca(pet.especie, v.tipo, st.aplicada.marca);
-        const infoInt = iv ? ` <span class="vac-intervalo">↻ ${iv} sem</span>` : '';
+        const isVerm = v.tipo === 'vermifugo';
+        const iv = isVerm ? 15 : getIntervaloSemanasMarca(pet.especie, v.tipo, st.aplicada.marca);
+        const infoInt = isVerm ? ` <span class="vac-intervalo">↻ ${iv} dias</span>` : (iv ? ` <span class="vac-intervalo">↻ ${iv} sem</span>` : '');
         marcaHtml = `<div class="vac-marca">💉 ${esc(st.aplicada.marca)}${infoInt}</div>`;
       }
     } else if(st.status === 'atrasada'){
@@ -3098,6 +3127,8 @@ function renderVacinas(){
       dateTxt = '📅 ' + fmtData(st.due.toISOString().slice(0,10));
       if(dueVeioDeCascata(pet, v)) cascadeBadge = '<span style="font-size:9px;font-weight:800;background:#FFF2E0;color:#B47800;padding:2px 6px;border-radius:6px;margin-left:4px">🔗 baseada na anterior</span>';
     }
+    const isVerm = v.tipo === 'vermifugo';
+    const semTxt = isVerm ? (v.dias || 15) + ' dias' : v.sem + ' sem.';
     return `<div class="tl-item ${st.status}">
       <div class="tl-node"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></div>
       <div class="vac-card">
@@ -3105,7 +3136,7 @@ function renderVacinas(){
           <div style="flex:1"><div class="vac-name">${esc(v.nome)}</div><div class="vac-obs">${esc(v.obs)}</div>${marcaHtml}</div>
           <button class="check-btn ${st.status==='ok'?'done':''}" onclick="${st.status==='ok'?`desmarcarVacina('${pet.id}','${v.id}')`:`abrirModalAplicarVacina('${pet.id}','${v.id}')`}" type="button"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></button>
         </div>
-        <div class="vac-foot"><span class="vac-date">${dateTxt}${cascadeBadge}</span><span style="font-size:10px;font-weight:800;color:var(--muted)">${v.sem} sem.</span></div>
+        <div class="vac-foot"><span class="vac-date">${dateTxt}${cascadeBadge}</span><span style="font-size:10px;font-weight:800;color:var(--muted)">${semTxt}</span></div>
       </div>
     </div>`;
   }).join('') + '</div>';
@@ -3122,13 +3153,20 @@ function abrirModalAplicarVacina(petId, vacId){
   state.marcaVacinaSel = rec.recomendada || '';
   state.__vacAplicandoId = vacId;
   state.__vacPetId = petId;
+  const isVerm = vac.tipo === 'vermifugo';
   openModal(headPadrao('Aplicar vacina', vac.nome),
     `<div class="field"><label>DATA *</label><input class="input" type="date" id="vData" value="${hojeISO()}" max="${hojeISO()}" onchange="atualizarInfoIntervalo()"></div>
     <div class="field"><label>MARCA</label>
       <div class="marca-list" id="marcaList">
         ${rec.marcas.map(m=>{
-          const iv = getIntervaloSemanasMarca(pet.especie, vac.tipo, m);
-          const ivTxt = iv ? ` (${iv} sem)` : '';
+          let ivTxt = '';
+          if(isVerm){
+            // v10.3: para vermífugo, sempre dias
+            ivTxt = ' (15 dias)';
+          } else {
+            const iv = getIntervaloSemanasMarca(pet.especie, vac.tipo, m);
+            ivTxt = iv ? ` (${iv} sem)` : '';
+          }
           return `<div class="marca-chip ${m===rec.recomendada?'active':''}" data-marca="${esc(m)}" onclick="selMarca('${esc(m)}')">${esc(m)}${ivTxt}</div>`;
         }).join('')}
       </div>
@@ -3143,6 +3181,7 @@ function abrirModalAplicarVacina(petId, vacId){
      <button class="btn btn-primary" onclick="salvarAplicacaoVacina('${petId}','${vacId}')">Salvar</button>`);
   setTimeout(()=> atualizarInfoIntervalo(), 100);
 }
+/* ✅ v10.3 — Mostra dias para vermífugo */
 function atualizarInfoIntervalo(){
   const el = $('#marcaIntervaloInfo');
   if(!el) return;
@@ -3152,11 +3191,29 @@ function atualizarInfoIntervalo(){
   if(!vac){ el.innerHTML = ''; return; }
   const marca = state.marcaVacinaSel || ($('#vMarcaOutro') ? $('#vMarcaOutro').value.trim() : '');
   if(!marca){ el.innerHTML = ''; return; }
-  const iv = getIntervaloSemanasMarca(pet.especie, vac.tipo, marca);
-  if(!iv){ el.innerHTML = ''; return; }
+  
   const data = ($('#vData') ? $('#vData').value : hojeISO()) || hojeISO();
-  const proxData = addWeeks(new Date(data + 'T12:00:00'), iv);
-  el.innerHTML = `<div class="marca-info"><span class="mi-ic">📅</span><div>Com <strong>${esc(marca)}</strong>, a próxima dose desta série será em <strong>${iv} semanas</strong> → <strong>${fmtData(proxData.toISOString().slice(0,10))}</strong></div></div>`;
+  const isVerm = vac.tipo === 'vermifugo';
+  
+  if(isVerm){
+    // v10.3: Para vermífugo, sempre trabalhar com dias
+    let ivDias = vac.dias || 15;
+    // Se a marca tem intervalo específico, verificar se é filhote/adulto
+    const info = PRODUTOS_VERMIFUGO[marca];
+    if(info){
+      const meses = idadeDetalhada(pet) ? idadeDetalhada(pet).meses : 99;
+      if(meses < 6 && info.intervaloFilhote) ivDias = info.intervaloFilhote;
+      // Mas para verm1, manter 15 dias como padrão
+      if(vac.id === 'verm1') ivDias = 15;
+    }
+    const proxData = addDays(new Date(data + 'T12:00:00'), ivDias);
+    el.innerHTML = `<div class="marca-info"><span class="mi-ic">📅</span><div>Com <strong>${esc(marca)}</strong>, a próxima dose desta série será em <strong>${ivDias} dias</strong> → <strong>${fmtData(proxData.toISOString().slice(0,10))}</strong></div></div>`;
+  } else {
+    const iv = getIntervaloSemanasMarca(pet.especie, vac.tipo, marca);
+    if(!iv){ el.innerHTML = ''; return; }
+    const proxData = addWeeks(new Date(data + 'T12:00:00'), iv);
+    el.innerHTML = `<div class="marca-info"><span class="mi-ic">📅</span><div>Com <strong>${esc(marca)}</strong>, a próxima dose desta série será em <strong>${iv} semanas</strong> → <strong>${fmtData(proxData.toISOString().slice(0,10))}</strong></div></div>`;
+  }
 }
 function selMarca(marca){
   state.marcaVacinaSel = marca;
@@ -3167,6 +3224,7 @@ function selMarca(marca){
 function atualizarChips(){
   $$('#marcaList .marca-chip').forEach(c => c.classList.toggle('active', c.dataset.marca === state.marcaVacinaSel));
 }
+/* ✅ v10.3 — Mensagem de sucesso em dias para vermífugo */
 function salvarAplicacaoVacina(petId, vacId){
   const pet = state.pets.find(p=>p.id === petId);
   if(!pet) return;
@@ -3179,14 +3237,20 @@ function salvarAplicacaoVacina(petId, vacId){
   const atual = lista.find(x => x.id === vacId);
   let msgProx = '';
   if(atual){
-    const mesmaSerie = lista.filter(x => x.tipo === atual.tipo && x.sem > atual.sem);
+    const mesmaSerie = lista.filter(x => x.tipo === atual.tipo && (x.sem || 0) > (atual.sem || 0));
     if(mesmaSerie.length > 0){
       const prox = mesmaSerie[0];
       const rawProx = pet.vacinas && pet.vacinas[prox.id];
       if(!rawProx){
-        const iv = getIntervaloSemanasMarca(pet.especie, atual.tipo, marca) || Math.max(1, prox.sem - atual.sem);
-        const proxData = addWeeks(new Date(data + 'T12:00:00'), iv);
-        msgProx = ` Próxima (${prox.nome}): ${fmtData(proxData.toISOString().slice(0,10))} (${iv} sem)`;
+        const isVerm = atual.tipo === 'vermifugo';
+        if(isVerm){
+          const proxData = addDays(new Date(data + 'T12:00:00'), 15);
+          msgProx = ` Próxima (${prox.nome}): ${fmtData(proxData.toISOString().slice(0,10))} (15 dias)`;
+        } else {
+          const iv = getIntervaloSemanasMarca(pet.especie, atual.tipo, marca) || Math.max(1, prox.sem - atual.sem);
+          const proxData = addWeeks(new Date(data + 'T12:00:00'), iv);
+          msgProx = ` Próxima (${prox.nome}): ${fmtData(proxData.toISOString().slice(0,10))} (${iv} sem)`;
+        }
       }
     }
   }
@@ -3229,8 +3293,9 @@ function abrirCarteiraVacina(petId){
     if(tipo === 'aplicada'){
       statusTxt = 'Aplicada'; dataTxt = '📅 ' + fmtData(st.aplicada.data);
       if(st.aplicada.marca){
-        const iv = getIntervaloSemanasMarca(pet.especie, v.tipo, st.aplicada.marca);
-        marcaHtml = `<div class="cv-marca">💉 ${esc(st.aplicada.marca)}${iv ? ' · ' + iv + 'sem' : ''}</div>`;
+        const isVerm = v.tipo === 'vermifugo';
+        const iv = isVerm ? 15 : getIntervaloSemanasMarca(pet.especie, v.tipo, st.aplicada.marca);
+        marcaHtml = `<div class="cv-marca">💉 ${esc(st.aplicada.marca)}${iv ? ' · ' + iv + (isVerm?'d':'sem') : ''}</div>`;
       }
     } else if(tipo === 'atrasada'){ statusTxt = 'Atrasada'; dataTxt = '⏰ ' + fmtData(st.due.toISOString().slice(0,10)); }
     else { statusTxt = 'Pendente'; dataTxt = '📅 ' + fmtData(st.due.toISOString().slice(0,10)); }
@@ -3371,7 +3436,6 @@ function abrirJanelaImpressao(html){
   w.document.close();
 }
 
-/* SAÚDE — SUB-NAV */
 const SAUDE_SUBS = [
   {id:'visao', label:'📋 Visão'},
   {id:'album', label:'📸 Álbum'},
@@ -4500,34 +4564,22 @@ function salvarEscore(){
   saveDB(); closeModal(); toast('Escore salvo! ⚖️'); renderSaude();
 }
 function abrirModalAjuda(){
-  openModal(headPadrao('Como usar o PetVida', 'Guia rápido — v10.2'),
-    `<div class="blk" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5">
-      <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">💊</span>Medicações expandidas</h4>
-      <p>Base com <strong>Vermi Plus (VetBras), Drontal Plus, Endogard, Bravecto Plus, Simparic Plus, NexGard Spectra</strong> e mais. Cada produto tem princípio ativo e intervalo específico.</p>
+  openModal(headPadrao('Como usar o PetVida', 'Guia rápido — v10.3'),
+    `<div class="blk" style="background:linear-gradient(140deg,#E4F8F5,#D0F2EB);border-color:#A8E4D8">
+      <h4><span class="b-ic" style="background:rgba(37,194,176,.20);color:#12897A">🪱</span>Vermífugo 15 dias (corrigido)</h4>
+      <p>A <strong>Vermifugação inicial</strong> agora calcula <strong>15 dias</strong> exatos (antes eram 2 semanas = 14 dias). O intervalo aparece nos chips, no info box e na próxima dose.</p>
     </div>
     <div class="blk" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5">
-      <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">🪱</span>Intervalos filhote/adulto</h4>
-      <p>Ao aplicar vermífugo, escolha <strong>Filhote (15 dias)</strong>, <strong>Adulto (90 dias)</strong> ou <strong>Custom</strong>. O app calcula automaticamente a próxima dose.</p>
+      <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">💊</span>Medicações expandidas</h4>
+      <p>Base com <strong>Vermi Plus (VetBras), Drontal Plus, Endogard, Bravecto Plus, Simparic Plus, NexGard Spectra</strong> e mais.</p>
     </div>
     <div class="blk" style="background:linear-gradient(140deg,#FFF9EC,#FFEFD0);border-color:#FFE4B5">
       <h4><span class="b-ic" style="background:rgba(232,155,78,.20);color:#B47800">🏆</span>Top 10 rações por pet</h4>
-      <p>Na aba <strong>Rações</strong>, veja as 10 mais usadas para o porte e idade do seu pet, com foto, proteína e preço.</p>
+      <p>Na aba <strong>Rações</strong>, veja as 10 mais usadas para o porte e idade do seu pet.</p>
     </div>
     <div class="blk" style="background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border-color:#C8E8EE">
       <h4><span class="b-ic" style="background:rgba(79,179,196,.20);color:#2A8A99">📏</span>Curva de crescimento</h4>
       <p>Compare o peso real do filhote com o padrão da raça/porte.</p>
-    </div>
-    <div class="blk" style="background:linear-gradient(140deg,#E4F8F5,#D0F2EB);border-color:#A8E4D8">
-      <h4><span class="b-ic" style="background:rgba(37,194,176,.20);color:#12897A">🛁</span>Banho, antipulgas e vermífugo</h4>
-      <p>Registre tudo com alerta da próxima dose.</p>
-    </div>
-    <div class="blk" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5">
-      <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">🛍️</span>Compras e gastos</h4>
-      <p>Lista de compras com check e histórico de gastos com gráfico mensal.</p>
-    </div>
-    <div class="blk">
-      <h4><span class="b-ic">📄</span>PDF</h4>
-      <p>Gere PDF da <strong>carteira de vacinação</strong> ou da <strong>ficha completa</strong>.</p>
     </div>
     <div class="blk warn"><h4><span class="b-ic">⚕️</span>Aviso</h4><p>Não substitui consulta veterinária.</p></div>
     <div style="text-align:center;font-size:11px;color:var(--muted);font-weight:700;padding:10px 0">PetVida <strong style="color:var(--primary-d)">${APP_VERSION}</strong> · ${APP_VERSION_DATE}</div>`,
@@ -4548,10 +4600,9 @@ function init(){
   atualizarBadgeBackup();
   atualizarBadgeCloud();
   console.log('🐾 PetVida ' + APP_VERSION + ' iniciado');
-  console.log('💊 v10.2: ' + Object.keys(PRODUTOS_VERMIFUGO).length + ' vermífugos e ' + Object.keys(PRODUTOS_ANTIPULGAS).length + ' antipulgas cadastrados');
-  console.log('🪱 Vermi Plus (VetBras) + intervalos filhote (15d) / adulto (90d)');
-  console.log('🍖 Top 10 rações por pet: ATIVO (' + RACOES_DB.length + ' rações cadastradas)');
-  console.log('🔧 Swipe corrigido (11 áreas protegidas)');
+  console.log('🪱 Vermífugo inicial: 15 dias (corrigido)');
+  console.log('💊 ' + Object.keys(PRODUTOS_VERMIFUGO).length + ' vermífugos e ' + Object.keys(PRODUTOS_ANTIPULGAS).length + ' antipulgas');
+  console.log('🍖 Top 10 rações por pet: ATIVO (' + RACOES_DB.length + ' rações)');
   console.log('📚 ' + RACAS.length + ' raças · ' + (DOENCAS.cao.length + DOENCAS.gato.length) + ' doenças');
   if(fbAuth.uid && navigator.onLine){
     setTimeout(()=> { sincronizarInteligente().catch(()=>{}); }, 1500);
