@@ -132,13 +132,13 @@ ul{margin:0;padding:0;list-style:none}
 .seg{display:flex;gap:5px;background:#E4EEF2;border-radius:14px;padding:4px;margin-bottom:14px}
 .seg button{flex:1;padding:9px 8px;border-radius:11px;font-size:12.5px;font-weight:800;color:#7B879C;cursor:pointer}
 .seg button.active{background:#fff;color:var(--primary-d);box-shadow:0 3px 10px rgba(27,36,52,.10)}
-.chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;margin-bottom:13px;scrollbar-width:none}
+.chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;margin-bottom:13px;scrollbar-width:none;touch-action:pan-x}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex-shrink:0;padding:8px 14px;border-radius:11px;font-size:12px;font-weight:700;background:var(--card);border:1.5px solid var(--line);color:#66738A;cursor:pointer}
 .chip.active{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 5px 14px rgba(79,179,196,.32)}
-.subnav{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 10px;margin-bottom:10px;scrollbar-width:none}
+.subnav{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 10px;margin-bottom:10px;scrollbar-width:none;touch-action:pan-x;overscroll-behavior-x:contain}
 .subnav::-webkit-scrollbar{display:none}
-.subnav-btn{flex-shrink:0;padding:9px 14px;border-radius:12px;font-size:11.5px;font-weight:800;background:#fff;border:1.5px solid var(--line);color:#66738A;display:flex;align-items:center;gap:5px;cursor:pointer}
+.subnav-btn{flex-shrink:0;padding:9px 14px;border-radius:12px;font-size:11.5px;font-weight:800;background:#fff;border:1.5px solid var(--line);color:#66738A;display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap}
 .subnav-btn.active{background:linear-gradient(135deg,#5EC0D0,#2A8A99);border-color:transparent;color:#fff}
 .breed-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .breed-card{background:var(--card);border-radius:var(--radius-sm);overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9);text-align:left;cursor:pointer}
@@ -308,6 +308,8 @@ ul{margin:0;padding:0;list-style:none}
 .hist-card.tipo-cirurgia .hc-icon{background:var(--danger-soft);color:#C42B50}
 .hist-card.tipo-alergia .hc-icon{background:var(--secondary-soft);color:#12897A}
 .hist-card.tipo-antipulgas .hc-icon{background:#E0F4F8;color:#2A8A99}
+.hist-card.tipo-banho .hc-icon{background:#E4F8F5;color:#12897A}
+.hist-card.tipo-vermifugo .hc-icon{background:#F3EAFE;color:#6B31B8}
 .escore-scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:14px 0}
 .escore-opt{padding:9px 4px;border-radius:12px;text-align:center;background:#F1F4F9;border:2px solid transparent;cursor:pointer}
 .escore-opt.active{border-color:var(--primary);background:var(--primary-soft)}
@@ -351,7 +353,7 @@ ul{margin:0;padding:0;list-style:none}
 .alim-item.permitido{border-left:3px solid var(--secondary)}
 .alim-item.perigoso{border-left:3px solid var(--accent)}
 .alim-item.toxico{border-left:3px solid var(--danger)}
-.marca-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.marca-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;touch-action:pan-x}
 .marca-chip{padding:7px 12px;border-radius:10px;font-size:11.5px;font-weight:800;background:#F1F4F9;color:#5A6478;border:2px solid transparent;cursor:pointer;transition:all .15s}
 .marca-chip.active{background:var(--purple-soft);border-color:var(--purple);color:#6B31B8}
 .marca-info{padding:9px 12px;background:#EAF0FF;border-radius:10px;font-size:11px;font-weight:700;color:#3157C9;margin-top:8px;line-height:1.5;display:flex;gap:7px;align-items:flex-start}
@@ -446,7 +448,7 @@ ul{margin:0;padding:0;list-style:none}
 .typing span:nth-child(2){animation-delay:.2s}
 .typing span:nth-child(3){animation-delay:.4s}
 @keyframes typingAnim{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
-.chat-suggestions{padding:0 14px 12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.chat-suggestions{padding:0 14px 12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;touch-action:pan-x}
 .chat-suggestions::-webkit-scrollbar{display:none}
 .sug-row{display:flex;gap:7px;padding-bottom:2px}
 .sug-chip{flex-shrink:0;padding:9px 13px;border-radius:12px;background:#fff;border:1.5px solid #E9E0F8;color:#6B31B8;font-size:11.5px;font-weight:800;white-space:nowrap;cursor:pointer}
@@ -539,11 +541,117 @@ ul{margin:0;padding:0;list-style:none}
 .carteira-rodape .cr-app{display:flex;align-items:center;gap:6px}
 .carteira-rodape .cr-logo{width:16px;height:16px;border-radius:5px;background:linear-gradient(135deg,#5EC0D0,#2A8A99);display:grid;place-items:center;font-size:9px}
 .carteira-alerta{background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border:1.5px solid #C8E8EE;border-radius:14px;padding:11px 13px;font-size:11px;line-height:1.55;color:#2A8A99;font-weight:600;margin-bottom:14px;display:flex;gap:9px}
+.raca-img-wrap{position:relative;width:100%;height:100%;background:#F1F4F9;overflow:hidden}
+.raca-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .3s}
+.raca-img-wrap.img-fail img{display:none}
+.raca-img-wrap .raca-fallback{position:absolute;inset:0;display:none}
+.raca-img-wrap.img-fail .raca-fallback{display:block}
+.calc-hero{background:linear-gradient(140deg,#FFF9EC,#FFEFD0);border:1.5px solid #FFE4B5;border-radius:20px;padding:18px;margin-bottom:16px;text-align:center}
+.calc-hero .ch-emoji{font-size:42px;margin-bottom:6px}
+.calc-hero .ch-title{font-size:15px;font-weight:800;color:#8A6420}
+.calc-hero .ch-sub{font-size:11.5px;color:#8A6420;font-weight:600;margin-top:4px;opacity:.85}
+.calc-res{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.calc-res-item{background:#fff;border-radius:16px;padding:14px;box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9);text-align:center}
+.calc-res-v{font-size:22px;font-weight:800;color:var(--primary-d);line-height:1}
+.calc-res-l{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;margin-top:5px;letter-spacing:.3px}
+.calc-res-item.accent .calc-res-v{color:#B47800}
+.calc-res-item.purple .calc-res-v{color:#6B31B8}
+.calc-res-item.blue .calc-res-v{color:#3157C9}
+.calc-note{background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border:1.5px solid #C8E8EE;border-radius:14px;padding:12px 14px;font-size:11.5px;line-height:1.6;color:#2A8A99;font-weight:600;margin-bottom:14px;display:flex;gap:9px}
+.calc-note .cn-ic{flex-shrink:0;font-size:16px}
+.meal-card{background:#fff;border-radius:16px;padding:14px;box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9);margin-bottom:10px;display:flex;gap:12px;align-items:center}
+.meal-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:20px;flex-shrink:0;background:var(--accent-soft)}
+.meal-body{flex:1}
+.meal-title{font-size:12.5px;font-weight:800;color:#1B2434}
+.meal-sub{font-size:11px;color:var(--muted);font-weight:600;margin-top:3px}
+.meal-val{font-size:15px;font-weight:800;color:var(--accent)}
+.growth-chart{background:#fff;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9);margin-bottom:14px}
+.growth-chart svg{width:100%;height:auto;display:block}
+.growth-legend{display:flex;gap:14px;justify-content:center;margin-top:12px;font-size:10.5px;font-weight:700}
+.growth-legend .gl{display:flex;align-items:center;gap:5px}
+.growth-legend .gl-dot{width:10px;height:10px;border-radius:50%}
+.banho-card{background:#fff;border-radius:var(--radius-sm);padding:13px;box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9);margin-bottom:9px;display:flex;gap:11px;position:relative}
+.banho-card .bn-icon{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;font-size:17px;background:#E4F8F5;color:#12897A}
+.banho-card .bn-body{flex:1;min-width:0}
+.banho-card .bn-title{font-size:13px;font-weight:800}
+.banho-card .bn-sub{font-size:11px;color:var(--muted);font-weight:700;margin-top:3px}
+.banho-card .bn-nota{font-size:11px;color:#4C5768;margin-top:5px;line-height:1.5;font-style:italic}
+.banho-card .bn-del{position:absolute;top:9px;right:9px;width:26px;height:26px;border-radius:9px;background:#F8FAFD;display:grid;place-items:center;color:#C7CFDD;cursor:pointer}
+.banho-card .bn-del svg{width:13px;height:13px;fill:currentColor}
+.freq-card{background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border:1.5px solid #C8E8EE;border-radius:14px;padding:13px;margin-bottom:14px;font-size:12px;line-height:1.55;color:#2A8A99;font-weight:600;display:flex;gap:10px;align-items:flex-start}
+.freq-card .fc-ic{font-size:20px;flex-shrink:0}
+.next-prod{background:linear-gradient(140deg,#E4F8F5,#D0F2EB);border:1.5px solid #A8E4D8;border-radius:14px;padding:13px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.next-prod .np-ic{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#25C2B0,#4AD4C3);display:grid;place-items:center;font-size:20px;color:#fff;flex-shrink:0}
+.next-prod .np-titulo{font-size:11px;font-weight:800;color:#12897A;text-transform:uppercase;letter-spacing:.4px}
+.next-prod .np-info{font-size:12.5px;font-weight:800;color:#1B2434;margin-top:4px;line-height:1.4}
+.next-prod .np-data{font-size:11px;font-weight:800;color:#12897A;margin-top:5px}
+.next-prod.late{background:linear-gradient(140deg,#FFF0F4,#FFE5E8);border-color:#FFD5DC}
+.next-prod.late .np-ic{background:linear-gradient(135deg,#E63946,#C42B50)}
+.next-prod.late .np-titulo{color:#C42B50}
+.next-prod.late .np-data{color:#C42B50}
+.gasto-resumo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.gasto-res{background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border:1.5px solid #C8E8EE;border-radius:16px;padding:14px;text-align:center}
+.gasto-res-v{font-size:22px;font-weight:800;color:var(--primary-d);line-height:1}
+.gasto-res-l{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;margin-top:5px;letter-spacing:.3px}
+.gasto-item{background:#fff;border-radius:14px;padding:12px 13px;box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9);margin-bottom:8px;display:flex;gap:11px;align-items:center;position:relative}
+.gasto-cat{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;font-size:17px}
+.gasto-body{flex:1;min-width:0}
+.gasto-desc{font-size:12.5px;font-weight:800;color:#1B2434}
+.gasto-meta{font-size:10.5px;color:var(--muted);font-weight:700;margin-top:3px}
+.gasto-valor{font-size:14px;font-weight:800;color:var(--danger);flex-shrink:0}
+.gasto-del{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:8px;background:#F8FAFD;display:grid;place-items:center;color:#C7CFDD;cursor:pointer}
+.gasto-del svg{width:12px;height:12px;fill:currentColor}
+.compra-item{background:#fff;border-radius:14px;padding:12px 13px;box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9);margin-bottom:8px;display:flex;gap:11px;align-items:center}
+.compra-check{width:24px;height:24px;border-radius:8px;border:2px solid #D8DFEA;flex-shrink:0;display:grid;place-items:center;cursor:pointer}
+.compra-check svg{width:14px;height:14px;fill:#fff;opacity:0}
+.compra-item.done .compra-check{background:var(--secondary);border-color:var(--secondary)}
+.compra-item.done .compra-check svg{opacity:1}
+.compra-body{flex:1}
+.compra-nome{font-size:13px;font-weight:800}
+.compra-item.done .compra-nome{color:#7B879C;text-decoration:line-through}
+.compra-qtd{font-size:10.5px;color:var(--muted);font-weight:700;margin-top:2px}
+.compra-del{width:26px;height:26px;border-radius:9px;background:#F8FAFD;display:grid;place-items:center;color:#C7CFDD;cursor:pointer;flex-shrink:0}
+.compra-del svg{width:13px;height:13px;fill:currentColor}
+.racao-card{display:flex;gap:12px;background:#fff;border-radius:var(--radius-sm);padding:11px;box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9);margin-bottom:10px;position:relative;overflow:hidden}
+.racao-card.top1{border-color:#F4D57E;background:linear-gradient(140deg,#fff,#FFFBEB)}
+.racao-card.top2{border-color:#D5DCE8;background:linear-gradient(140deg,#fff,#F7F8FB)}
+.racao-card.top3{border-color:#E8C8A0;background:linear-gradient(140deg,#fff,#FDF7F0)}
+.racao-rank{position:absolute;top:6px;left:6px;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-size:11px;font-weight:800;background:rgba(255,255,255,.92);box-shadow:0 2px 6px rgba(0,0,0,.08);z-index:2}
+.racao-foto{width:70px;height:70px;border-radius:12px;overflow:hidden;flex-shrink:0;background:linear-gradient(140deg,#FFF2E0,#FFE0B8);display:grid;place-items:center;font-size:32px;position:relative}
+.racao-foto img{width:100%;height:100%;object-fit:cover;display:block}
+.racao-foto.img-fail img{display:none}
+.racao-foto.img-fail::after{content:attr(data-emoji);font-size:32px;position:absolute;inset:0;display:grid;place-items:center}
+.racao-body{flex:1;min-width:0}
+.racao-marca{font-size:10px;font-weight:800;color:var(--primary-d);text-transform:uppercase;letter-spacing:.4px}
+.racao-nome{font-size:12.5px;font-weight:800;color:#1B2434;line-height:1.3;margin-top:2px}
+.racao-meta{font-size:10.5px;color:var(--muted);font-weight:700;margin-top:4px;line-height:1.45}
+.racao-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.racao-tag{font-size:8.5px;font-weight:800;padding:2px 6px;border-radius:6px;text-transform:uppercase;letter-spacing:.2px}
+.racao-tag.proteina{background:var(--secondary-soft);color:#12897A}
+.racao-tag.porte{background:var(--blue-soft);color:#3157C9}
+.racao-tag.idade{background:var(--purple-soft);color:#6B31B8}
+.racao-tag.preco{background:var(--accent-soft);color:#B47800}
+.racao-tag.destaque{background:linear-gradient(135deg,#F4D57E,#E8B848);color:#6B4A00}
+/* v10.2 novos estilos */
+.principio-ativo{font-size:10px;color:var(--muted);font-weight:700;margin-top:3px;line-height:1.4}
+.apresentacao-tag{display:inline-block;font-size:9px;font-weight:800;background:var(--blue-soft);color:#3157C9;padding:2px 6px;border-radius:6px;margin-top:5px;text-transform:uppercase}
+.idade-info-card{background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border:1.5px solid #D9C4F5;border-radius:12px;padding:11px 13px;font-size:11.5px;font-weight:700;color:#6B31B8;line-height:1.5;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start}
+.idade-info-card .iic-ic{font-size:16px;flex-shrink:0}
+.tipo-tratamento{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px}
+.tt-btn{padding:10px 6px;border-radius:12px;background:#F1F4F9;border:2px solid transparent;text-align:center;cursor:pointer}
+.tt-btn.active{border-color:var(--primary);background:var(--primary-soft)}
+.tt-btn .tt-em{display:block;font-size:18px;margin-bottom:3px}
+.tt-btn .tt-lb{font-size:9.5px;font-weight:800;color:#66738A;text-transform:uppercase;letter-spacing:.2px}
+.tt-btn.active .tt-lb{color:var(--primary-d)}
+.tt-btn .tt-sub{display:block;font-size:8.5px;font-weight:700;color:var(--muted);margin-top:2px}
 @media(max-width:340px){
   .quick span{font-size:8.5px}
   .tab span{font-size:8px}
   .subnav-btn{font-size:10.5px;padding:8px 11px}
   .msg-bubble{max-width:82%}
+  .calc-res-v{font-size:18px}
+  .racao-foto{width:60px;height:60px;font-size:26px}
+  .racao-nome{font-size:11.5px}
 }
 </style>
 </head>
@@ -557,7 +665,7 @@ ul{margin:0;padding:0;list-style:none}
           <svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 4 5 7c0 1.6 1 3 2.5 3.8C5.6 12 4 14 4 16.5 4 19.5 7.5 22 12 22s8-2.5 8-5.5c0-2.5-1.6-4.5-3.5-5.7C18 10 19 8.6 19 7c0-3-3-5-7-5z"/></svg>
         </div>
         <div>
-          <div class="hdr-title">PetVida <span class="hdr-version">v9.5.3</span></div>
+          <div class="hdr-title">PetVida <span class="hdr-version">v10.2</span></div>
           <div class="hdr-sub" id="hdrSub">Cuide bem do seu melhor amigo</div>
         </div>
       </div>
@@ -719,8 +827,8 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    CONFIGURAÇÃO GLOBAL
 ============================================================ */
-const APP_VERSION = 'v9.5.3';
-const APP_VERSION_DATE = '2025-01-19';
+const APP_VERSION = 'v10.2';
+const APP_VERSION_DATE = '2025-01-27';
 
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyASdpnMWSeVFPGkzGZoSmk0Kxq6JI9gsqM",
@@ -749,7 +857,8 @@ let state = {
   pets: [], currentPage: 0, especieRaca: 'cao', buscaRaca: '', porteFiltro: 'todos',
   petSelecionado: null, saudeSub: 'visao', saudeBusca: '', guiaSub: 'alimentos',
   marcaVacinaSel: '', doencaEspecie: 'cao', doencaRiscoFiltro: 'todos',
-  ultimaAtualizacao: null, chat: [], chatTyping: false
+  ultimaAtualizacao: null, chat: [], chatTyping: false,
+  racaoFiltroPorte: 'todos', racaoFiltroIdade: 'todos'
 };
 let autoSyncTimer = null;
 
@@ -773,12 +882,16 @@ function saveDB(){
 function normalizarPet(p){
   if(!p.historico) p.historico = {consultas:[],exames:[],medicamentos:[],cirurgias:[],alergias:[]};
   if(!p.antipulgas) p.antipulgas = [];
+  if(!p.vermifugos) p.vermifugos = [];
+  if(!p.banhos) p.banhos = [];
   if(!p.diario) p.diario = [];
   if(!p.tutores) p.tutores = [];
   if(!p.vacinas) p.vacinas = {};
   if(!p.pesos) p.pesos = [];
   if(!p.cuidados) p.cuidados = [];
   if(!p.album) p.album = [];
+  if(!p.gastos) p.gastos = [];
+  if(!p.listaCompras) p.listaCompras = [];
   return p;
 }
 function loadDB(){
@@ -1325,6 +1438,7 @@ function hojeISO(){
   return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 }
 function addWeeks(date, weeks){ const d = new Date(date.getTime()); d.setDate(d.getDate() + weeks*7); return d; }
+function addDays(date, days){ const d = new Date(date.getTime()); d.setDate(d.getDate() + days); return d; }
 function diffDias(a, b){ return Math.round((a - b) / 86400000); }
 function calcIdade(nascimento){
   if(!nascimento) return '—';
@@ -1489,13 +1603,13 @@ const MARCAS_VACINA = {
     rabica:['Raivac (Biovet)','Defensor R (Zoetis)','Rabisin (Boehringer)'],
     gripe:['Nobivac KC (MSD)','Bronchi-Shield (Elanco)'],
     giardia:['GiardiaVax (Zoetis)'],
-    vermifugo:['Drontal','Interceptor','Milbemax']
+    vermifugo:['Vermi Plus (VetBras)','Drontal Plus','Endogard','Vermivet','Panacur']
   },
   gato: {
     v3:['Felocell (Zoetis)','Purevax (Boehringer)','Nobivac Tricat (MSD)'],
     rabica:['Raivac (Biovet)','Defensor R (Zoetis)','Rabisin (Boehringer)'],
     felv:['Fel-O-Vax (Zoetis)','Leucogen (Virbac)'],
-    vermifugo:['Drontal Cat','Milbemax','Profender']
+    vermifugo:['Vermi Plus (VetBras)','Drontal Cat','Milbemax','Profender','Panacur']
   }
 };
 const MARCAS_POR_RACA = {
@@ -1514,13 +1628,13 @@ const INTERVALOS_MARCA = {
     rabica: {'Raivac (Biovet)':52,'Defensor R (Zoetis)':52,'Rabisin (Boehringer)':52,'Rabigen (Virbac)':52,default:52},
     gripe: {'Nobivac KC (MSD)':52,'Bronchi-Shield (Elanco)':52,default:52},
     giardia: {'GiardiaVax (Zoetis)':3,default:3},
-    vermifugo: {'Drontal':2,'Interceptor':2,'Milbemax':2,default:2}
+    vermifugo: {'Vermi Plus (VetBras)':2,'Drontal':2,'Interceptor':2,'Milbemax':2,default:2}
   },
   gato: {
     v3: {'Felocell (Zoetis)':3,'Purevax (Boehringer)':3,'Nobivac Tricat (MSD)':3,default:3},
     rabica: {'Raivac (Biovet)':52,'Defensor R (Zoetis)':52,'Rabisin (Boehringer)':52,default:52},
     felv: {'Fel-O-Vax (Zoetis)':3,'Leucogen (Virbac)':3,default:3},
-    vermifugo: {'Drontal Cat':2,'Milbemax':2,'Profender':2,default:2}
+    vermifugo: {'Vermi Plus (VetBras)':2,'Drontal Cat':2,'Milbemax':2,'Profender':2,default:2}
   }
 };
 function getIntervaloSemanasMarca(especie, tipo, marca){
@@ -1544,23 +1658,118 @@ function recomendarMarcas(pet, tipoVacina){
   return { marcas: marcasEsp, recomendada: porRaca[tipoVacina] || null };
 }
 
-/* VISUAL SVG DAS RAÇAS */
+/* ============================================================
+   v10.2 — PRODUTOS DE PREVENÇÃO (EXPANDIDO)
+============================================================ */
+const PRODUTOS_ANTIPULGAS = {
+  'Bravecto': {intervalo: 84, tipo: 'comprimido', principio: 'Fluralaner', apresentacao: 'Comprimido mastigável'},
+  'Bravecto Plus': {intervalo: 84, tipo: 'spot-on', principio: 'Fluralaner + Moxidectina', apresentacao: 'Solução tópica'},
+  'Simparic': {intervalo: 35, tipo: 'comprimido', principio: 'Sarolaner', apresentacao: 'Comprimido mastigável'},
+  'Simparic Plus': {intervalo: 35, tipo: 'comprimido', principio: 'Sarolaner + Moxidectina', apresentacao: 'Comprimido mastigável'},
+  'NexGard': {intervalo: 30, tipo: 'comprimido', principio: 'Afoxolaner', apresentacao: 'Comprimido mastigável'},
+  'NexGard Spectra': {intervalo: 30, tipo: 'comprimido', principio: 'Afoxolaner + Milbemicina', apresentacao: 'Comprimido mastigável'},
+  'Frontline': {intervalo: 30, tipo: 'spot-on', principio: 'Fipronil', apresentacao: 'Pipeta'},
+  'Frontline Plus': {intervalo: 30, tipo: 'spot-on', principio: 'Fipronil + Metopreno', apresentacao: 'Pipeta'},
+  'Revolution': {intervalo: 30, tipo: 'spot-on', principio: 'Selamectina', apresentacao: 'Pipeta'},
+  'Advocate': {intervalo: 30, tipo: 'spot-on', principio: 'Imidacloprida + Moxidectina', apresentacao: 'Pipeta'},
+  'Comfortis': {intervalo: 30, tipo: 'comprimido', principio: 'Spinosad', apresentacao: 'Comprimido'},
+  'Capstar': {intervalo: 2, tipo: 'comprimido', principio: 'Nitenpiram', apresentacao: 'Comprimido (uso pontual)'},
+  'Vectra 3D': {intervalo: 30, tipo: 'spot-on', principio: 'Dinotefurano + Permetrina + Piriproxifeno', apresentacao: 'Pipeta'},
+  'Seresto': {intervalo: 240, tipo: 'coleira', principio: 'Imidacloprida + Flumetrina', apresentacao: 'Coleira 8 meses'},
+  'Scalibor': {intervalo: 180, tipo: 'coleira', principio: 'Deltametrina', apresentacao: 'Coleira 6 meses'},
+  'Credeli': {intervalo: 180, tipo: 'coleira', principio: 'Flumetrina', apresentacao: 'Coleira 6 meses'},
+  'Sentry': {intervalo: 30, tipo: 'spot-on', principio: 'Fipronil + Metopreno', apresentacao: 'Pipeta'},
+  'Outro': {intervalo: 30, tipo: 'outro', principio: '—', apresentacao: '—'}
+};
+
+const PRODUTOS_VERMIFUGO = {
+  'Vermi Plus (VetBras)': {intervalo: 90, intervaloFilhote: 15, principio: 'Praziquantel + Pirantel + Febantel', apresentacao: 'Suspensão oral (20 mL)'},
+  'Drontal Plus': {intervalo: 90, intervaloFilhote: 15, principio: 'Praziquantel + Pirantel + Febantel', apresentacao: 'Comprimidos'},
+  'Drontal Cat': {intervalo: 90, intervaloFilhote: 15, principio: 'Praziquantel + Pirantel', apresentacao: 'Comprimidos'},
+  'Endogard': {intervalo: 90, intervaloFilhote: 15, principio: 'Febantel + Pirantel + Praziquantel', apresentacao: 'Comprimidos'},
+  'Milbemax': {intervalo: 90, intervaloFilhote: 15, principio: 'Milbemicina + Praziquantel', apresentacao: 'Comprimidos'},
+  'Interceptor': {intervalo: 30, intervaloFilhote: 15, principio: 'Milbemicina oxima', apresentacao: 'Comprimidos'},
+  'Profender': {intervalo: 90, intervaloFilhote: 30, principio: 'Emodepsida + Praziquantel', apresentacao: 'Solução tópica (gatos)'},
+  'Panacur': {intervalo: 90, intervaloFilhote: 15, principio: 'Fenbendazol', apresentacao: 'Suspensão / Comprimidos'},
+  'Vermivet': {intervalo: 90, intervaloFilhote: 15, principio: 'Praziquantel + Pirantel + Febantel', apresentacao: 'Comprimidos'},
+  'Vetmax Vermífugo': {intervalo: 90, intervaloFilhote: 15, principio: 'Praziquantel + Pirantel + Febantel', apresentacao: 'Comprimidos'},
+  'Chemital Vermífugo': {intervalo: 90, intervaloFilhote: 15, principio: 'Praziquantel + Pirantel', apresentacao: 'Comprimidos'},
+  'Fembendazol Genérico': {intervalo: 90, intervaloFilhote: 15, principio: 'Fenbendazol', apresentacao: 'Suspensão/Comprimidos'},
+  'Outro': {intervalo: 90, intervaloFilhote: 15, principio: '—', apresentacao: '—'}
+};
+
+function getIntervaloProduto(nome, tabela){
+  const t = tabela || PRODUTOS_ANTIPULGAS;
+  if(t[nome]) return t[nome].intervalo;
+  return 30;
+}
+function getIntervaloVermifugo(nome, pet){
+  const info = PRODUTOS_VERMIFUGO[nome];
+  if(!info) return 90;
+  // Se pet é filhote (< 6 meses) e o produto tem intervaloFilhote, usa ele
+  if(pet && pet.nascimento){
+    const meses = idadeDetalhada(pet) ? idadeDetalhada(pet).meses : 99;
+    if(meses < 6 && info.intervaloFilhote) return info.intervaloFilhote;
+  }
+  return info.intervalo;
+}
+function proximaAplicacaoProduto(lista, tabela, pet){
+  if(!lista || lista.length === 0) return null;
+  const ord = lista.slice().sort((a,b) => new Date(b.data) - new Date(a.data));
+  const ult = ord[0];
+  let intervalo;
+  if(tabela === PRODUTOS_VERMIFUGO) intervalo = getIntervaloVermifugo(ult.produto, pet);
+  else intervalo = getIntervaloProduto(ult.produto, tabela);
+  const prox = addDays(new Date(ult.data + 'T12:00:00'), intervalo);
+  const hoje = new Date(); hoje.setHours(12,0,0,0);
+  const dias = diffDias(prox, hoje);
+  return {produto: ult.produto, data: prox, dias, intervalo, status: dias < 0 ? 'late' : dias <= 7 ? 'warn' : 'ok'};
+}
+
+/* FREQUÊNCIA DE BANHO POR PORTE */
+const FREQ_BANHO = {
+  pequeno: {dias: 21, label: '15-30 dias', shampoo: 'Hipoalergênico para filhotes/pequeno porte'},
+  medio: {dias: 30, label: '21-30 dias', shampoo: 'Neutro pH balanceado'},
+  grande: {dias: 30, label: '30 dias', shampoo: 'Para pelo longo/duplo'},
+  gato: {dias: 90, label: 'Não precisa (só quando sujo)', shampoo: 'Shampoo específico para gatos'}
+};
+function freqBanhoPet(pet){
+  if(pet.especie === 'gato') return FREQ_BANHO.gato;
+  const porte = porteDoPet(pet);
+  return FREQ_BANHO[porte] || FREQ_BANHO.medio;
+}
+
+/* FOTO REAL POR RAÇA */
+const FOTO_TERMOS = {
+  'srd_c':'mixed-breed-dog','mucucho':'mixed-breed-dog','rafeiro':'mixed-breed-dog',
+  'terrier_br':'terrier-dog','pe_roxo':'mixed-breed-dog',
+  'pinscher_alemao':'doberman-dog','pinscher_medio':'pinscher-dog','pinscher_anao':'pinscher-dog','pinscher_miniatura':'miniature-pinscher',
+  'labrador':'labrador-retriever','golden':'golden-retriever','poodle':'poodle-dog',
+  'shihtzu':'shih-tzu','yorkshire':'yorkshire-terrier','lhasa':'lhasa-apso',
+  'pastor':'german-shepherd','rottweiler':'rottweiler-dog','pug':'pug-dog',
+  'bulldogfr':'french-bulldog','dachshund':'dachshund-dog','border':'border-collie',
+  'husky':'siberian-husky','maltes':'maltese-dog','spitz':'pomeranian-dog','fila':'mastiff-dog',
+  'srd_g':'cat','siames':'siamese-cat','persa':'persian-cat','mainecoon':'maine-coon-cat',
+  'angora':'turkish-angora-cat','sphynx':'sphynx-cat','bengal':'bengal-cat',
+  'ragdoll':'ragdoll-cat','british':'british-shorthair-cat','noruegues':'norwegian-forest-cat'
+};
+function avatarRacaHTML(r){
+  const termo = FOTO_TERMOS[r.id] || (r.esp === 'gato' ? 'cat' : 'dog');
+  const url = `https://loremflickr.com/400/400/${encodeURIComponent(termo)}`;
+  return `<div class="raca-img-wrap">
+    <img src="${url}" alt="${esc(r.nome)}" loading="lazy" onerror="this.parentElement.classList.add('img-fail')">
+    <div class="raca-fallback">${avatarRacaSVG(r.id, r.esp)}</div>
+  </div>`;
+}
+
+/* VISUAL SVG DAS RAÇAS (fallback offline) */
 const VISUAL_RACAS = {
   'srd_c':{bg1:'#FFE9DC',bg2:'#FFD6C2',pelo:'#C28B5A',orelha:'caida',focinho:'medio',orelhaCor:'#A87244'},
-  'mucucho':{bg1:'#F0E6D2',bg2:'#E0CCAA',pelo:'#8B6942',orelha:'semi',focinho:'longo',orelhaCor:'#6B4E2E'},
-  'rafeiro':{bg1:'#EFE3D2',bg2:'#DCC8A8',pelo:'#7A5A3A',orelha:'caida',focinho:'longo',orelhaCor:'#5C4128'},
-  'terrier_br':{bg1:'#FFF0E0',bg2:'#FFE0C0',pelo:'#E4C9A0',orelha:'emPe',focinho:'medio',orelhaCor:'#C4A880',extra:'pintas'},
-  'pe_roxo':{bg1:'#EBE0D2',bg2:'#D5C4AA',pelo:'#6B5038',orelha:'caida',focinho:'medio',orelhaCor:'#4C3624'},
-  'pinscher_alemao':{bg1:'#F5EDE3',bg2:'#E5D5C2',pelo:'#4A3A2E',orelha:'emPe',focinho:'longo',orelhaCor:'#2E1E14'},
-  'pinscher_medio':{bg1:'#F5EDE3',bg2:'#E5D5C2',pelo:'#5A4030',orelha:'emPe',focinho:'medio',orelhaCor:'#3E2A1E'},
-  'pinscher_anao':{bg1:'#F5EDE3',bg2:'#E5D5C2',pelo:'#7A4A2A',orelha:'emPe',focinho:'curto',orelhaCor:'#5C3418'},
-  'pinscher_miniatura':{bg1:'#F5EDE3',bg2:'#E5D5C2',pelo:'#4A2E1E',orelha:'emPe',focinho:'curto',orelhaCor:'#2E180E'},
   'labrador':{bg1:'#FFF5E0',bg2:'#FFE6B5',pelo:'#E8C170',orelha:'caida',focinho:'medio',orelhaCor:'#D0A655',extra:'labrador'},
   'golden':{bg1:'#FFF5E0',bg2:'#FFE6B5',pelo:'#EFD08E',orelha:'caida',focinho:'medio',orelhaCor:'#DBB668',extra:'peludo'},
   'poodle':{bg1:'#F5EFE5',bg2:'#E5D8C2',pelo:'#F0E8D8',orelha:'caida',focinho:'longo',orelhaCor:'#D4C8B0',extra:'peludo'},
   'shihtzu':{bg1:'#F5E9DC',bg2:'#E8D0B8',pelo:'#E8D0B0',orelha:'caida',focinho:'achatado',orelhaCor:'#CFB090',extra:'peludo'},
   'yorkshire':{bg1:'#E9DFD2',bg2:'#D5C4AC',pelo:'#5A4234',orelha:'emPe',focinho:'curto',orelhaCor:'#3E2A20',extra:'peludo'},
-  'lhasa':{bg1:'#F0E4D2',bg2:'#DCC6A8',pelo:'#D4B888',orelha:'caida',focinho:'achatado',orelhaCor:'#B69860',extra:'peludo'},
   'pastor':{bg1:'#F0E0C8',bg2:'#DCC49A',pelo:'#8B6A44',orelha:'emPe',focinho:'longo',orelhaCor:'#5A4030',extra:'pastor'},
   'rottweiler':{bg1:'#E5D8C2',bg2:'#C8B896',pelo:'#2E241C',orelha:'caida',focinho:'medio',orelhaCor:'#1A120C',extra:'rottweiler'},
   'pug':{bg1:'#F5E6C8',bg2:'#E5CE9A',pelo:'#D6B876',orelha:'caida',focinho:'achatado',orelhaCor:'#B89858',extra:'pug'},
@@ -1569,18 +1778,10 @@ const VISUAL_RACAS = {
   'border':{bg1:'#F0E4D2',bg2:'#D8C4A8',pelo:'#E8D8C0',orelha:'semi',focinho:'medio',orelhaCor:'#3A2A1E',extra:'border'},
   'husky':{bg1:'#E5EEF5',bg2:'#C8DCEC',pelo:'#5A6470',orelha:'emPe',focinho:'medio',orelhaCor:'#3A4450',extra:'husky'},
   'maltes':{bg1:'#F5EFE5',bg2:'#E5D8C2',pelo:'#F5EFE0',orelha:'caida',focinho:'curto',orelhaCor:'#DDD2B8',extra:'peludo'},
-  'spitz':{bg1:'#FFF0D8',bg2:'#FFDCA5',pelo:'#F0C878',orelha:'emPe',focinho:'curto',orelhaCor:'#D0A850',extra:'peludo'},
-  'fila':{bg1:'#EFE0CC',bg2:'#D4B890',pelo:'#5A4230',orelha:'caida',focinho:'medio',orelhaCor:'#3E2A1E'},
   'srd_g':{bg1:'#DDF6F2',bg2:'#BEEAE3',pelo:'#8A7A6A',orelha:'gato',focinho:'gato',orelhaCor:'#6A5A4A',extra:'tigrado'},
   'siames':{bg1:'#EBE4D5',bg2:'#D5C8B0',pelo:'#F0E8D8',orelha:'gato',focinho:'gato',orelhaCor:'#3A2A20',extra:'siames'},
   'persa':{bg1:'#F5E8D8',bg2:'#E0C8A8',pelo:'#E8D0B5',orelha:'gato',focinho:'gatoAch',orelhaCor:'#C8B090',extra:'peludo'},
-  'mainecoon':{bg1:'#E8DDC8',bg2:'#C8B596',pelo:'#9A7A55',orelha:'gato',focinho:'gato',orelhaCor:'#6B5038',extra:'peludo'},
-  'angora':{bg1:'#F5F0E5',bg2:'#DDD4C0',pelo:'#F5F0E5',orelha:'gato',focinho:'gato',orelhaCor:'#D5CCB8',extra:'peludo'},
-  'sphynx':{bg1:'#F5DCC8',bg2:'#E5C4A8',pelo:'#E8C2A8',orelha:'gato',focinho:'gato',orelhaCor:'#C8A288',extra:'sphynx'},
-  'bengal':{bg1:'#FFE0B5',bg2:'#F0C480',pelo:'#C89858',orelha:'gato',focinho:'gato',orelhaCor:'#8B6838',extra:'bengal'},
-  'ragdoll':{bg1:'#EBE4D5',bg2:'#D5C8B0',pelo:'#F0E8D8',orelha:'gato',focinho:'gato',orelhaCor:'#8B6A5A',extra:'ragdoll'},
-  'british':{bg1:'#E5DDD0',bg2:'#C8BCA5',pelo:'#8A7A66',orelha:'gato',focinho:'gato',orelhaCor:'#5A4E40'},
-  'noruegues':{bg1:'#E8DDC8',bg2:'#C8B596',pelo:'#8A6B4A',orelha:'gato',focinho:'gato',orelhaCor:'#5A4030',extra:'peludo'}
+  'mainecoon':{bg1:'#E8DDC8',bg2:'#C8B596',pelo:'#9A7A55',orelha:'gato',focinho:'gato',orelhaCor:'#6B5038',extra:'peludo'}
 };
 function avatarRacaSVG(idRaca, especie){
   const v = VISUAL_RACAS[idRaca] || (especie === 'gato'
@@ -1595,7 +1796,6 @@ function avatarRacaSVG(idRaca, especie){
     olhos = `<ellipse cx="48" cy="68" rx="5" ry="6" fill="#1B2434"/><ellipse cx="72" cy="68" rx="5" ry="6" fill="#1B2434"/><ellipse cx="48" cy="66" rx="2" ry="2.5" fill="#FFF"/><ellipse cx="72" cy="66" rx="2" ry="2.5" fill="#FFF"/>`;
     if(v.extra === 'siames') extras = `<ellipse cx="60" cy="82" rx="16" ry="11" fill="#3A2A20" opacity=".8"/>`;
     else if(v.extra === 'tigrado') extras = `<path d="M36 58 L42 62 M32 68 L40 70" stroke="#5A4A3A" stroke-width="2" stroke-linecap="round"/><path d="M84 58 L78 62 M88 68 L80 70" stroke="#5A4A3A" stroke-width="2" stroke-linecap="round"/>`;
-    else if(v.extra === 'bengal') extras = `<circle cx="40" cy="60" r="3" fill="#5A4030" opacity=".7"/><circle cx="80" cy="60" r="3" fill="#5A4030" opacity=".7"/>`;
   } else {
     cabeca = `<ellipse cx="60" cy="72" rx="34" ry="32" fill="${v.pelo}"/>`;
     if(v.orelha === 'caida') orelhas = `<ellipse cx="28" cy="76" rx="11" ry="20" fill="${v.orelhaCor}" transform="rotate(-15 28 76)"/><ellipse cx="92" cy="76" rx="11" ry="20" fill="${v.orelhaCor}" transform="rotate(15 92 76)"/>`;
@@ -1626,8 +1826,7 @@ const RECOMENDACOES_IDADE = {
   cao: {
     filhote:{titulo:'Filhote',emoji:'🐶',categorias:[
       {ic:'🍖',cor:'#E89B4E',bg:'#FFF2E0',titulo:'Alimentação',itens:['Ração para filhotes, 3-4 refeições','Proteína mín. 28%','Cálcio/fósforo balanceados']},
-      {ic:'💉',cor:'#4FB3C4',bg:'#E0F4F8',titulo:'Saúde',itens:['Protocolo vacinal completo','Vermifugação a cada 15 dias','Castração 6+ meses']},
-      {ic:'🎾',cor:'#25C2B0',bg:'#E4F8F5',titulo:'Exercícios',itens:['Passeios 15-20 min','Socialização']}
+      {ic:'💉',cor:'#4FB3C4',bg:'#E0F4F8',titulo:'Saúde',itens:['Protocolo vacinal completo','Vermifugação a cada 15 dias','Castração 6+ meses']}
     ]},
     junior:{titulo:'Júnior',emoji:'🐕',categorias:[
       {ic:'🍖',cor:'#E89B4E',bg:'#FFF2E0',titulo:'Alimentação',itens:['Ração adulta','2 refeições']},
@@ -1685,6 +1884,139 @@ const PRIMEIROS_CUIDADOS = {
   ]
 };
 
+const PADRAO_CRESCIMENTO = {
+  cao: {
+    pequeno: {1:0.5, 2:1.0, 3:1.8, 4:2.4, 5:3.0, 6:3.5, 9:4.5, 12:5.5},
+    medio:   {1:1.5, 2:3.0, 3:5.0, 4:7.0, 5:8.5, 6:10.0, 9:13.0, 12:15.0},
+    grande:  {1:3.0, 2:6.0, 3:10.0, 4:14.0, 5:17.0, 6:20.0, 9:26.0, 12:30.0}
+  },
+  gato: {
+    pequeno: {1:0.4, 2:0.8, 3:1.3, 4:1.8, 5:2.2, 6:2.5, 9:3.2, 12:3.8},
+    medio:   {1:0.5, 2:1.0, 3:1.5, 4:2.0, 5:2.5, 6:3.0, 9:3.8, 12:4.5},
+    grande:  {1:0.6, 2:1.2, 3:1.8, 4:2.4, 5:3.0, 6:3.5, 9:4.5, 12:5.5}
+  }
+};
+function padraoCrescimento(pet){
+  const porte = pet.especie === 'gato' ? 'pequeno' : porteDoPet(pet);
+  const esp = pet.especie === 'gato' ? 'gato' : 'cao';
+  return PADRAO_CRESCIMENTO[esp][porte] || PADRAO_CRESCIMENTO[esp].medio;
+}
+
+/* BASE DE RAÇÕES */
+const RACOES_DB = [
+  {id:'r01', marca:'Royal Canin', nome:'Mini Puppy', esp:'cao', porte:'pequeno', idade:'filhote', proteina:'31%', peso:'1kg / 2,5kg / 4kg', preco:'R$ 65-180', indicacao:'Pinscher, Yorkshire, Maltês, Shih Tzu filhotes', foto:'royal-canin-mini-puppy'},
+  {id:'r02', marca:'Premier', nome:'Filhotes Raças Pequenas', esp:'cao', porte:'pequeno', idade:'filhote', proteina:'30%', peso:'2,5kg / 7,5kg / 15kg', preco:'R$ 55-160', indicacao:'Filhotes de pequeno porte 2-12 meses', foto:'premier-pet-filhote'},
+  {id:'r03', marca:'Hill\'s', nome:'Science Diet Puppy Small Paws', esp:'cao', porte:'pequeno', idade:'filhote', proteina:'28%', peso:'2kg / 4,5kg', preco:'R$ 95-220', indicacao:'Filhotes raças mini até 12 meses', foto:'hills-puppy-small', destaque:true},
+  {id:'r04', marca:'Premier', nome:'Adulto Raças Pequenas', esp:'cao', porte:'pequeno', idade:'adulto', proteina:'26%', peso:'2,5kg / 7,5kg / 15kg', preco:'R$ 55-155', indicacao:'Pinscher, Yorkshire, Shih Tzu, Lhasa adultos', foto:'premier-pet-adulto'},
+  {id:'r05', marca:'Royal Canin', nome:'Mini Adult', esp:'cao', porte:'pequeno', idade:'adulto', proteina:'25%', peso:'1kg / 2,5kg / 4kg / 8kg', preco:'R$ 70-220', indicacao:'Raças pequenas adultas 10 meses+', foto:'royal-canin-mini-adult'},
+  {id:'r06', marca:'Golden', nome:'Fórmula Mini Adultos', esp:'cao', porte:'pequeno', idade:'adulto', proteina:'24%', peso:'1kg / 3kg / 7kg / 15kg', preco:'R$ 30-140', indicacao:'Raças pequenas, custo acessível', foto:'golden-formula-mini'},
+  {id:'r07', marca:'Premier', nome:'Sênior Raças Pequenas', esp:'cao', porte:'pequeno', idade:'senior', proteina:'25%', peso:'2,5kg / 7,5kg', preco:'R$ 65-165', indicacao:'Pequeno porte 8+ anos, suporte articular', foto:'premier-senior-pequeno'},
+  {id:'r08', marca:'Royal Canin', nome:'Mini Aging 12+', esp:'cao', porte:'pequeno', idade:'senior', proteina:'26%', peso:'1,5kg / 3kg', preco:'R$ 90-190', indicacao:'Pequeno porte 12+ anos', foto:'royal-canin-aging'},
+  {id:'r09', marca:'Premier', nome:'Filhotes Raças Médias', esp:'cao', porte:'medio', idade:'filhote', proteina:'30%', peso:'2,5kg / 10,1kg / 15kg', preco:'R$ 60-180', indicacao:'Beagle, Cocker, Border filhotes', foto:'premier-pet-filhote-medio'},
+  {id:'r10', marca:'Royal Canin', nome:'Medium Puppy', esp:'cao', porte:'medio', idade:'filhote', proteina:'32%', peso:'1kg / 4kg / 10kg / 15kg', preco:'R$ 80-230', indicacao:'Filhotes de porte médio 2-12 meses', foto:'royal-canin-medium-puppy'},
+  {id:'r11', marca:'Eukanuba', nome:'Puppy Medium Breed', esp:'cao', porte:'medio', idade:'filhote', proteina:'32%', peso:'2,5kg / 15kg', preco:'R$ 100-260', indicacao:'Filhotes médio porte, DHA', foto:'eukanuba-puppy'},
+  {id:'r12', marca:'Premier', nome:'Adulto Raças Médias', esp:'cao', porte:'medio', idade:'adulto', proteina:'25%', peso:'2,5kg / 10,1kg / 15kg', preco:'R$ 60-175', indicacao:'Beagle, Cocker, Border adultos', foto:'premier-pet-adulto-medio'},
+  {id:'r13', marca:'Royal Canin', nome:'Medium Adult', esp:'cao', porte:'medio', idade:'adulto', proteina:'25%', peso:'4kg / 10kg / 15kg', preco:'R$ 90-260', indicacao:'Porte médio adulto 12 meses+', foto:'royal-canin-medium-adult', destaque:true},
+  {id:'r14', marca:'Hill\'s', nome:'Science Diet Adult Medium', esp:'cao', porte:'medio', idade:'adulto', proteina:'22%', peso:'3kg / 12kg', preco:'R$ 130-320', indicacao:'Porte médio adulto premium', foto:'hills-adult-medium'},
+  {id:'r15', marca:'Premier', nome:'Sênior Raças Médias', esp:'cao', porte:'medio', idade:'senior', proteina:'24%', peso:'2,5kg / 10,1kg', preco:'R$ 70-180', indicacao:'Porte médio 7+ anos', foto:'premier-senior-medio'},
+  {id:'r16', marca:'Premier', nome:'Filhotes Raças Grandes', esp:'cao', porte:'grande', idade:'filhote', proteina:'30%', peso:'2,5kg / 15kg / 20kg', preco:'R$ 75-220', indicacao:'Labrador, Golden, Pastor filhotes', foto:'premier-pet-filhote-grande'},
+  {id:'r17', marca:'Royal Canin', nome:'Maxi Puppy', esp:'cao', porte:'grande', idade:'filhote', proteina:'32%', peso:'4kg / 15kg / 20kg', preco:'R$ 100-290', indicacao:'Filhotes grande porte, controle articular', foto:'royal-canin-maxi-puppy', destaque:true},
+  {id:'r18', marca:'Eukanuba', nome:'Puppy Large Breed', esp:'cao', porte:'grande', idade:'filhote', proteina:'31%', peso:'15kg / 20kg', preco:'R$ 130-320', indicacao:'Filhotes de porte grande', foto:'eukanuba-large-puppy'},
+  {id:'r19', marca:'Premier', nome:'Adulto Raças Grandes', esp:'cao', porte:'grande', idade:'adulto', proteina:'24%', peso:'2,5kg / 15kg / 20kg', preco:'R$ 75-210', indicacao:'Labrador, Golden, Pastor, Rottweiler', foto:'premier-pet-adulto-grande'},
+  {id:'r20', marca:'Royal Canin', nome:'Maxi Adult', esp:'cao', porte:'grande', idade:'adulto', proteina:'24%', peso:'15kg / 20kg', preco:'R$ 130-340', indicacao:'Porte grande adulto 15 meses+', foto:'royal-canin-maxi-adult'},
+  {id:'r21', marca:'Golden', nome:'Fórmula Adulto Grandes', esp:'cao', porte:'grande', idade:'adulto', proteina:'23%', peso:'15kg / 20kg', preco:'R$ 45-190', indicacao:'Custo-benefício porte grande', foto:'golden-formula-grande'},
+  {id:'r22', marca:'Premier', nome:'Sênior Raças Grandes', esp:'cao', porte:'grande', idade:'senior', proteina:'23%', peso:'15kg / 20kg', preco:'R$ 90-240', indicacao:'Porte grande 7+ anos, suporte articular', foto:'premier-senior-grande'},
+  {id:'r23', marca:'Royal Canin', nome:'Maxi Aging 8+', esp:'cao', porte:'grande', idade:'senior', proteina:'25%', peso:'15kg / 20kg', preco:'R$ 130-340', indicacao:'Grande porte 8+ anos', foto:'royal-canin-maxi-aging'},
+  {id:'r24', marca:'Royal Canin', nome:'Kitten', esp:'gato', porte:'medio', idade:'filhote', proteina:'36%', peso:'1kg / 2kg / 4kg', preco:'R$ 70-200', indicacao:'Filhotes 2-12 meses, taurina e DHA', foto:'royal-canin-kitten'},
+  {id:'r25', marca:'Premier', nome:'Filhotes Gatos', esp:'gato', porte:'medio', idade:'filhote', proteina:'34%', peso:'1kg / 3kg / 10,1kg', preco:'R$ 45-180', indicacao:'Filhotes de gatos até 12 meses', foto:'premier-gatos-filhote'},
+  {id:'r26', marca:'Hill\'s', nome:'Science Diet Kitten', esp:'gato', porte:'medio', idade:'filhote', proteina:'35%', peso:'1,5kg / 4kg', preco:'R$ 90-220', indicacao:'Kitten premium, DHA', foto:'hills-kitten'},
+  {id:'r27', marca:'Premier', nome:'Adulto Gatos', esp:'gato', porte:'medio', idade:'adulto', proteina:'32%', peso:'1kg / 3kg / 10,1kg', preco:'R$ 50-190', indicacao:'Gatos adultos castrados ou não', foto:'premier-gatos-adulto', destaque:true},
+  {id:'r28', marca:'Royal Canin', nome:'Adult Sterilised', esp:'gato', porte:'medio', idade:'adulto', proteina:'34%', peso:'1,5kg / 4kg', preco:'R$ 80-220', indicacao:'Gatos castrados adultos, controle peso', foto:'royal-canin-sterilised'},
+  {id:'r29', marca:'Whiskas', nome:'Adulto Salmão', esp:'gato', porte:'medio', idade:'adulto', proteina:'30%', peso:'1kg / 3kg / 10,1kg', preco:'R$ 25-110', indicacao:'Custo acessível, gatos adultos', foto:'whiskas-adulto'},
+  {id:'r30', marca:'Premier', nome:'Sênior Gatos', esp:'gato', porte:'medio', idade:'senior', proteina:'30%', peso:'1kg / 3kg', preco:'R$ 60-180', indicacao:'Gatos 8+ anos, suporte renal', foto:'premier-gatos-senior'},
+  {id:'r31', marca:'Royal Canin', nome:'Senior 12+', esp:'gato', porte:'medio', idade:'senior', proteina:'30%', peso:'1,5kg / 4kg', preco:'R$ 90-230', indicacao:'Gatos 12+ anos, baixo fósforo', foto:'royal-canin-senior-cat'},
+  {id:'r32', marca:'Premier', nome:'Gatos Castrados', esp:'gato', porte:'medio', idade:'adulto', proteina:'32%', peso:'3kg / 10,1kg', preco:'R$ 55-185', indicacao:'Controle de peso pós-castração', foto:'premier-castrado'}
+];
+
+function racaoFotoHTML(r){
+  const termo = r.esp === 'gato' ? 'cat-food-bag' : 'dog-food-bag';
+  const url = `https://loremflickr.com/200/200/${encodeURIComponent(termo)},pet,${encodeURIComponent(r.marca.toLowerCase().replace(/[^a-z]/g,''))}`;
+  const emoji = r.esp === 'gato' ? '🐱' : '🐶';
+  return `<div class="racao-foto" data-emoji="${emoji}">
+    <img src="${url}" alt="${esc(r.marca)}" loading="lazy" onerror="this.parentElement.classList.add('img-fail')">
+  </div>`;
+}
+function filtrarRacoesParaPet(pet){
+  const porte = pet.especie === 'gato' ? 'medio' : porteDoPet(pet);
+  const faixa = faixaEtaria(pet.nascimento);
+  const idadeAlvo = (faixa === 'junior') ? 'filhote' : faixa;
+  let lista = RACOES_DB.filter(r => r.esp === pet.especie && r.porte === porte && r.idade === idadeAlvo);
+  if(lista.length === 0) lista = RACOES_DB.filter(r => r.esp === pet.especie && r.idade === idadeAlvo);
+  if(lista.length === 0) lista = RACOES_DB.filter(r => r.esp === pet.especie && r.idade === 'adulto');
+  return lista.sort((a,b) => (b.destaque?1:0) - (a.destaque?1:0)).slice(0, 10);
+}
+function renderRacaoCard(r, index){
+  const rankIcon = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : (index+1);
+  const rankClass = index === 0 ? 'top1' : index === 1 ? 'top2' : index === 2 ? 'top3' : '';
+  const porteLabel = r.porte === 'pequeno' ? 'Pequeno' : r.porte === 'medio' ? 'Médio' : 'Grande';
+  const idadeLabel = {filhote:'Filhote', junior:'Júnior', adulto:'Adulto', senior:'Sênior'}[r.idade] || r.idade;
+  return `<div class="racao-card ${rankClass}">
+    <div class="racao-rank">${rankIcon}</div>
+    ${racaoFotoHTML(r)}
+    <div class="racao-body">
+      <div class="racao-marca">${esc(r.marca)}</div>
+      <div class="racao-nome">${esc(r.nome)}</div>
+      <div class="racao-meta">Indicado: ${esc(r.indicacao)}<br>Embalagens: ${esc(r.peso)}</div>
+      <div class="racao-tags">
+        <span class="racao-tag proteina">💪 ${esc(r.proteina)}</span>
+        <span class="racao-tag porte">${porteLabel}</span>
+        <span class="racao-tag idade">${idadeLabel}</span>
+        <span class="racao-tag preco">💰 ${esc(r.preco)}</span>
+        ${r.destaque ? `<span class="racao-tag destaque">⭐ DESTAQUE</span>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+function renderTopRacoesPet(pet){
+  const lista = filtrarRacoesParaPet(pet);
+  if(lista.length === 0) return '';
+  const porteLabel = pet.especie === 'gato' ? 'Gato' : (porteDoPet(pet) === 'pequeno' ? 'Pequeno Porte' : porteDoPet(pet) === 'medio' ? 'Médio Porte' : 'Grande Porte');
+  const faixa = faixaEtaria(pet.nascimento);
+  const idadeLabel = {filhote:'Filhote', junior:'Júnior', adulto:'Adulto', senior:'Sênior'}[faixa];
+  return `
+    <div class="sec-head" style="margin-top:20px"><div class="sec-title"><span class="dot"></span>Top ${lista.length} rações para ${esc(pet.nome)}</div></div>
+    <div class="calc-note" style="background:linear-gradient(140deg,#FFF9EC,#FFEFD0);border-color:#FFE4B5;color:#8A6420"><span class="cn-ic">🏆</span><div>Selecionadas por <strong>${porteLabel}</strong> · <strong>${idadeLabel}</strong>${pet.raca ? ' · '+esc(pet.raca) : ''}. Ranking baseado em popularidade no mercado brasileiro.</div></div>
+    ${lista.map((r,i) => renderRacaoCard(r, i)).join('')}
+    <div class="calc-note" style="margin-top:14px"><span class="cn-ic">💡</span><div><strong>Como escolher:</strong> Prefira rações com proteína ≥ 26% (adultos) ou ≥ 28% (filhotes). Transição de ração: 7 dias misturando gradualmente. Consulte sempre o veterinário.</div></div>
+  `;
+}
+function renderRacoesPorFiltro(pet){
+  const filtroPorte = state.racaoFiltroPorte || 'todos';
+  const filtroIdade = state.racaoFiltroIdade || 'todos';
+  let lista = RACOES_DB.filter(r => r.esp === pet.especie);
+  if(filtroPorte !== 'todos') lista = lista.filter(r => r.porte === filtroPorte);
+  if(filtroIdade !== 'todos') lista = lista.filter(r => r.idade === filtroIdade);
+  lista = lista.slice(0, 12);
+  return `
+    <div class="sec-head" style="margin-top:24px"><div class="sec-title"><span class="dot"></span>Explorar todas as rações</div></div>
+    <div class="chips" style="margin-bottom:8px">
+      <button class="chip ${filtroPorte==='todos'?'active':''}" onclick="setFiltroRacaoPorte('todos')" type="button">Todos os portes</button>
+      <button class="chip ${filtroPorte==='pequeno'?'active':''}" onclick="setFiltroRacaoPorte('pequeno')" type="button">Pequeno</button>
+      <button class="chip ${filtroPorte==='medio'?'active':''}" onclick="setFiltroRacaoPorte('medio')" type="button">Médio</button>
+      <button class="chip ${filtroPorte==='grande'?'active':''}" onclick="setFiltroRacaoPorte('grande')" type="button">Grande</button>
+    </div>
+    <div class="chips" style="margin-bottom:12px">
+      <button class="chip ${filtroIdade==='todos'?'active':''}" onclick="setFiltroRacaoIdade('todos')" type="button">Todas as idades</button>
+      <button class="chip ${filtroIdade==='filhote'?'active':''}" onclick="setFiltroRacaoIdade('filhote')" type="button">Filhote</button>
+      <button class="chip ${filtroIdade==='adulto'?'active':''}" onclick="setFiltroRacaoIdade('adulto')" type="button">Adulto</button>
+      <button class="chip ${filtroIdade==='senior'?'active':''}" onclick="setFiltroRacaoIdade('senior')" type="button">Sênior</button>
+    </div>
+    ${lista.length === 0 ? `<div class="empty"><span class="e-ic">🔍</span><h4>Nenhuma ração com esse filtro</h4></div>` : lista.map((r,i) => renderRacaoCard(r, i)).join('')}
+  `;
+}
+function setFiltroRacaoPorte(p){ state.racaoFiltroPorte = p; renderRacoes(); }
+function setFiltroRacaoIdade(i){ state.racaoFiltroIdade = i; renderRacoes(); }
+
 const RACAS = [
 {id:'srd_c',nome:'SRD (Vira-lata)',esp:'cao',porte:'Variável',emoji:'🐕',peso:'5–40 kg',altura:'25–70 cm',vida:'12–16 anos',origem:'Brasil',temp:['Resistente'],resumo:'Cão mais comum do Brasil.',cuidados:['Escovação semanal'],saude:['Menor predisposição'],racao:'Ração conforme porte.'},
 {id:'mucucho',nome:'Mucucho',esp:'cao',porte:'Grande',emoji:'🐕',peso:'30–50 kg',altura:'56–70 cm',vida:'10–14 anos',origem:'Venezuela',temp:['Rústico'],resumo:'Trabalho.',cuidados:['Exercício intenso'],saude:['Displasia'],racao:'Ração large breed.'},
@@ -1734,7 +2066,7 @@ const DOENCAS = {
     {id:'babesiose',nome:'Babesiose',risco:'alto',mortalidade:'Moderada',tipo:'Protozoária',contagio:'Carrapato',emoji:'🕷️',descricao:'Babesia.',sintomas:['Palidez','Urina escura'],prevencao:['Controle carrapatos'],tratamento:'Imidocarb.',fonte:'Petlove'},
     {id:'tosse_canis',nome:'Tosse dos Canis',risco:'moderado',mortalidade:'Baixa',tipo:'Viral',contagio:'Tosse',emoji:'🤧',descricao:'Respiratório.',sintomas:['Tosse seca'],prevencao:['Vacinação KC'],tratamento:'Antibióticos.',fonte:'Zoetis'},
     {id:'giardiase',nome:'Giardíase',risco:'moderado',mortalidade:'Baixa',tipo:'Parasitária',contagio:'Água',emoji:'🦠',descricao:'Giardia.',sintomas:['Diarreia'],prevencao:['Água filtrada'],tratamento:'Metronidazol.',fonte:'Zoetis'},
-    {id:'drc_cao',nome:'Doença Renal Crônica',risco:'moderado',mortalidade:'Progressiva',tipo:'Renal',contagio:'N/A',emoji:'🫘',descricao:'Perda gradual da função renal. Comum em cães idosos.',sintomas:['Sede excessiva','Perda de peso','Vômitos','Halitose'],prevencao:['Água à vontade','Dieta adequada','Check-up anual'],tratamento:'Dieta renal, fluidoterapia.',fonte:'IRIS'},
+    {id:'drc_cao',nome:'Doença Renal Crônica',risco:'moderado',mortalidade:'Progressiva',tipo:'Renal',contagio:'N/A',emoji:'🫘',descricao:'Perda gradual da função renal.',sintomas:['Sede excessiva','Perda de peso','Vômitos','Halitose'],prevencao:['Água à vontade','Dieta adequada','Check-up anual'],tratamento:'Dieta renal, fluidoterapia.',fonte:'IRIS'},
     {id:'displasia',nome:'Displasia',risco:'moderado',mortalidade:'Não fatal',tipo:'Ortopédica',contagio:'Hereditária',emoji:'🦴',descricao:'Quadril.',sintomas:['Mancar'],prevencao:['Controle peso'],tratamento:'Cirurgia.',fonte:'Ortopedia'}
   ],
   gato: [
@@ -1745,7 +2077,7 @@ const DOENCAS = {
     {id:'panleucopenia',nome:'Panleucopenia',risco:'alto',mortalidade:'90%',tipo:'Viral',contagio:'Fezes',emoji:'🦠',descricao:'Parvovirose.',sintomas:['Vômitos','Diarreia'],prevencao:['Vacinação'],tratamento:'Fluidoterapia.',fonte:'Zoetis'},
     {id:'rinotraqueite',nome:'Rinotraqueíte',risco:'alto',mortalidade:'Baixa',tipo:'Viral',contagio:'Secreções',emoji:'🤧',descricao:'Herpesvírus.',sintomas:['Espirros'],prevencao:['Vacinação'],tratamento:'Lisina.',fonte:'Zoetis'},
     {id:'calicivirose',nome:'Calicivirose',risco:'alto',mortalidade:'Baixa',tipo:'Viral',contagio:'Secreções',emoji:'🤧',descricao:'Calicivírus.',sintomas:['Úlceras'],prevencao:['Vacinação'],tratamento:'Antibióticos.',fonte:'Zoetis'},
-    {id:'drc_gato',nome:'Doença Renal Crônica',risco:'alto',mortalidade:'Progressiva',tipo:'Renal',contagio:'N/A',emoji:'🫘',descricao:'Principal causa de morte em gatos idosos. Perda gradual da função renal.',sintomas:['Sede excessiva','Urina frequente','Perda de peso','Apatia'],prevencao:['Água fresca sempre','Dieta úmida','Check-up 2x/ano após 7 anos'],tratamento:'Dieta renal, fluidoterapia.',fonte:'IRIS'},
+    {id:'drc_gato',nome:'Doença Renal Crônica',risco:'alto',mortalidade:'Progressiva',tipo:'Renal',contagio:'N/A',emoji:'🫘',descricao:'Principal causa de morte em gatos idosos.',sintomas:['Sede excessiva','Urina frequente','Perda de peso','Apatia'],prevencao:['Água fresca sempre','Dieta úmida','Check-up 2x/ano após 7 anos'],tratamento:'Dieta renal, fluidoterapia.',fonte:'IRIS'},
     {id:'cardiomiopatia',nome:'Cardiomiopatia',risco:'alto',mortalidade:'Variável',tipo:'Cardíaca',contagio:'Hereditária',emoji:'❤️',descricao:'Cardíaca.',sintomas:['Dispneia'],prevencao:['Ecocardiograma'],tratamento:'Beta-bloq.',fonte:'Cães&Gatos'},
     {id:'obesidade',nome:'Obesidade',risco:'moderado',mortalidade:'Não fatal',tipo:'Metabólica',contagio:'N/A',emoji:'⚖️',descricao:'Excesso peso.',sintomas:['Ganho peso'],prevencao:['Medir ração'],tratamento:'Dieta.',fonte:'Whiskas'}
   ]
@@ -1806,6 +2138,16 @@ const ESCORES = [
 ];
 let escoreSelecionado = 3;
 
+const CATEGORIAS_GASTO = {
+  racao: {ic:'🍖', cor:'#E89B4E', bg:'#FFF2E0', label:'Ração'},
+  veterinario: {ic:'🩺', cor:'#4A7DFF', bg:'#EAF0FF', label:'Veterinário'},
+  medicamento: {ic:'💊', cor:'#9B5DE5', bg:'#F3EAFE', label:'Medicamento'},
+  banho: {ic:'🛁', cor:'#25C2B0', bg:'#E4F8F5', label:'Banho/Tosa'},
+  brinquedo: {ic:'🎾', cor:'#E63946', bg:'#FFE5E8', label:'Brinquedo'},
+  acessorio: {ic:'🎀', cor:'#4FB3C4', bg:'#E0F4F8', label:'Acessório'},
+  outros: {ic:'📦', cor:'#7B879C', bg:'#F1F4F9', label:'Outros'}
+};
+
 function racoesRecomendadas(pet){
   const faixa = faixaEtaria(pet.nascimento);
   if(pet.especie === 'cao'){
@@ -1837,6 +2179,122 @@ function porteDoPet(pet){
   }
   return pet.especie === 'cao' ? 'medio' : 'pequeno';
 }
+function calcularRacao(pet){
+  const peso = parseFloat(String(pet.peso || '').replace(',','.'));
+  if(!peso || peso <= 0) return null;
+  const rer = 70 * Math.pow(peso, 0.75);
+  const faixa = faixaEtaria(pet.nascimento);
+  let fator, refeicoes, obs;
+  if(faixa === 'filhote'){
+    const meses = idadeDetalhada(pet) ? idadeDetalhada(pet).meses : 3;
+    if(meses < 4){ fator = 3.0; refeicoes = 4; obs = 'Filhote até 4 meses: 4 refeições'; }
+    else { fator = 2.5; refeicoes = 3; obs = 'Filhote 4-6 meses: 3 refeições'; }
+  } else if(faixa === 'junior'){ fator = 2.0; refeicoes = 3; obs = 'Júnior: 2-3 refeições'; }
+  else if(faixa === 'adulto'){ fator = 1.6; refeicoes = 2; obs = 'Adulto: 2 refeições'; }
+  else { fator = 1.4; refeicoes = 2; obs = 'Sênior: 2 refeições'; }
+  if(pet.castrado === true) fator *= 0.9;
+  const der = rer * fator;
+  const kcalPorGrama = 3.7;
+  const gramasDia = der / kcalPorGrama;
+  const gramasPorRef = gramasDia / refeicoes;
+  const agua = Math.round(peso * 60);
+  return {rer: Math.round(rer), der: Math.round(der), gramasDia: Math.round(gramasDia), gramasPorRef: Math.round(gramasPorRef), refeicoes, obs, agua, kcalPorGrama};
+}
+function renderCalcRacao(pet){
+  const calc = calcularRacao(pet);
+  if(!calc){
+    return `<div class="calc-hero"><div class="ch-emoji">🍖</div><div class="ch-title">Informe o peso</div><div class="ch-sub">Edite o pet e registre o peso para calcular a ração ideal</div></div>`;
+  }
+  return `
+    <div class="calc-hero">
+      <div class="ch-emoji">🍖</div>
+      <div class="ch-title">Ração recomendada para ${esc(pet.nome)}</div>
+      <div class="ch-sub">Base: ${calc.obs} · ${esc(pet.peso)} kg</div>
+    </div>
+    <div class="calc-res">
+      <div class="calc-res-item accent"><div class="calc-res-v">${calc.gramasDia}g</div><div class="calc-res-l">Por dia</div></div>
+      <div class="calc-res-item"><div class="calc-res-v">${calc.gramasPorRef}g</div><div class="calc-res-l">Por refeição</div></div>
+      <div class="calc-res-item purple"><div class="calc-res-v">${calc.refeicoes}x</div><div class="calc-res-l">Refeições</div></div>
+      <div class="calc-res-item blue"><div class="calc-res-v">${calc.der}</div><div class="calc-res-l">kcal/dia</div></div>
+    </div>
+    <div class="calc-note"><span class="cn-ic">💧</span><div><strong>Água:</strong> ofereça cerca de <strong>${calc.agua} ml/dia</strong> (60 ml/kg). Mantenha sempre disponível e fresca.</div></div>
+    <div class="meal-card"><div class="meal-ic">🌅</div><div class="meal-body"><div class="meal-title">Café da manhã</div><div class="meal-sub">Primeira refeição</div></div><div class="meal-val">${Math.round(calc.gramasPorRef)}g</div></div>
+    ${calc.refeicoes >= 3 ? `<div class="meal-card"><div class="meal-ic">☀️</div><div class="meal-body"><div class="meal-title">Almoço</div><div class="meal-sub">Segunda refeição</div></div><div class="meal-val">${Math.round(calc.gramasPorRef)}g</div></div>` : ''}
+    ${calc.refeicoes >= 4 ? `<div class="meal-card"><div class="meal-ic">🍪</div><div class="meal-body"><div class="meal-title">Lanche</div><div class="meal-sub">Terceira refeição</div></div><div class="meal-val">${Math.round(calc.gramasPorRef)}g</div></div>` : ''}
+    <div class="meal-card"><div class="meal-ic">🌙</div><div class="meal-body"><div class="meal-title">Jantar</div><div class="meal-sub">Última refeição</div></div><div class="meal-val">${Math.round(calc.gramasPorRef)}g</div></div>
+    <div class="calc-note"><span class="cn-ic">🍬</span><div><strong>Petiscos:</strong> máximo <strong>${Math.round(calc.der * 0.1)} kcal/dia</strong> (10% do total). Desconte da ração principal.</div></div>`;
+}
+function renderCurvaCrescimento(pet){
+  const faixa = faixaEtaria(pet.nascimento);
+  if(faixa === 'adulto' || faixa === 'senior') return '';
+  const pesos = (pet.pesos || []).slice().sort((a,b) => new Date(a.data) - new Date(b.data));
+  const padrao = padraoCrescimento(pet);
+  if(pesos.length === 0){
+    return `<div class="blk" style="background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border-color:#C8E8EE"><h4><span class="b-ic">📏</span>Curva de crescimento</h4><p>Registre pesagens regularmente para acompanhar o crescimento de ${esc(pet.nome)}.</p></div>`;
+  }
+  const nasc = new Date(pet.nascimento + 'T12:00:00');
+  const pontos = pesos.map(p => {
+    const d = new Date(p.data + 'T12:00:00');
+    const meses = Math.max(1, (d - nasc) / (1000 * 60 * 60 * 24 * 30.44));
+    return {m: meses, kg: parseFloat(p.valor)};
+  }).filter(x => x.m <= 13);
+  const maxM = 12;
+  const maxKg = Math.max(...Object.values(padrao), ...pontos.map(p => p.kg), 5) * 1.15;
+  const W = 320, H = 180, PADL = 30, PADB = 24, PADT = 10, PADR = 10;
+  const plotW = W - PADL - PADR, plotH = H - PADB - PADT;
+  const xScale = m => PADL + (m / maxM) * plotW;
+  const yScale = kg => PADT + plotH - (kg / maxKg) * plotH;
+  let pathPadrao = '';
+  const meses = Object.keys(padrao).map(Number).sort((a,b)=>a-b);
+  meses.forEach((m, i) => {
+    const x = xScale(m), y = yScale(padrao[m]);
+    pathPadrao += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+  });
+  let pathReal = '';
+  pontos.forEach((p, i) => {
+    const x = xScale(p.m), y = yScale(p.kg);
+    pathReal += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+  });
+  let circulos = pontos.map(p => `<circle cx="${xScale(p.m).toFixed(1)}" cy="${yScale(p.kg).toFixed(1)}" r="3.5" fill="#E89B4E" stroke="#fff" stroke-width="1.5"/>`).join('');
+  let gridY = '';
+  for(let i = 0; i <= 4; i++){
+    const kg = (maxKg / 4) * i;
+    const y = yScale(kg);
+    gridY += `<line x1="${PADL}" y1="${y.toFixed(1)}" x2="${W-PADR}" y2="${y.toFixed(1)}" stroke="#E4EEF2" stroke-width="1"/>`;
+    gridY += `<text x="${PADL-4}" y="${(y+3).toFixed(1)}" font-size="8" fill="#7B879C" text-anchor="end">${kg.toFixed(1)}</text>`;
+  }
+  let gridX = '';
+  [1,3,6,9,12].forEach(m => {
+    const x = xScale(m);
+    gridX += `<line x1="${x.toFixed(1)}" y1="${PADT}" x2="${x.toFixed(1)}" y2="${H-PADB}" stroke="#F0F6F8" stroke-width="1"/>`;
+    gridX += `<text x="${x.toFixed(1)}" y="${H-8}" font-size="8" fill="#7B879C" text-anchor="middle">${m}m</text>`;
+  });
+  const ultimo = pontos[pontos.length - 1];
+  const idadeUlt = Math.round(ultimo.m);
+  const esperado = padrao[idadeUlt] || padrao[12];
+  let avalia = '';
+  if(esperado && ultimo.kg > 0){
+    const desvio = ((ultimo.kg - esperado) / esperado) * 100;
+    if(desvio > 15) avalia = `<span style="color:#E63946;font-weight:800">↑ ${desvio.toFixed(0)}% acima do padrão — avaliar com vet</span>`;
+    else if(desvio < -15) avalia = `<span style="color:#B47800;font-weight:800">↓ ${Math.abs(desvio).toFixed(0)}% abaixo do padrão — avaliar</span>`;
+    else avalia = `<span style="color:#12897A;font-weight:800">✅ Dentro do esperado para ${idadeUlt} meses</span>`;
+  }
+  return `
+    <div class="sec-head"><div class="sec-title"><span class="dot"></span>Curva de crescimento</div></div>
+    <div class="growth-chart">
+      <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+        ${gridY}${gridX}
+        <path d="${pathPadrao}" fill="none" stroke="#4FB3C4" stroke-width="2" stroke-dasharray="5 3" stroke-linecap="round"/>
+        ${pathReal ? `<path d="${pathReal}" fill="none" stroke="#E89B4E" stroke-width="2.5" stroke-linecap="round"/>` : ''}
+        ${circulos}
+      </svg>
+      <div class="growth-legend">
+        <div class="gl"><div class="gl-dot" style="background:#4FB3C4"></div>Padrão</div>
+        <div class="gl"><div class="gl-dot" style="background:#E89B4E"></div>${esc(pet.nome)}</div>
+      </div>
+    </div>
+    ${avalia ? `<div class="calc-note" style="background:linear-gradient(140deg,#F6FDFB,#E4F8F5);border-color:#C7E8E2"><span class="cn-ic">📊</span><div>${avalia}</div></div>` : ''}`;
+}
 
 /* IA GEMINI */
 const IA_KB = [
@@ -1849,7 +2307,7 @@ const IA_KB = [
   {tipo:'info',peso:7,palavras:['ração','alimentar','o que dar'],resposta:'🍖 **Alimentação:**\n\n• Filhotes: 3-4 refeições/dia\n• Adultos: 2 refeições\n• Sêniores: condroprotetores\n\n💧 Água sempre!'},
   {tipo:'info',peso:6,palavras:['chocolate','uva','abacate','cebola'],resposta:'🚫 **Tóxicos:**\n\nChocolate, cebola, alho, uva, abacate, xilitol, cafeína, álcool.\n\nSe comeu: **0800 722 6001**.'},
   {tipo:'dica',peso:7,palavras:['banho','frequência'],resposta:'🚿 **Banhos:**\n\n• Pelo curto: 15-30 dias\n• Pelo longo: 7-15 dias\n• Gatos: não precisam'},
-  {tipo:'info',peso:6,palavras:['vermífugo','vermifugação'],resposta:'🪱 **Vermifugação:**\n\n• Filhotes: 15/15 dias\n• Jovens: 3 meses\n• Adultos: 4-6 meses'}
+  {tipo:'info',peso:6,palavras:['vermífugo','vermifugação'],resposta:'🪱 **Vermifugação:**\n\n• Filhotes: 15/15 dias\n• Jovens: 3 meses\n• Adultos: 4-6 meses\n\n📋 Veja na aba Saúde → Prevenção!'}
 ];
 function processarPerguntaLocal(pergunta, petCtx){
   const t = (pergunta || '').toLowerCase().trim();
@@ -2032,7 +2490,6 @@ function temEmergencia(texto){
   return pal.some(p => t.includes(p));
 }
 
-/* CHAT UI */
 function agoraHHMM(){ const d = new Date(); return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'); }
 function getStatusIA(){
   if(iaConfig.provider === 'local') return {cor:'warn', txt:'Base local'};
@@ -2059,7 +2516,7 @@ function renderChat(){
   const status = $('#iaStatus'); const dot = $('#iaStatusDot');
   if(status) status.textContent = st.txt;
   if(dot) dot.className = 'ia-dot-' + (st.cor === 'online' ? 'online' : st.cor === 'warn' ? 'warn' : 'off');
-  const sugestoes = ['Quais vacinas meu pet precisa?','Meu pet está vomitando, o que fazer?','Com que frequência devo dar banho?','Meu cão está com tosse','Como adestrar meu filhote?','Sinais de emergência veterinária'];
+  const sugestoes = ['Quais vacinas meu pet precisa?','Meu pet está vomitando, o que fazer?','Qual a melhor ração?','Meu cão está com tosse','Como adestrar meu filhote?','Sinais de emergência veterinária'];
   if(sug) sug.innerHTML = `<div class="sug-row">${sugestoes.map(s=>`<button class="sug-chip" onclick="enviarSugestao('${esc(s).replace(/'/g,"\\'")}')">${esc(s)}</button>`).join('')}</div>`;
   if(state.chat.length === 0){
     const statusInfo = st.cor === 'online' ? 'ok' : st.cor === 'warn' ? 'warn' : 'err';
@@ -2265,24 +2722,62 @@ function renderPage(i){
 }
 (function swipeInit(){
   const sw = $('#swiper');
-  let x0=0, y0=0, ativo=false;
-  sw.addEventListener('touchstart', e=>{
-    if(e.touches.length !== 1) return;
-    if(e.target.closest('.chat-body') || e.target.closest('.chat-suggestions') || e.target.closest('.chat-input')) return;
-    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; ativo = true;
+  if(!sw) return;
+  let x0=0, y0=0, ativo=false, cancelado=false;
+  const AREAS_PROTEGIDAS = [
+    '.chat-body', '.chat-suggestions', '.chat-input',
+    '.subnav', '.subnav-btn',
+    '.chips', '.chip',
+    '.search-wrap', '.search-input',
+    '.marca-list', '.marca-chip',
+    '.album-timeline', '.album-tl-grid',
+    '.bar-chart',
+    '.growth-chart',
+    'input', 'textarea', 'select', 'label',
+    '.ps-body', '.ps-item',
+    '.racao-card', '.racao-foto'
+  ];
+  function estaProtegido(el){
+    if(!el || !el.closest) return false;
+    for(let i=0; i<AREAS_PROTEGIDAS.length; i++){
+      if(el.closest(AREAS_PROTEGIDAS[i])) return true;
+    }
+    return false;
+  }
+  sw.addEventListener('touchstart', function(e){
+    if(e.touches.length !== 1){ ativo = false; return; }
+    if(estaProtegido(e.target)){ ativo = false; return; }
+    x0 = e.touches[0].clientX;
+    y0 = e.touches[0].clientY;
+    ativo = true;
+    cancelado = false;
   }, {passive:true});
-  sw.addEventListener('touchend', e=>{
-    if(!ativo) return; ativo = false;
+  sw.addEventListener('touchmove', function(e){
+    if(!ativo || cancelado) return;
+    if(e.touches.length !== 1) return;
+    const t = e.touches[0];
+    const dx = Math.abs(t.clientX - x0);
+    const dy = Math.abs(t.clientY - y0);
+    if(dy > dx * 1.2 && dy > 12){
+      cancelado = true;
+      ativo = false;
+    }
+  }, {passive:true});
+  sw.addEventListener('touchend', function(e){
+    if(!ativo || cancelado){ ativo = false; return; }
+    ativo = false;
     const t = e.changedTouches[0];
-    const dx = t.clientX - x0, dy = t.clientY - y0;
-    if(Math.abs(dx) > 62 && Math.abs(dx) > Math.abs(dy) * 1.6){
+    const dx = t.clientX - x0;
+    const dy = t.clientY - y0;
+    if(Math.abs(dx) > 75 && Math.abs(dx) > Math.abs(dy) * 2.2){
       if(dx < 0) goTo(Math.min(7, state.currentPage + 1));
       else goTo(Math.max(0, state.currentPage - 1));
     }
   }, {passive:true});
+  sw.addEventListener('touchcancel', function(){ ativo = false; cancelado = false; }, {passive:true});
 })();
 function scrollTopAtual(){ const p = $('#page-' + state.currentPage); if(p) p.scrollTo({top:0, behavior:'smooth'}); }
-document.addEventListener('scroll', e=>{
+document.addEventListener('scroll', function(e){
   const p = e.target;
   if(p && p.classList && p.classList.contains('page')){
     const btn = $('#upBtn');
@@ -2436,8 +2931,8 @@ function renderHome(){
     <div class="quick-grid">
       ${quickItem('🤖','#9B5DE5','Dr. Pet IA','goTo(7)')}
       ${quickItem('📸','#4FB3C4','Álbum','abrirAlbumSelecionado()')}
-      ${quickItem('☁️','#4A7DFF','Nuvem','abrirModalSync()')}
-      ${quickItem('💾','#25C2B0','Backup','abrirModalBackup()')}
+      ${quickItem('🍖','#E89B4E','Ração','abrirCalcRacaoSelecionado()')}
+      ${quickItem('💊','#9B5DE5','Prevenção','abrirPrevencaoSelecionado()')}
     </div>`;
   html += blocoDica();
   el.innerHTML = html;
@@ -2449,14 +2944,35 @@ function abrirAlbumSelecionado(){
   state.saudeSub = 'album';
   goTo(4);
 }
+function abrirCalcRacaoSelecionado(){
+  if(state.pets.length === 0){ toast('Cadastre um pet'); return; }
+  state.petSelecionado = state.petSelecionado || state.pets[0].id;
+  state.saudeSub = 'alimentacao';
+  goTo(4);
+}
+function abrirPrevencaoSelecionado(){
+  if(state.pets.length === 0){ toast('Cadastre um pet'); return; }
+  state.petSelecionado = state.petSelecionado || state.pets[0].id;
+  state.saudeSub = 'prevencao';
+  goTo(4);
+}
+function abrirComprasSelecionado(){
+  if(state.pets.length === 0){ toast('Cadastre um pet'); return; }
+  state.petSelecionado = state.petSelecionado || state.pets[0].id;
+  state.saudeSub = 'compras';
+  goTo(4);
+}
 function quickItem(emoji, cor, label, fn){
   return `<button class="quick" onclick="${fn}" type="button"><div class="quick-ic" style="background:${cor}"><span style="font-size:18px">${emoji}</span></div><span>${label}</span></button>`;
 }
 function blocoDica(){
   const dicas = [
-    {tag:'💉 Intervalos', t:'Datas por marca', p:'Cada marca tem seu intervalo. O app recalcula sozinho ao aplicar.'},
-    {tag:'☁️ Nuvem', t:'Backup automático', p:'Ative a sincronização no Firebase e nunca perca seus dados.'},
-    {tag:'Dr. Pet IA', t:'Pesquisa na web', p:'O Dr. Pet IA busca dados atualizados no Google.'}
+    {tag:'💊 v10.2', t:'Base de medicações expandida', p:'Vermi Plus, Drontal Plus, Endogard, Bravecto Plus e muito mais, com princípio ativo e intervalos de filhote.'},
+    {tag:'🍖 v10.1', t:'Top 10 rações por pet', p:'Recomendações personalizadas por porte, idade e raça, com fotos e preços.'},
+    {tag:'📏 v10', t:'Curva de crescimento', p:'Compare o peso real do seu filhote com o padrão esperado.'},
+    {tag:'🛍️ v10', t:'Lista de compras', p:'Organize as compras e acompanhe os gastos mensais.'},
+    {tag:'🛁 v10', t:'Banho & tosa', p:'Registre banhos, frequência ideal por porte e shampoo recomendado.'},
+    {tag:'📄 v10', t:'PDF da carteira', p:'Gere o PDF da carteira de vacinação e da ficha completa do pet.'}
   ];
   const d = dicas[Math.floor(Math.random()*dicas.length)];
   return `<div class="sec-head"><div class="sec-title"><span class="dot"></span>Dica</div></div>
@@ -2524,7 +3040,7 @@ function renderRacasGrid(){
   if(lista.length === 0){ grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><span class="e-ic">🔍</span><h4>Nenhuma raça</h4></div>`; return; }
   grid.innerHTML = lista.map((r,i)=>`
     <button class="breed-card anim" onclick="abrirDetalheRaca('${r.id}')" type="button">
-      <div class="breed-top">${avatarRacaSVG(r.id, r.esp)}<span class="breed-emoji-badge">${r.emoji}</span><span class="breed-porte">${esc(r.porte)}</span></div>
+      <div class="breed-top">${avatarRacaHTML(r)}<span class="breed-emoji-badge">${r.emoji}</span><span class="breed-porte">${esc(r.porte)}</span></div>
       <div class="breed-body"><div class="breed-name">${esc(r.nome)}</div><div class="breed-sub">${esc(r.vida)} · ${esc(r.peso)}</div></div>
     </button>`).join('');
 }
@@ -2543,7 +3059,10 @@ function renderVacinas(){
   const pet = state.pets.find(p=>p.id === state.petSelecionado);
   const lista = PROTOCOLO[pet.especie] || [];
   const res = resumoVacinas(pet);
-  let html = `<button class="btn btn-primary" style="margin-bottom:16px" onclick="abrirCarteiraVacina('${pet.id}')" type="button"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm-8 12H6v-2h6v2zm6-4H6v-2h12v2zm0-4H6V6h12v2z"/></svg>Abrir Carteira</button>`;
+  let html = `<div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-bottom:16px">
+    <button class="btn btn-primary" onclick="abrirCarteiraVacina('${pet.id}')" type="button" style="margin:0"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm-8 12H6v-2h6v2zm6-4H6v-2h12v2zm0-4H6V6h12v2z"/></svg>Abrir Carteira</button>
+    <button class="btn btn-success" onclick="gerarPDFCarteira('${pet.id}')" type="button" style="margin:0"><svg viewBox="0 0 24 24"><path d="M19 8H5a2 2 0 00-2 2v8a2 2 0 002 2h14a2 2 0 002-2v-8a2 2 0 00-2-2zm-8 7H8v-2h3v2zm6 0h-3v-2h3v2zm0-4H8v-2h9v2zM12 2L8 6h3v4h2V6h3z"/></svg>PDF</button>
+  </div>`;
   html += `<div class="card anim" style="margin-bottom:16px;padding:14px">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
       <div class="pet-avatar ${pet.especie==='gato'?'cat':''}" style="width:46px;height:46px;font-size:23px;border-radius:14px">${pet.foto?`<img src="${pet.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">`:(pet.emoji||'🐾')}</div>
@@ -2744,6 +3263,7 @@ function abrirCarteiraVacina(petId){
     <div class="carteira-alerta"><div class="ca-emoji">ℹ️</div><div>Não substitui a carteira oficial do veterinário.</div></div>`;
   openModal(headPadrao('Carteira', 'Registro de ' + pet.nome), html,
     `<button class="btn btn-soft" onclick="closeModal()">Fechar</button>
+     <button class="btn btn-success" onclick="gerarPDFCarteira('${pet.id}')">📄 PDF</button>
      <button class="btn btn-primary" onclick="closeModal();goTo(3)">Gerenciar</button>`);
 }
 function abrirModalIdadeReal(petId){
@@ -2761,8 +3281,109 @@ function abrirModalIdadeReal(petId){
   });
   openModal(headPadrao('Idade Real', 'Idade de ' + pet.nome), html, `<button class="btn btn-primary" onclick="closeModal()">Entendi</button>`);
 }
+
+/* PDF */
+function gerarPDFCarteira(petId){
+  const pet = state.pets.find(x=>x.id === petId);
+  if(!pet){ toast('Pet não encontrado'); return; }
+  const lista = PROTOCOLO[pet.especie] || [];
+  const rows = lista.map(v=>{
+    const st = statusVacina(pet, v);
+    let status = '', dataTxt = '', marcaTxt = '';
+    if(st.status === 'ok'){ status = 'Aplicada'; dataTxt = fmtData(st.aplicada.data); marcaTxt = st.aplicada.marca || '—'; }
+    else if(st.status === 'atrasada'){ status = 'Atrasada'; dataTxt = 'Prev: ' + fmtData(st.due.toISOString().slice(0,10)); }
+    else { status = 'Pendente'; dataTxt = 'Prev: ' + fmtData(st.due.toISOString().slice(0,10)); }
+    return `<tr><td>${esc(v.nome)}</td><td>${dataTxt}</td><td>${marcaTxt || '—'}</td><td>${status}</td></tr>`;
+  }).join('');
+  const res = resumoVacinas(pet);
+  const html = gerarHTMLImpressao(`Carteira de Vacinação — ${esc(pet.nome)}`, `
+    <div class="pdf-hero">
+      <h1>🐾 Carteira de Vacinação</h1>
+      <div class="pdf-sub">PetVida ${APP_VERSION} · Emitido em ${fmtData(hojeISO())}</div>
+    </div>
+    <table class="pdf-info"><tr><td><b>Nome:</b> ${esc(pet.nome)}</td><td><b>Espécie:</b> ${pet.especie==='gato'?'Felino':'Canino'}</td></tr><tr><td><b>Raça:</b> ${esc(pet.raca||'SRD')}</td><td><b>Sexo:</b> ${pet.sexo==='femea'?'Fêmea':'Macho'}</td></tr><tr><td><b>Nascimento:</b> ${fmtData(pet.nascimento)}</td><td><b>Idade:</b> ${calcIdade(pet.nascimento)}</td></tr><tr><td><b>Peso:</b> ${pet.peso?esc(pet.peso)+' kg':'—'}</td><td><b>Progresso:</b> ${res.ok}/${res.total} vacinas</td></tr></table>
+    <h2>Protocolo Vacinal</h2>
+    <table class="pdf-tbl"><thead><tr><th>Vacina</th><th>Data</th><th>Marca</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="pdf-assinatura">
+      <div class="pdf-ass"><div class="pdf-line"></div><div>Assinatura do Veterinário · CRMV</div></div>
+      <div class="pdf-ass"><div class="pdf-line"></div><div>Assinatura do Tutor</div></div>
+    </div>`);
+  abrirJanelaImpressao(html);
+}
+function gerarPDFFicha(petId){
+  const pet = state.pets.find(x=>x.id === petId);
+  if(!pet){ toast('Pet não encontrado'); return; }
+  const h = pet.historico || {};
+  const listaHist = (titulo, arr, mapper) => {
+    if(!arr || arr.length === 0) return '';
+    return `<h2>${titulo}</h2><table class="pdf-tbl"><tbody>${arr.map(x=>`<tr><td>${mapper(x)}</td></tr>`).join('')}</tbody></table>`;
+  };
+  const vac = PROTOCOLO[pet.especie] || [];
+  const vacAplic = vac.filter(v => statusVacina(pet, v).status === 'ok').map(v => {
+    const st = statusVacina(pet, v);
+    return `<tr><td>${esc(v.nome)}</td><td>${fmtData(st.aplicada.data)}</td><td>${esc(st.aplicada.marca||'—')}</td></tr>`;
+  }).join('');
+  const pesos = (pet.pesos || []).slice().sort((a,b)=> new Date(a.data) - new Date(b.data));
+  const pesoRows = pesos.map(p => `<tr><td>${fmtData(p.data)}</td><td>${esc(p.valor)} kg</td></tr>`).join('');
+  const infoIdade = idadeDetalhada(pet);
+  const html = gerarHTMLImpressao(`Ficha Completa — ${esc(pet.nome)}`, `
+    <div class="pdf-hero">
+      <h1>🐾 Ficha Completa do Pet</h1>
+      <div class="pdf-sub">PetVida ${APP_VERSION} · Emitido em ${fmtData(hojeISO())}</div>
+    </div>
+    <table class="pdf-info"><tr><td><b>Nome:</b> ${esc(pet.nome)}</td><td><b>Espécie:</b> ${pet.especie==='gato'?'Felino':'Canino'}</td></tr><tr><td><b>Raça:</b> ${esc(pet.raca||'SRD')}</td><td><b>Sexo:</b> ${pet.sexo==='femea'?'Fêmea':'Macho'}</td></tr><tr><td><b>Nascimento:</b> ${fmtData(pet.nascimento)}</td><td><b>Idade:</b> ${calcIdade(pet.nascimento)} ${infoIdade?`(${infoIdade.humano} humano)`:''}</td></tr><tr><td><b>Peso atual:</b> ${pet.peso?esc(pet.peso)+' kg':'—'}</td><td><b>Escore corporal:</b> ${pet.escore||'—'}/5</td></tr></table>
+    ${vacAplic ? `<h2>Vacinas Aplicadas</h2><table class="pdf-tbl"><thead><tr><th>Vacina</th><th>Data</th><th>Marca</th></tr></thead><tbody>${vacAplic}</tbody></table>` : ''}
+    ${pesoRows ? `<h2>Histórico de Peso</h2><table class="pdf-tbl"><thead><tr><th>Data</th><th>Peso</th></tr></thead><tbody>${pesoRows}</tbody></table>` : ''}
+    ${listaHist('Consultas', h.consultas, c => `<b>${esc(c.motivo)}</b> — ${fmtData(c.data)} ${c.veterinario?'· '+esc(c.veterinario):''} ${c.diagnostico?'<br><i>'+esc(c.diagnostico)+'</i>':''}`)}
+    ${listaHist('Exames', h.exames, e => `<b>${esc(e.nome)}</b> — ${fmtData(e.data)} ${e.laboratorio?'· '+esc(e.laboratorio):''}`)}
+    ${listaHist('Medicamentos', h.medicamentos, m => `<b>${esc(m.nome)}</b> ${m.dose?'· '+esc(m.dose):''} ${m.frequencia?'· '+esc(m.frequencia):''} ${m.inicio?fmtData(m.inicio):''}`)}
+    ${listaHist('Cirurgias', h.cirurgias, c => `<b>${esc(c.nome)}</b> — ${fmtData(c.data)} ${c.veterinario?'· '+esc(c.veterinario):''}`)}
+    ${listaHist('Alergias', h.alergias, a => `<b>${esc(a.tipo)}</b> ${a.descricao?'— '+esc(a.descricao):''}`)}
+    <div class="pdf-assinatura">
+      <div class="pdf-ass"><div class="pdf-line"></div><div>Assinatura do Veterinário · CRMV</div></div>
+    </div>`);
+  abrirJanelaImpressao(html);
+}
+function gerarHTMLImpressao(titulo, conteudo){
+  return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>${titulo}</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#1B2434;padding:24px;background:#fff}
+.pdf-hero{text-align:center;margin-bottom:22px;padding-bottom:16px;border-bottom:2px solid #4FB3C4}
+.pdf-hero h1{margin:0;font-size:22px;color:#2A8A99;font-weight:800}
+.pdf-sub{font-size:11px;color:#7B879C;font-weight:600;margin-top:6px}
+h2{font-size:14px;color:#2A8A99;margin:18px 0 8px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #C8E8EE;padding-bottom:6px}
+.pdf-info{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:12px}
+.pdf-info td{padding:6px 4px;border-bottom:1px solid #E4EEF2}
+.pdf-tbl{width:100%;border-collapse:collapse;font-size:11.5px;margin-bottom:8px}
+.pdf-tbl th{background:#E0F4F8;color:#2A8A99;text-align:left;padding:8px 6px;font-weight:800;font-size:10.5px;text-transform:uppercase;letter-spacing:.3px}
+.pdf-tbl td{padding:7px 6px;border-bottom:1px solid #E4EEF2}
+.pdf-assinatura{margin-top:40px;display:flex;gap:40px;justify-content:space-around}
+.pdf-ass{text-align:center;font-size:10px;color:#7B879C;flex:1}
+.pdf-line{border-bottom:1px solid #1B2434;height:40px;margin-bottom:4px}
+@media print{body{padding:8mm}.pdf-assinatura{margin-top:24px}}
+</style></head><body>${conteudo}<script>window.onload=function(){setTimeout(function(){window.print()},300)}<\/script></body></html>`;
+}
+function abrirJanelaImpressao(html){
+  const w = window.open('', '_blank');
+  if(!w){ toast('Permita pop-ups para gerar PDF'); return; }
+  w.document.write(html);
+  w.document.close();
+}
+
+/* SAÚDE — SUB-NAV */
 const SAUDE_SUBS = [
-  {id:'visao', label:'📋 Visão'},{id:'album', label:'📸 Álbum'},{id:'historico', label:'🏥 Histórico'},{id:'prevencao', label:'💊 Prevenção'},{id:'diario', label:'📔 Diário'},{id:'tutores', label:'👥 Tutores'},{id:'emergencia', label:'🚑 Emergência'},{id:'guias', label:'📚 Guias'}
+  {id:'visao', label:'📋 Visão'},
+  {id:'album', label:'📸 Álbum'},
+  {id:'alimentacao', label:'🍖 Alimentação'},
+  {id:'banho', label:'🛁 Banho & Tosa'},
+  {id:'prevencao', label:'💊 Prevenção'},
+  {id:'historico', label:'🏥 Histórico'},
+  {id:'diario', label:'📔 Diário'},
+  {id:'tutores', label:'👥 Tutores'},
+  {id:'compras', label:'🛍️ Compras'},
+  {id:'emergencia', label:'🚑 Emergência'},
+  {id:'guias', label:'📚 Guias'}
 ];
 function setSaudeSub(sub){ state.saudeSub = sub; renderSaude(); }
 function renderSaude(){
@@ -2783,10 +3404,13 @@ function renderSaude(){
   let body = petPicker;
   switch(state.saudeSub){
     case 'album': body += renderSaudeAlbum(pet); break;
+    case 'alimentacao': body += renderSaudeAlimentacao(pet); break;
+    case 'banho': body += renderSaudeBanho(pet); break;
     case 'historico': body += renderSaudeHistorico(pet); break;
     case 'prevencao': body += renderSaudePrevencao(pet); break;
     case 'diario': body += renderSaudeDiario(pet); break;
     case 'tutores': body += renderSaudeTutores(pet); break;
+    case 'compras': body += renderSaudeCompras(pet); break;
     case 'emergencia': body += renderSaudeEmergencia(); break;
     case 'guias': body += renderSaudeGuias(); break;
     default: body += renderSaudeVisao(pet);
@@ -2814,10 +3438,10 @@ function renderSaudeVisao(pet){
     </div>
   </div>`;
   html += `<div class="quick-grid" style="margin-bottom:16px">
-    ${quickItem('🤖','#9B5DE5','Dr. Pet IA','goTo(7)')}
-    ${quickItem('📸','#4FB3C4','Álbum',`setSaudeSub('album')`)}
-    ${quickItem('🎂','#25C2B0','Idade',`abrirModalIdadeReal('${pet.id}')`)}
-    ${quickItem('⚖️','#E89B4E','Escore',`abrirModalEscore('${pet.id}')`)}
+    ${quickItem('🍖','#E89B4E','Ração',`setSaudeSub('alimentacao')`)}
+    ${quickItem('🛁','#25C2B0','Banho',`setSaudeSub('banho')`)}
+    ${quickItem('💊','#9B5DE5','Prevenção',`setSaudeSub('prevencao')`)}
+    ${quickItem('📄','#4A7DFF','PDF',`gerarPDFFicha('${pet.id}')`)}
   </div>`;
   html += `<div class="sec-head"><div class="sec-title"><span class="dot"></span>Peso</div><button class="sec-link" onclick="abrirModalPeso()">+ Registrar</button></div>`;
   const pesos = (pet.pesos || []).slice().sort((a,b)=> new Date(a.data) - new Date(b.data));
@@ -2829,11 +3453,159 @@ function renderSaudeVisao(pet){
     const range = Math.max(0.5, max - min);
     html += `<div class="card anim" style="margin-bottom:12px"><div class="bar-chart">${pesos.slice(-6).map(p=>{const v = parseFloat(p.valor);const h = 20 + ((v - min) / range) * 70;const dt = new Date(p.data + 'T12:00:00');return `<div class="bar-col"><div class="bar-val">${v}</div><div class="bar" style="height:${h}%"></div><div class="bar-lbl">${dt.getDate()}/${dt.getMonth()+1}</div></div>`;}).join('')}</div></div>`;
   }
+  html += renderCurvaCrescimento(pet);
   html += `<div class="sec-head"><div class="sec-title"><span class="dot"></span>Primeiros cuidados</div><span style="font-size:10.5px;font-weight:800;color:var(--muted)">${(pet.cuidados||[]).length}/${PRIMEIROS_CUIDADOS[pet.especie].length}</span></div>`;
   html += PRIMEIROS_CUIDADOS[pet.especie].map(c=>{
     const done = (pet.cuidados||[]).indexOf(c.id) !== -1;
     return `<div class="check-item ${done?'done':''}" onclick="toggleCuidado('${pet.id}','${c.id}')"><div class="check-box"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></div><div class="check-txt"><h5>${esc(c.t)}</h5><p>${esc(c.d)}</p></div></div>`;
   }).join('');
+  return html;
+}
+function renderSaudeAlimentacao(pet){
+  let html = '';
+  html += renderCalcRacao(pet);
+  html += `<div class="sec-head" style="margin-top:20px"><div class="sec-title"><span class="dot"></span>Recomendações</div></div>`;
+  const racoes = racoesRecomendadas(pet);
+  racoes.forEach(r=>{
+    if(!r) return;
+    html += `<div class="food-card anim"><div class="food-head"><div class="food-ic">🥣</div><div><h4>${esc(r.titulo)}</h4><p>${esc(r.desc)}</p></div></div><ul class="food-list">${r.itens.map(i=>`<li>${esc(i)}</li>`).join('')}</ul><div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line)"><div style="font-size:10.5px;font-weight:800;color:var(--muted);margin-bottom:7px">MARCAS</div><div>${r.marcas.map(m=>`<span class="food-brand">${esc(m)}</span>`).join('')}</div></div></div>`;
+  });
+  html += `<button class="btn btn-primary" style="margin-top:10px" onclick="goTo(5)">🍖 Ver Top 10 rações</button>`;
+  html += `<button class="btn btn-purple" style="margin-top:8px" onclick="goTo(7)">🤖 Perguntar ao Dr. Pet IA</button>`;
+  return html;
+}
+function renderSaudeBanho(pet){
+  const freq = freqBanhoPet(pet);
+  const lista = (pet.banhos || []).slice().sort((a,b)=> new Date(b.data) - new Date(a.data));
+  let html = `<div class="freq-card"><div class="fc-ic">🛁</div><div><b>Frequência ideal:</b> ${freq.label}<br><b>Shampoo sugerido:</b> ${freq.shampoo}</div></div>`;
+  if(lista.length > 0){
+    const ult = lista[0];
+    const prox = addDays(new Date(ult.data + 'T12:00:00'), freq.dias);
+    const hoje = new Date(); hoje.setHours(12,0,0,0);
+    const dias = diffDias(prox, hoje);
+    const late = dias < 0;
+    html += `<div class="next-prod ${late?'late':''}">
+      <div class="np-ic">🛁</div>
+      <div style="flex:1"><div class="np-titulo">${late?'Banho atrasado':'Próximo banho'}</div>
+      <div class="np-info">Último: ${fmtData(ult.data)}${ult.profissional?' · '+esc(ult.profissional):''}</div>
+      <div class="np-data">${late ? 'Atrasado há '+Math.abs(dias)+' dias' : 'Em '+dias+' dias · '+fmtData(prox.toISOString().slice(0,10))}</div></div>
+    </div>`;
+  }
+  html += `<button class="btn btn-primary" style="margin-bottom:14px" onclick="abrirModalBanho()">+ Registrar banho/tosa</button>`;
+  if(lista.length === 0){
+    html += `<div class="empty"><span class="e-ic">🛁</span><h4>Nenhum registro</h4><p>Anote os banhos e tosas para acompanhar.</p></div>`;
+  } else {
+    html += lista.map(b=>`<div class="banho-card">
+      <div class="bn-icon">${b.tipo==='tosa'?'✂️':'🛁'}</div>
+      <div class="bn-body"><div class="bn-title">${esc(b.tipo==='tosa'?'Tosa':b.tipo==='banho_tosa'?'Banho + Tosa':'Banho')}</div>
+      <div class="bn-sub">📅 ${fmtData(b.data)}${b.profissional?' · '+esc(b.profissional):''}${b.shampoo?' · '+esc(b.shampoo):''}</div>
+      ${b.nota?`<div class="bn-nota">"${esc(b.nota)}"</div>`:''}</div>
+      <button class="bn-del" onclick="delBanho('${pet.id}','${b.id}')" type="button"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+    </div>`).join('');
+  }
+  return html;
+}
+function renderSaudePrevencao(pet){
+  let html = '';
+  const antLista = (pet.antipulgas || []).slice().sort((a,b)=> new Date(b.data) - new Date(a.data));
+  const vermLista = (pet.vermifugos || []).slice().sort((a,b)=> new Date(b.data) - new Date(a.data));
+  const proxAnt = proximaAplicacaoProduto(antLista, PRODUTOS_ANTIPULGAS, pet);
+  const proxVerm = proximaAplicacaoProduto(vermLista, PRODUTOS_VERMIFUGO, pet);
+  if(proxAnt){
+    const late = proxAnt.status === 'late';
+    const warn = proxAnt.status === 'warn';
+    html += `<div class="next-prod ${late?'late':''}">
+      <div class="np-ic">🐛</div>
+      <div style="flex:1"><div class="np-titulo">${late?'Antipulgas atrasado':warn?'Antipulgas próximo':'Próximo antipulgas'}</div>
+      <div class="np-info">${esc(proxAnt.produto)}</div>
+      <div class="np-data">${late ? 'Atrasado há '+Math.abs(proxAnt.dias)+' dias' : 'Em '+proxAnt.dias+' dias · '+fmtData(proxAnt.data.toISOString().slice(0,10))}</div></div>
+    </div>`;
+  }
+  if(proxVerm){
+    const late = proxVerm.status === 'late';
+    const warn = proxVerm.status === 'warn';
+    html += `<div class="next-prod ${late?'late':''}">
+      <div class="np-ic">🪱</div>
+      <div style="flex:1"><div class="np-titulo">${late?'Vermífugo atrasado':warn?'Vermífugo próximo':'Próximo vermífugo'}</div>
+      <div class="np-info">${esc(proxVerm.produto)}</div>
+      <div class="np-data">${late ? 'Atrasado há '+Math.abs(proxVerm.dias)+' dias' : 'Em '+proxVerm.dias+' dias · '+fmtData(proxVerm.data.toISOString().slice(0,10))}</div></div>
+    </div>`;
+  }
+  html += `<div class="quick-grid" style="margin-bottom:16px">
+    ${quickItem('🐛','#E89B4E','Antipulgas',`abrirModalAntipulgas()`)}
+    ${quickItem('🪱','#9B5DE5','Vermífugo',`abrirModalVermifugo()`)}
+  </div>`;
+  html += `<div class="sec-head"><div class="sec-title"><span class="dot"></span>Antipulgas / Carrapaticidas</div></div>`;
+  if(antLista.length === 0){
+    html += `<div class="card" style="text-align:center;padding:16px;color:var(--muted);font-size:11.5px;font-weight:600">Nenhum registro</div>`;
+  } else {
+    html += antLista.map(a=>{
+      const info = PRODUTOS_ANTIPULGAS[a.produto] || {principio:'—', apresentacao:'—'};
+      const intervalo = getIntervaloProduto(a.produto, PRODUTOS_ANTIPULGAS);
+      const proxData = addDays(new Date(a.data+'T12:00:00'), intervalo);
+      return `<div class="hist-card tipo-antipulgas"><div class="hc-icon">🐛</div><div class="hc-body"><div class="hc-title">${esc(a.produto)}</div><div class="principio-ativo">${esc(info.principio)}</div><div class="hc-sub">📅 ${fmtData(a.data)} · Próxima: ${fmtData(proxData.toISOString().slice(0,10))}</div><div class="apresentacao-tag">${esc(info.apresentacao)}</div></div><button class="hc-del" onclick="delAntipulgas('${pet.id}','${a.id}')" type="button"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></div>`;
+    }).join('');
+  }
+  html += `<div class="sec-head" style="margin-top:20px"><div class="sec-title"><span class="dot"></span>Vermífugos</div></div>`;
+  if(vermLista.length === 0){
+    html += `<div class="card" style="text-align:center;padding:16px;color:var(--muted);font-size:11.5px;font-weight:600">Nenhum registro</div>`;
+  } else {
+    html += vermLista.map(v=>{
+      const info = PRODUTOS_VERMIFUGO[v.produto] || {principio:'—', apresentacao:'—'};
+      const intervalo = getIntervaloVermifugo(v.produto, pet);
+      const proxData = addDays(new Date(v.data+'T12:00:00'), intervalo);
+      return `<div class="hist-card tipo-vermifugo"><div class="hc-icon">🪱</div><div class="hc-body"><div class="hc-title">${esc(v.produto)}</div><div class="principio-ativo">${esc(info.principio)}</div><div class="hc-sub">📅 ${fmtData(v.data)} · Próxima: ${fmtData(proxData.toISOString().slice(0,10))} (${intervalo}d)</div><div class="apresentacao-tag">${esc(info.apresentacao)}</div></div><button class="hc-del" onclick="delVermifugo('${pet.id}','${v.id}')" type="button"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></div>`;
+    }).join('');
+  }
+  html += `<div class="calc-note" style="margin-top:16px"><span class="cn-ic">💡</span><div><b>Intervalos de referência:</b><br>Bravecto 12 semanas · Simparic 5 semanas · NexGard/Frontline 4 semanas<br><b>Vermífugo:</b> filhote a cada 15 dias, adulto a cada 3 meses (varia por produto)</div></div>`;
+  return html;
+}
+function renderSaudeCompras(pet){
+  const gastos = (pet.gastos || []).slice().sort((a,b)=> new Date(b.data) - new Date(a.data));
+  const lista = (pet.listaCompras || []);
+  const mesAtual = new Date().toISOString().slice(0,7);
+  const gastosMes = gastos.filter(g => g.data.startsWith(mesAtual));
+  const totalMes = gastosMes.reduce((s,g) => s + (parseFloat(g.valor)||0), 0);
+  const totalGeral = gastos.reduce((s,g) => s + (parseFloat(g.valor)||0), 0);
+  let html = `<div class="gasto-resumo">
+    <div class="gasto-res"><div class="gasto-res-v">R$ ${totalMes.toFixed(2).replace('.',',')}</div><div class="gasto-res-l">Este mês</div></div>
+    <div class="gasto-res"><div class="gasto-res-v">R$ ${totalGeral.toFixed(2).replace('.',',')}</div><div class="gasto-res-l">Total geral</div></div>
+  </div>`;
+  const porMes = {};
+  gastos.forEach(g=>{ const m = g.data.slice(0,7); porMes[m] = (porMes[m] || 0) + (parseFloat(g.valor)||0); });
+  const meses = Object.keys(porMes).sort().slice(-6);
+  if(meses.length > 0){
+    const max = Math.max(...meses.map(m => porMes[m]));
+    html += `<div class="sec-head"><div class="sec-title"><span class="dot"></span>Gastos por mês</div></div>
+      <div class="card anim" style="margin-bottom:16px"><div class="bar-chart">
+        ${meses.map(m=>{const v = porMes[m];const h = Math.max(20, (v / max) * 100);const [ano, mm] = m.split('-');return `<div class="bar-col"><div class="bar-val" style="font-size:9px">${v.toFixed(0)}</div><div class="bar" style="height:${h}%;background:linear-gradient(180deg,#F0B87A,#E89B4E)"></div><div class="bar-lbl">${mm}/${ano.slice(2)}</div></div>`;}).join('')}
+      </div></div>`;
+  }
+  html += `<div class="sec-head"><div class="sec-title"><span class="dot"></span>Lista de compras</div></div>`;
+  html += `<button class="btn btn-primary" style="margin-bottom:12px" onclick="abrirModalItemCompra()">+ Adicionar item</button>`;
+  if(lista.length === 0){
+    html += `<div class="card" style="text-align:center;padding:16px;color:var(--muted);font-size:11.5px;font-weight:600;margin-bottom:16px">Nenhum item na lista</div>`;
+  } else {
+    html += lista.map(it => `<div class="compra-item ${it.done?'done':''}">
+      <div class="compra-check" onclick="toggleItemCompra('${pet.id}','${it.id}')"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></div>
+      <div class="compra-body"><div class="compra-nome">${esc(it.nome)}</div>${it.qtd?`<div class="compra-qtd">Qtd: ${esc(it.qtd)}</div>`:''}</div>
+      <button class="compra-del" onclick="delItemCompra('${pet.id}','${it.id}')" type="button"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+    </div>`).join('');
+  }
+  html += `<div class="sec-head" style="margin-top:20px"><div class="sec-title"><span class="dot"></span>Histórico de gastos</div><button class="sec-link" onclick="abrirModalGasto()">+ Gastar</button></div>`;
+  if(gastos.length === 0){
+    html += `<div class="card" style="text-align:center;padding:16px;color:var(--muted);font-size:11.5px;font-weight:600">Nenhum gasto registrado</div>`;
+  } else {
+    html += gastos.slice(0, 30).map(g=>{
+      const cat = CATEGORIAS_GASTO[g.categoria] || CATEGORIAS_GASTO.outros;
+      return `<div class="gasto-item">
+        <div class="gasto-cat" style="background:${cat.bg};color:${cat.cor}">${cat.ic}</div>
+        <div class="gasto-body"><div class="gasto-desc">${esc(g.descricao||cat.label)}</div><div class="gasto-meta">📅 ${fmtData(g.data)} · ${cat.label}</div></div>
+        <div class="gasto-valor">R$ ${(parseFloat(g.valor)||0).toFixed(2).replace('.',',')}</div>
+        <button class="gasto-del" onclick="delGasto('${pet.id}','${g.id}')" type="button"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+      </div>`;
+    }).join('');
+  }
   return html;
 }
 function renderSaudeAlbum(pet){
@@ -2989,15 +3761,6 @@ function secHist(titulo, lista, classe, icon, mapper, btnAdd, fnAdd){
   }).join('');
   return html;
 }
-function renderSaudePrevencao(pet){
-  const lista = (pet.antipulgas || []).slice().sort((a,b)=> new Date(b.data) - new Date(a.data));
-  let html = `<button class="btn btn-primary" style="margin-bottom:16px" onclick="abrirModalAntipulgas()">+ Registrar</button>`;
-  if(lista.length === 0){ html += `<div class="empty"><span class="e-ic">💊</span><h4>Nenhuma aplicação</h4></div>`; }
-  else {
-    html += lista.map(a=>`<div class="hist-card tipo-antipulgas"><div class="hc-icon">💊</div><div class="hc-body"><div class="hc-title">${esc(a.produto)}</div><div class="hc-sub">📅 ${fmtData(a.data)}</div></div><button class="hc-del" onclick="delAntipulgas('${pet.id}','${a.id}')" type="button"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></div>`).join('');
-  }
-  return html;
-}
 function renderSaudeDiario(pet){
   const lista = (pet.diario || []).slice().sort((a,b)=> new Date(b.data) - new Date(a.data));
   const humores = {feliz:{emoji:'😊',label:'Feliz'},calmo:{emoji:'😌',label:'Calmo'},agitado:{emoji:'😰',label:'Agitado'},triste:{emoji:'😢',label:'Triste'},doente:{emoji:'🤒',label:'Doente'}};
@@ -3079,6 +3842,36 @@ function delAntipulgas(petId, id){
   pet.antipulgas = (pet.antipulgas||[]).filter(x=>x.id !== id);
   saveDB(); renderSaude(); toast('Removido');
 }
+function delVermifugo(petId, id){
+  const pet = state.pets.find(p=>p.id === petId);
+  if(!pet) return;
+  pet.vermifugos = (pet.vermifugos||[]).filter(x=>x.id !== id);
+  saveDB(); renderSaude(); toast('Removido');
+}
+function delBanho(petId, id){
+  const pet = state.pets.find(p=>p.id === petId);
+  if(!pet) return;
+  pet.banhos = (pet.banhos||[]).filter(x=>x.id !== id);
+  saveDB(); renderSaude(); toast('Removido');
+}
+function delGasto(petId, id){
+  const pet = state.pets.find(p=>p.id === petId);
+  if(!pet) return;
+  pet.gastos = (pet.gastos||[]).filter(x=>x.id !== id);
+  saveDB(); renderSaude(); toast('Removido');
+}
+function delItemCompra(petId, id){
+  const pet = state.pets.find(p=>p.id === petId);
+  if(!pet) return;
+  pet.listaCompras = (pet.listaCompras||[]).filter(x=>x.id !== id);
+  saveDB(); renderSaude();
+}
+function toggleItemCompra(petId, id){
+  const pet = state.pets.find(p=>p.id === petId);
+  if(!pet) return;
+  const it = (pet.listaCompras||[]).find(x=>x.id === id);
+  if(it){ it.done = !it.done; saveDB(); renderSaude(); }
+}
 function delDiario(petId, id){
   const pet = state.pets.find(p=>p.id === petId);
   if(!pet) return;
@@ -3094,27 +3887,31 @@ function delTutor(petId, id){
 function renderRacoes(){
   const el = $('#racoesContent');
   if(state.pets.length === 0){
-    el.innerHTML = `<div class="empty"><span class="e-ic">🍖</span><h4>Nenhum pet</h4></div><button class="btn btn-primary" style="margin-top:14px" onclick="abrirModalPet()">Cadastrar</button>`;
+    el.innerHTML = `<div class="empty"><span class="e-ic">🍖</span><h4>Nenhum pet cadastrado</h4><p>Cadastre um pet para receber recomendações de ração personalizadas.</p></div><button class="btn btn-primary" style="margin-top:14px" onclick="abrirModalPet()">Cadastrar pet</button>`;
     return;
   }
   if(!state.petSelecionado || !state.pets.find(p=>p.id===state.petSelecionado)) state.petSelecionado = state.pets[0].id;
   const pet = state.pets.find(p=>p.id === state.petSelecionado);
-  const racoes = racoesRecomendadas(pet);
-  const faixa = faixaEtaria(pet.nascimento);
-  const porte = porteDoPet(pet);
   let html = '';
   if(state.pets.length > 1){
     html += `<div class="chips" style="margin-bottom:14px">${state.pets.map(p=>`<button class="chip ${p.id===state.petSelecionado?'active':''}" onclick="selecionarPetRacao('${p.id}')" type="button">${p.emoji||'🐾'} ${esc(p.nome)}</button>`).join('')}</div>`;
   }
-  html += `<div class="card anim" style="margin-bottom:16px;background:linear-gradient(140deg,#fff,#FFF9EC);border-color:#FFE9BF"><div style="display:flex;align-items:center;gap:12px"><div class="food-ic" style="background:var(--accent);font-size:21px">🍖</div><div style="flex:1"><div style="font-size:15px;font-weight:800">Plano para ${esc(pet.nome)}</div><div style="font-size:11.5px;color:var(--muted);font-weight:600;margin-top:3px">${pet.especie==='gato'?'Gato':'Cão'} · ${porte} · ${faixa}</div></div></div></div>`;
-  racoes.forEach(r=>{
-    if(!r) return;
-    html += `<div class="food-card anim"><div class="food-head"><div class="food-ic">🥣</div><div><h4>${esc(r.titulo)}</h4><p>${esc(r.desc)}</p></div></div><ul class="food-list">${r.itens.map(i=>`<li>${esc(i)}</li>`).join('')}</ul><div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line)"><div style="font-size:10.5px;font-weight:800;color:var(--muted);margin-bottom:7px">MARCAS</div><div>${r.marcas.map(m=>`<span class="food-brand">${esc(m)}</span>`).join('')}</div></div></div>`;
-  });
-  html += `<button class="btn btn-purple" style="margin-top:10px" onclick="goTo(7)">🤖 Perguntar ao Dr. Pet IA</button>`;
+  const avatar = pet.foto ? `<img src="${pet.foto}" style="width:100%;height:100%;object-fit:cover">` : (pet.emoji||'🐾');
+  const porteLabel = pet.especie === 'gato' ? 'Gato' : (porteDoPet(pet) === 'pequeno' ? 'Pequeno Porte' : porteDoPet(pet) === 'medio' ? 'Médio Porte' : 'Grande Porte');
+  html += `<div class="card anim" style="margin-bottom:16px;background:linear-gradient(140deg,#fff,#FFF9EC);border-color:#FFE9BF">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="pet-avatar ${pet.especie==='gato'?'cat':''}" style="width:52px;height:52px;font-size:26px">${avatar}</div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:800">${esc(pet.nome)}</div><div style="font-size:11.5px;color:var(--muted);font-weight:600;margin-top:3px">${porteLabel} · ${calcIdade(pet.nascimento)}${pet.raca ? ' · '+esc(pet.raca) : ''}</div></div>
+    </div>
+  </div>`;
+  html += renderCalcRacao(pet);
+  html += renderTopRacoesPet(pet);
+  html += renderRacoesPorFiltro(pet);
+  html += `<button class="btn btn-purple" style="margin-top:14px" onclick="goTo(7)">🤖 Perguntar ao Dr. Pet IA</button>`;
   el.innerHTML = html;
 }
 function selecionarPetRacao(id){ state.petSelecionado = id; renderRacoes(); }
+
 function setDoencaEspecie(esp){
   state.doencaEspecie = esp;
   state.doencaRiscoFiltro = 'todos';
@@ -3261,7 +4058,7 @@ function salvarPet(){
     p.nascimento = nasc; p.sexo = formPet.sexo; p.peso = pesoStr; p.emoji = formPet.emoji; p.foto = formPet.foto;
     toast('Atualizado! ✨');
   } else {
-    const pet = normalizarPet({id: uid(), nome, especie: formPet.especie, raca: raca || 'SRD', nascimento: nasc, sexo: formPet.sexo, peso: pesoStr, emoji: formPet.emoji, foto: formPet.foto, vacinas: {}, cuidados: [], pesos: pesoStr ? [{data: hojeISO(), valor: pesoStr}] : [], historico: {consultas:[],exames:[],medicamentos:[],cirurgias:[],alergias:[]}, antipulgas: [], cio: [], diario: [], tutores: [], album: [], criado: new Date().toISOString()});
+    const pet = normalizarPet({id: uid(), nome, especie: formPet.especie, raca: raca || 'SRD', nascimento: nasc, sexo: formPet.sexo, peso: pesoStr, emoji: formPet.emoji, foto: formPet.foto, vacinas: {}, cuidados: [], pesos: pesoStr ? [{data: hojeISO(), valor: pesoStr}] : [], historico: {consultas:[],exames:[],medicamentos:[],cirurgias:[],alergias:[]}, antipulgas: [], vermifugos: [], banhos: [], cio: [], diario: [], tutores: [], album: [], gastos: [], listaCompras: [], criado: new Date().toISOString()});
     state.pets.push(pet);
     state.petSelecionado = pet.id;
     toast('Pet cadastrado! 🎉');
@@ -3287,7 +4084,7 @@ function abrirDetalhePet(id){
       ${quickItem('🤖','#9B5DE5','Dr. Pet IA',`closeModal();goTo(7)`)}
       ${quickItem('📸','#4FB3C4','Álbum',`closeModal();abrirAlbumSelecionado()`)}
       ${quickItem('💳','#25C2B0','Carteira',`closeModal();abrirCarteiraVacina('${p.id}')`)}
-      ${quickItem('🎂','#4A7DFF','Idade',`closeModal();abrirModalIdadeReal('${p.id}')`)}
+      ${quickItem('📄','#E63946','PDF',`closeModal();gerarPDFFicha('${p.id}')`)}
     </div>
     <div class="spec-grid">
       <div class="spec"><div class="spec-l">Nascimento</div><div class="spec-v">${fmtData(p.nascimento)}</div></div>
@@ -3320,7 +4117,7 @@ function abrirDetalheRaca(id){
   const isCat = r.esp === 'gato';
   const body = `
     <div class="breed-hero" style="background:linear-gradient(140deg, ${isCat?'#DDF6F2':'#FFE9DC'}, ${isCat?'#BEEAE3':'#FFD1BC'})">
-      <div class="breed-hero-svg">${avatarRacaSVG(r.id, r.esp)}</div>
+      <div class="breed-hero-svg" style="width:180px;height:180px">${avatarRacaHTML(r)}</div>
       <h2>${esc(r.nome)}</h2><div class="bh-origem">Origem: ${esc(r.origem)}</div>
     </div>
     <div class="spec-grid">
@@ -3441,11 +4238,22 @@ function salvarAlergia(){
 }
 function abrirModalAntipulgas(){
   if(!state.petSelecionado){ toast('Selecione um pet'); return; }
-  const produtos = ['Bravecto','Simparic','NexGard','Frontline','Revolution','Outro'];
-  openModal(headPadrao('Antipulgas', 'Registrar'),
-    `<div class="field"><label>PRODUTO *</label><select class="select" id="hapProduto"><option value="">Selecione</option>${produtos.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('')}</select></div>
-    <div class="field"><label>DATA</label><input class="input" type="date" id="hapData" value="${hojeISO()}"></div>`,
+  const produtos = Object.keys(PRODUTOS_ANTIPULGAS);
+  openModal(headPadrao('Antipulgas', 'Registrar aplicação'),
+    `<div class="field"><label>PRODUTO *</label><select class="select" id="hapProduto" onchange="atualizarInfoProdutoAntipulgas()"><option value="">Selecione</option>${produtos.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('')}</select></div>
+    <div id="antipulgasInfo"></div>
+    <div class="field"><label>DATA</label><input class="input" type="date" id="hapData" value="${hojeISO()}"></div>
+    <div class="calc-note"><span class="cn-ic">ℹ️</span><div>O app calcula automaticamente a próxima dose pelo intervalo da marca.</div></div>`,
     `<button class="btn btn-soft" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="salvarAntipulgas()">Salvar</button>`);
+}
+function atualizarInfoProdutoAntipulgas(){
+  const el = $('#antipulgasInfo');
+  if(!el) return;
+  const nome = $('#hapProduto').value;
+  if(!nome){ el.innerHTML = ''; return; }
+  const info = PRODUTOS_ANTIPULGAS[nome];
+  if(!info){ el.innerHTML = ''; return; }
+  el.innerHTML = `<div class="calc-note" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5;color:#6B31B8"><span class="cn-ic">💊</span><div><b>Princípio ativo:</b> ${esc(info.principio)}<br><b>Apresentação:</b> ${esc(info.apresentacao)}<br><b>Intervalo:</b> ${info.intervalo} dias</div></div>`;
 }
 function salvarAntipulgas(){
   const pet = state.pets.find(p=>p.id === state.petSelecionado);
@@ -3454,7 +4262,140 @@ function salvarAntipulgas(){
   if(!produto){ toast('Selecione o produto'); return; }
   if(!pet.antipulgas) pet.antipulgas = [];
   pet.antipulgas.push({id:uid(), produto, data:$('#hapData').value||hojeISO()});
-  saveDB(); closeModal(); toast('Registrada! 💊'); renderSaude();
+  const iv = getIntervaloProduto(produto, PRODUTOS_ANTIPULGAS);
+  const prox = addDays(new Date(($('#hapData').value||hojeISO()) + 'T12:00:00'), iv);
+  saveDB(); closeModal(); toast('Registrada! 💊 Próxima: ' + fmtData(prox.toISOString().slice(0,10))); renderSaude();
+}
+function abrirModalVermifugo(){
+  if(!state.petSelecionado){ toast('Selecione um pet'); return; }
+  const pet = state.pets.find(p=>p.id === state.petSelecionado);
+  const produtos = Object.keys(PRODUTOS_VERMIFUGO);
+  const meses = idadeDetalhada(pet) ? idadeDetalhada(pet).meses : 99;
+  const filhote = meses < 6;
+  const tipoInicial = filhote ? 'filhote' : 'adulto';
+  state.__vermifugoTipo = tipoInicial;
+  openModal(headPadrao('Vermífugo', 'Registrar aplicação'),
+    `<div class="field"><label>PRODUTO *</label><select class="select" id="hvfProduto" onchange="atualizarInfoVermifugo()"><option value="">Selecione</option>${produtos.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('')}</select></div>
+    <div id="vermifugoInfo"></div>
+    <div class="field"><label>MODO DE TRATAMENTO</label>
+      <div class="tipo-tratamento" id="tipoTratamento">
+        <div class="tt-btn ${tipoInicial==='filhote'?'active':''}" data-tipo="filhote" onclick="setVermifugoTipo('filhote')">
+          <span class="tt-em">🐶</span>
+          <span class="tt-lb">Filhote</span>
+          <span class="tt-sub">15 dias</span>
+        </div>
+        <div class="tt-btn ${tipoInicial==='adulto'?'active':''}" data-tipo="adulto" onclick="setVermifugoTipo('adulto')">
+          <span class="tt-em">🐕</span>
+          <span class="tt-lb">Adulto</span>
+          <span class="tt-sub">90 dias</span>
+        </div>
+        <div class="tt-btn ${tipoInicial==='custom'?'active':''}" data-tipo="custom" onclick="setVermifugoTipo('custom')">
+          <span class="tt-em">⚙️</span>
+          <span class="tt-lb">Custom</span>
+          <span class="tt-sub">Definir</span>
+        </div>
+      </div>
+    </div>
+    <div class="field" id="customIntervaloField" style="display:none"><label>INTERVALO (dias)</label><input class="input" type="number" id="hvfCustomIntervalo" min="1" max="365" value="90"></div>
+    <div class="field"><label>DATA</label><input class="input" type="date" id="hvfData" value="${hojeISO()}"></div>
+    <div class="idade-info-card" id="vermifugoIdadeInfo"><span class="iic-ic">💡</span><div>Filhotes (até 6 meses) geralmente vermifugam a cada 15 dias. Adultos a cada 3 meses.</div></div>`,
+    `<button class="btn btn-soft" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="salvarVermifugo()">Salvar</button>`);
+}
+function setVermifugoTipo(tipo){
+  state.__vermifugoTipo = tipo;
+  $$('#tipoTratamento .tt-btn').forEach(b => b.classList.toggle('active', b.dataset.tipo === tipo));
+  const cf = $('#customIntervaloField');
+  if(cf) cf.style.display = tipo === 'custom' ? 'block' : 'none';
+}
+function atualizarInfoVermifugo(){
+  const el = $('#vermifugoInfo');
+  if(!el) return;
+  const nome = $('#hvfProduto').value;
+  if(!nome){ el.innerHTML = ''; return; }
+  const info = PRODUTOS_VERMIFUGO[nome];
+  if(!info){ el.innerHTML = ''; return; }
+  const ivF = info.intervaloFilhote || 15;
+  const ivA = info.intervalo || 90;
+  el.innerHTML = `<div class="calc-note" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5;color:#6B31B8"><span class="cn-ic">💊</span><div><b>Princípio ativo:</b> ${esc(info.principio)}<br><b>Apresentação:</b> ${esc(info.apresentacao)}<br><b>Intervalo filhote:</b> ${ivF} dias · <b>Adulto:</b> ${ivA} dias</div></div>`;
+}
+function salvarVermifugo(){
+  const pet = state.pets.find(p=>p.id === state.petSelecionado);
+  if(!pet) return;
+  const produto = $('#hvfProduto').value;
+  if(!produto){ toast('Selecione o produto'); return; }
+  const tipo = state.__vermifugoTipo || 'adulto';
+  let iv;
+  if(tipo === 'custom'){
+    iv = parseInt($('#hvfCustomIntervalo').value) || 90;
+  } else if(tipo === 'filhote'){
+    iv = PRODUTOS_VERMIFUGO[produto]?.intervaloFilhote || 15;
+  } else {
+    iv = PRODUTOS_VERMIFUGO[produto]?.intervalo || 90;
+  }
+  if(!pet.vermifugos) pet.vermifugos = [];
+  pet.vermifugos.push({id:uid(), produto, data:$('#hvfData').value||hojeISO(), tipo, intervalo: iv});
+  const prox = addDays(new Date(($('#hvfData').value||hojeISO()) + 'T12:00:00'), iv);
+  saveDB(); closeModal(); toast('Registrado! 🪱 Próximo: ' + fmtData(prox.toISOString().slice(0,10)) + ' (' + iv + 'd)'); renderSaude();
+}
+function abrirModalBanho(){
+  if(!state.petSelecionado){ toast('Selecione um pet'); return; }
+  const freq = freqBanhoPet(state.pets.find(p=>p.id===state.petSelecionado));
+  openModal(headPadrao('Banho & Tosa', 'Registrar'),
+    `<div class="field"><label>TIPO *</label><select class="select" id="hbTipo">
+      <option value="banho">🛁 Banho</option>
+      <option value="tosa">✂️ Tosa</option>
+      <option value="banho_tosa">🛁✂️ Banho + Tosa</option>
+    </select></div>
+    <div class="field"><label>DATA</label><input class="input" type="date" id="hbData" value="${hojeISO()}" max="${hojeISO()}"></div>
+    <div class="field"><label>SHAMPOO</label><input class="input" id="hbShampoo" placeholder="Ex: Hipoalergênico, Neutro..."></div>
+    <div class="field"><label>PROFISSIONAL / LOCAL</label><input class="input" id="hbProf" placeholder="Ex: Pet shop X"></div>
+    <div class="field"><label>OBSERVAÇÃO</label><textarea class="textarea" id="hbNota" placeholder="Como foi?"></textarea></div>
+    <div class="calc-note"><span class="cn-ic">🛁</span><div>Frequência ideal: <b>${freq.label}</b></div></div>`,
+    `<button class="btn btn-soft" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="salvarBanho()">Salvar</button>`);
+}
+function salvarBanho(){
+  const pet = state.pets.find(p=>p.id === state.petSelecionado);
+  if(!pet) return;
+  if(!pet.banhos) pet.banhos = [];
+  pet.banhos.push({id:uid(), tipo:$('#hbTipo').value, data:$('#hbData').value||hojeISO(), shampoo:$('#hbShampoo').value.trim(), profissional:$('#hbProf').value.trim(), nota:$('#hbNota').value.trim()});
+  saveDB(); closeModal(); toast('Registrado! 🛁'); renderSaude();
+}
+function abrirModalGasto(){
+  if(!state.petSelecionado){ toast('Selecione um pet'); return; }
+  const cats = Object.entries(CATEGORIAS_GASTO);
+  openModal(headPadrao('Registrar gasto', 'Acompanhe os custos'),
+    `<div class="field"><label>CATEGORIA</label><select class="select" id="hgCat">${cats.map(([k,v])=>`<option value="${k}">${v.ic} ${v.label}</option>`).join('')}</select></div>
+    <div class="field"><label>DESCRIÇÃO</label><input class="input" id="hgDesc" placeholder="Ex: Ração Premier 15kg"></div>
+    <div class="row-2">
+      <div class="field"><label>VALOR (R$) *</label><input class="input" type="number" step="0.01" min="0" inputmode="decimal" id="hgValor"></div>
+      <div class="field"><label>DATA</label><input class="input" type="date" id="hgData" value="${hojeISO()}"></div>
+    </div>`,
+    `<button class="btn btn-soft" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="salvarGasto()">Salvar</button>`);
+}
+function salvarGasto(){
+  const pet = state.pets.find(p=>p.id === state.petSelecionado);
+  if(!pet) return;
+  const val = parseFloat($('#hgValor').value);
+  if(!val || val <= 0){ toast('Informe o valor'); return; }
+  if(!pet.gastos) pet.gastos = [];
+  pet.gastos.push({id:uid(), categoria:$('#hgCat').value, descricao:$('#hgDesc').value.trim(), valor:String(val), data:$('#hgData').value||hojeISO()});
+  saveDB(); closeModal(); toast('Gasto registrado! 💰'); renderSaude();
+}
+function abrirModalItemCompra(){
+  if(!state.petSelecionado){ toast('Selecione um pet'); return; }
+  openModal(headPadrao('Item de compra', 'Adicionar à lista'),
+    `<div class="field"><label>ITEM *</label><input class="input" id="hicNome" placeholder="Ex: Ração, antipulgas..."></div>
+    <div class="field"><label>QUANTIDADE</label><input class="input" id="hicQtd" placeholder="Ex: 1, 2kg"></div>`,
+    `<button class="btn btn-soft" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="salvarItemCompra()">Adicionar</button>`);
+}
+function salvarItemCompra(){
+  const pet = state.pets.find(p=>p.id === state.petSelecionado);
+  if(!pet) return;
+  const nome = $('#hicNome').value.trim();
+  if(!nome){ toast('Informe o item'); return; }
+  if(!pet.listaCompras) pet.listaCompras = [];
+  pet.listaCompras.push({id:uid(), nome, qtd:$('#hicQtd').value.trim(), done:false});
+  saveDB(); closeModal(); toast('Adicionado! 🛍️'); renderSaude();
 }
 function abrirModalDiario(){
   if(!state.petSelecionado){ toast('Selecione um pet'); return; }
@@ -3559,20 +4500,36 @@ function salvarEscore(){
   saveDB(); closeModal(); toast('Escore salvo! ⚖️'); renderSaude();
 }
 function abrirModalAjuda(){
-  openModal(headPadrao('Como usar o PetVida', 'Guia rápido'),
-    `<div class="blk" style="background:linear-gradient(140deg,#E0F4F8,#C8E8EE);border-color:#B8E3EB">
-      <h4><span class="b-ic" style="background:rgba(79,179,196,.20);color:#2A8A99">💉</span>Intervalos por marca</h4>
-      <p>Cada marca tem seu intervalo entre doses. Ao aplicar, o app recalcula automaticamente a próxima dose usando o intervalo da marca escolhida (ex: Vanguard = 3 sem, Recombitek = 4 sem).</p>
+  openModal(headPadrao('Como usar o PetVida', 'Guia rápido — v10.2'),
+    `<div class="blk" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5">
+      <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">💊</span>Medicações expandidas</h4>
+      <p>Base com <strong>Vermi Plus (VetBras), Drontal Plus, Endogard, Bravecto Plus, Simparic Plus, NexGard Spectra</strong> e mais. Cada produto tem princípio ativo e intervalo específico.</p>
     </div>
     <div class="blk" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5">
-      <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">☁️</span>Nuvem Firebase</h4>
-      <p>Toque no ícone <strong>☁️</strong> no topo e ative a sincronização. Escolha <strong>Anônimo</strong> (1 aparelho) ou <strong>E-mail/senha</strong> (vários).</p>
+      <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">🪱</span>Intervalos filhote/adulto</h4>
+      <p>Ao aplicar vermífugo, escolha <strong>Filhote (15 dias)</strong>, <strong>Adulto (90 dias)</strong> ou <strong>Custom</strong>. O app calcula automaticamente a próxima dose.</p>
     </div>
-    <div class="blk" style="background:linear-gradient(140deg,#FFF2E0,#FFE0B8);border-color:#FFD9A8">
-      <h4><span class="b-ic" style="background:rgba(232,155,78,.20);color:#B47800">🎨</span>Novo tema</h4>
-      <p>O app agora usa <strong>turquesa</strong> inspirado no ícone, com laranja (cachorro) e vermelho (coração) como acentos.</p>
+    <div class="blk" style="background:linear-gradient(140deg,#FFF9EC,#FFEFD0);border-color:#FFE4B5">
+      <h4><span class="b-ic" style="background:rgba(232,155,78,.20);color:#B47800">🏆</span>Top 10 rações por pet</h4>
+      <p>Na aba <strong>Rações</strong>, veja as 10 mais usadas para o porte e idade do seu pet, com foto, proteína e preço.</p>
     </div>
-    <div class="blk warn"><h4><span class="b-ic">⚕️</span>Aviso</h4><p>Não substitui consulta veterinária. Consulte sempre a bula do fabricante.</p></div>
+    <div class="blk" style="background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border-color:#C8E8EE">
+      <h4><span class="b-ic" style="background:rgba(79,179,196,.20);color:#2A8A99">📏</span>Curva de crescimento</h4>
+      <p>Compare o peso real do filhote com o padrão da raça/porte.</p>
+    </div>
+    <div class="blk" style="background:linear-gradient(140deg,#E4F8F5,#D0F2EB);border-color:#A8E4D8">
+      <h4><span class="b-ic" style="background:rgba(37,194,176,.20);color:#12897A">🛁</span>Banho, antipulgas e vermífugo</h4>
+      <p>Registre tudo com alerta da próxima dose.</p>
+    </div>
+    <div class="blk" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5">
+      <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">🛍️</span>Compras e gastos</h4>
+      <p>Lista de compras com check e histórico de gastos com gráfico mensal.</p>
+    </div>
+    <div class="blk">
+      <h4><span class="b-ic">📄</span>PDF</h4>
+      <p>Gere PDF da <strong>carteira de vacinação</strong> ou da <strong>ficha completa</strong>.</p>
+    </div>
+    <div class="blk warn"><h4><span class="b-ic">⚕️</span>Aviso</h4><p>Não substitui consulta veterinária.</p></div>
     <div style="text-align:center;font-size:11px;color:var(--muted);font-weight:700;padding:10px 0">PetVida <strong style="color:var(--primary-d)">${APP_VERSION}</strong> · ${APP_VERSION_DATE}</div>`,
     `<button class="btn btn-primary" onclick="closeModal()">Entendi</button>`);
 }
@@ -3590,25 +4547,25 @@ function init(){
   atualizarFAB();
   atualizarBadgeBackup();
   atualizarBadgeCloud();
-  console.log(`🐾 PetVida ${APP_VERSION} iniciado`);
-  console.log(`🎨 Tema turquesa aplicado`);
-  console.log(`💉 Intervalos por marca: ATIVOS`);
-  console.log(`⚖️ Escore corporal: ATIVO`);
-  console.log(`📚 ${RACAS.length} raças (${RACAS.filter(r=>r.esp==='cao').length} cães, ${RACAS.filter(r=>r.esp==='gato').length} gatos)`);
-  console.log(`🩺 ${DOENCAS.cao.length + DOENCAS.gato.length} doenças (${DOENCAS.cao.length} cães, ${DOENCAS.gato.length} gatos)`);
+  console.log('🐾 PetVida ' + APP_VERSION + ' iniciado');
+  console.log('💊 v10.2: ' + Object.keys(PRODUTOS_VERMIFUGO).length + ' vermífugos e ' + Object.keys(PRODUTOS_ANTIPULGAS).length + ' antipulgas cadastrados');
+  console.log('🪱 Vermi Plus (VetBras) + intervalos filhote (15d) / adulto (90d)');
+  console.log('🍖 Top 10 rações por pet: ATIVO (' + RACOES_DB.length + ' rações cadastradas)');
+  console.log('🔧 Swipe corrigido (11 áreas protegidas)');
+  console.log('📚 ' + RACAS.length + ' raças · ' + (DOENCAS.cao.length + DOENCAS.gato.length) + ' doenças');
   if(fbAuth.uid && navigator.onLine){
     setTimeout(()=> { sincronizarInteligente().catch(()=>{}); }, 1500);
   }
 }
 init();
 let lastTouch = 0;
-document.addEventListener('touchend', e=>{
+document.addEventListener('touchend', function(e){
   const now = Date.now();
   if(now <= lastTouch + 300 && !e.target.closest('.chat-input') && !e.target.closest('input') && !e.target.closest('textarea') && !e.target.closest('label')) e.preventDefault();
   lastTouch = now;
 }, {passive:false});
 window.addEventListener('beforeunload', saveDB);
-setInterval(()=>{
+setInterval(function(){
   if(state.pets.length > 0) fazerBackupAutomatico('Automático');
 }, 30 * 60 * 1000);
 </script>
