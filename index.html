@@ -103,7 +103,6 @@ ul{margin:0;padding:0;list-style:none}
 .badge-info{background:var(--blue-soft);color:#3157C9}
 .badge-purple{background:var(--purple-soft);color:#6B31B8}
 .badge-neutro{background:#F1F4F9;color:#66738A}
-.badge-dias{background:linear-gradient(135deg,#FFF2E0,#FFE0B8);color:#8A6420}
 .pet-chevron{color:#C7CFDD;flex-shrink:0}
 .fab{position:fixed;right:18px;bottom:calc(var(--tab-h) + var(--safe-b) + 16px);width:56px;height:56px;border-radius:19px;z-index:35;background:linear-gradient(135deg,#5EC0D0,#2A8A99);display:grid;place-items:center;box-shadow:0 12px 28px rgba(42,138,153,.42);cursor:pointer}
 .fab svg{width:26px;height:26px;fill:#fff}
@@ -188,21 +187,6 @@ ul{margin:0;padding:0;list-style:none}
 .bar{width:100%;max-width:34px;border-radius:9px 9px 4px 4px;background:linear-gradient(180deg,#7DD0DE,#4FB3C4);min-height:6px}
 .bar-lbl{font-size:9.5px;font-weight:800;color:var(--muted)}
 .bar-val{font-size:10px;font-weight:800;color:var(--primary-d)}
-/* v10.5 — Lista de pesagens com edição */
-.peso-lista{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9);overflow:hidden;margin-bottom:12px}
-.peso-lista-head{padding:13px 14px 8px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-.peso-item{display:flex;align-items:center;gap:11px;padding:11px 14px;border-top:1px solid var(--line);position:relative}
-.peso-item:first-of-type{border-top:1px solid var(--line)}
-.peso-item.atual{background:linear-gradient(140deg,#F6FDFB,#E4F8F5)}
-.peso-item .pi-badge{font-size:8.5px;font-weight:800;background:var(--secondary-soft);color:#12897A;padding:2px 6px;border-radius:6px;text-transform:uppercase;letter-spacing:.3px;flex-shrink:0}
-.peso-item .pi-data{font-size:11.5px;font-weight:700;color:var(--muted);flex-shrink:0;min-width:78px}
-.peso-item .pi-valor{font-size:14px;font-weight:800;color:var(--primary-d);flex:1;text-align:right}
-.peso-item .pi-actions{display:flex;gap:5px;flex-shrink:0}
-.peso-btn{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;cursor:pointer;transition:transform .13s ease}
-.peso-btn:active{transform:scale(.9)}
-.peso-btn.edit{background:var(--blue-soft);color:#3157C9}
-.peso-btn.del{background:var(--danger-soft);color:#C42B50}
-.peso-btn svg{width:15px;height:15px;fill:currentColor}
 .food-card{background:var(--card);border-radius:var(--radius);padding:15px;box-shadow:var(--shadow);margin-bottom:11px;border:1px solid rgba(228,238,242,.9)}
 .food-head{display:flex;align-items:center;gap:11px;margin-bottom:11px}
 .food-ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:20px;background:var(--accent-soft);flex-shrink:0}
@@ -381,7 +365,6 @@ ul{margin:0;padding:0;list-style:none}
 .idade-hero .ih-humano{font-size:14px;font-weight:700;color:rgba(255,255,255,.88)}
 .idade-hero .ih-humano strong{font-size:18px;font-weight:800;color:#fff}
 .idade-hero .ih-faixa{display:inline-block;font-size:10.5px;font-weight:800;text-transform:uppercase;background:rgba(255,255,255,.22);padding:5px 12px;border-radius:9px;margin-top:14px}
-.idade-hero .ih-dias{display:block;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.85);margin-top:10px}
 .rec-idade{margin-bottom:12px;background:#fff;border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9)}
 .rec-idade .re-head{display:flex;align-items:center;gap:9px;margin-bottom:10px}
 .rec-idade .re-ic{width:32px;height:32px;border-radius:11px;display:grid;place-items:center;font-size:15px;flex-shrink:0}
@@ -662,8 +645,134 @@ ul{margin:0;padding:0;list-style:none}
 .tt-btn .tt-sub{display:block;font-size:8.5px;font-weight:700;color:var(--muted);margin-top:2px}
 .protocolo-info{background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border:1.5px solid #C8E8EE;border-radius:12px;padding:12px 14px;font-size:11.5px;font-weight:600;color:#2A8A99;line-height:1.55;margin-bottom:14px;display:flex;gap:9px;align-items:flex-start}
 .protocolo-info .pi-ic{font-size:16px;flex-shrink:0}
-.dias-vida-badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;background:linear-gradient(135deg,#FFF2E0,#FFE0B8);color:#8A6420;padding:5px 11px;border-radius:9px;letter-spacing:.2px}
-.dias-vida-badge .dvb-n{font-weight:900}
+/* ============ v10.5 — DIAS DE VIDA + PESO ============ */
+.dias-hero{
+  background:linear-gradient(140deg,#FFFFFF,#F0F9FB);
+  border:1.5px solid #C8E8EE;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.dias-hero::before{
+  content:"";
+  position:absolute;
+  right:-30px;top:-30px;
+  width:100px;height:100px;
+  border-radius:50%;
+  background:rgba(79,179,196,.08);
+}
+.dias-hero .dias-ic{
+  width:54px;height:54px;
+  border-radius:17px;
+  background:linear-gradient(135deg,#5EC0D0,#2A8A99);
+  color:#fff;
+  display:grid;place-items:center;
+  font-size:26px;
+  flex-shrink:0;
+  box-shadow:0 6px 14px rgba(42,138,153,.30);
+  position:relative;z-index:2;
+}
+.dias-hero .dias-body{flex:1;position:relative;z-index:2}
+.dias-hero .dias-num{
+  font-size:26px;
+  font-weight:800;
+  color:var(--primary-d);
+  line-height:1.05;
+  letter-spacing:-.5px;
+}
+.dias-hero .dias-label{
+  font-size:11.5px;
+  font-weight:700;
+  color:var(--muted);
+  margin-top:3px;
+}
+.dias-hero .dias-sub{
+  font-size:10.5px;
+  font-weight:700;
+  color:var(--muted);
+  margin-top:6px;
+  padding-top:6px;
+  border-top:1px dashed #D5DCE8;
+}
+.peso-chart-card{background:#fff;border-radius:var(--radius);padding:15px;box-shadow:var(--shadow);border:1px solid rgba(228,238,242,.9);margin-bottom:12px}
+.peso-resumo{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.peso-res-item{background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border-radius:14px;padding:11px 6px;text-align:center;border:1px solid #C8E8EE}
+.peso-res-v{font-size:16px;font-weight:800;color:var(--primary-d);line-height:1}
+.peso-res-l{font-size:8.5px;font-weight:800;color:var(--muted);text-transform:uppercase;margin-top:5px;letter-spacing:.3px}
+.peso-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.peso-item{
+  background:#fff;
+  border-radius:14px;
+  padding:11px 13px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(228,238,242,.9);
+  display:flex;
+  align-items:center;
+  gap:11px;
+  position:relative;
+}
+.peso-item .peso-num{
+  width:38px;height:38px;
+  border-radius:12px;
+  background:linear-gradient(140deg,#DDF0F4,#C8E8EE);
+  color:var(--primary-d);
+  font-weight:800;
+  font-size:12px;
+  display:grid;place-items:center;
+  flex-shrink:0;
+}
+.peso-item.peso-atual .peso-num{background:linear-gradient(135deg,#5EC0D0,#2A8A99);color:#fff;box-shadow:0 4px 10px rgba(42,138,153,.30)}
+.peso-item .peso-body{flex:1;min-width:0}
+.peso-item .peso-val{
+  font-size:14px;
+  font-weight:800;
+  color:#1B2434;
+  line-height:1.2;
+}
+.peso-item .peso-data{
+  font-size:10.5px;
+  font-weight:700;
+  color:var(--muted);
+  margin-top:3px;
+}
+.peso-delta{
+  font-size:10.5px;
+  font-weight:800;
+  padding:3px 7px;
+  border-radius:8px;
+  flex-shrink:0;
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  white-space:nowrap;
+}
+.peso-delta.up{background:var(--secondary-soft);color:#12897A}
+.peso-delta.down{background:var(--danger-soft);color:#C42B50}
+.peso-delta.neutral{background:#F1F4F9;color:#66738A}
+.peso-actions{display:flex;gap:5px;flex-shrink:0}
+.peso-actions button{
+  width:30px;height:30px;
+  border-radius:10px;
+  display:grid;place-items:center;
+  transition:transform .15s ease;
+}
+.peso-actions button:active{transform:scale(.9)}
+.peso-actions .pa-edit{background:var(--blue-soft);color:#3157C9}
+.peso-actions .pa-del{background:var(--danger-soft);color:#C42B50}
+.peso-actions svg{width:14px;height:14px;fill:currentColor}
+/* ==== v10.5 — Dias badge na ficha do pet ==== */
+.ficha-dias{background:linear-gradient(140deg,#FFF9EC,#FFEFD0);border:1.5px solid #FFE4B5;border-radius:16px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.ficha-dias .fd-ic{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#FFB020,#FFD060);display:grid;place-items:center;font-size:20px;flex-shrink:0;color:#fff;box-shadow:0 4px 12px rgba(255,176,32,.30)}
+.ficha-dias .fd-body{flex:1}
+.ficha-dias .fd-num{font-size:22px;font-weight:800;color:#8A6420;line-height:1}
+.ficha-dias .fd-label{font-size:11px;font-weight:700;color:#8A6420;opacity:.85;margin-top:3px}
+.ficha-dias .fd-sub{font-size:10px;font-weight:700;color:#8A6420;opacity:.75;margin-top:4px}
 @media(max-width:340px){
   .quick span{font-size:8.5px}
   .tab span{font-size:8px}
@@ -672,7 +781,8 @@ ul{margin:0;padding:0;list-style:none}
   .calc-res-v{font-size:18px}
   .racao-foto{width:60px;height:60px;font-size:26px}
   .racao-nome{font-size:11.5px}
-  .peso-item .pi-data{min-width:64px;font-size:10.5px}
+  .dias-hero .dias-num{font-size:22px}
+  .peso-resumo{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -900,6 +1010,9 @@ function saveDB(){
     if(String(e).indexOf('QuotaExceeded') !== -1) toast('⚠️ Armazenamento cheio.');
   }
 }
+function gerarIdPeso(){
+  return 'w' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+}
 function normalizarPet(p){
   if(!p.historico) p.historico = {consultas:[],exames:[],medicamentos:[],cirurgias:[],alergias:[]};
   if(!p.antipulgas) p.antipulgas = [];
@@ -909,14 +1022,16 @@ function normalizarPet(p){
   if(!p.tutores) p.tutores = [];
   if(!p.vacinas) p.vacinas = {};
   if(!p.pesos) p.pesos = [];
+  // v10.5 — garante ID único em cada peso (migração)
+  else {
+    p.pesos.forEach((peso, idx) => {
+      if(!peso.id) peso.id = 'w' + (Date.now() + idx).toString(36) + Math.random().toString(36).slice(2,5);
+    });
+  }
   if(!p.cuidados) p.cuidados = [];
   if(!p.album) p.album = [];
   if(!p.gastos) p.gastos = [];
   if(!p.listaCompras) p.listaCompras = [];
-  // v10.5: garantir ID em cada pesagem (compatibilidade com dados antigos)
-  p.pesos.forEach(pe => {
-    if(!pe.id) pe.id = 'pe' + Math.random().toString(36).slice(2,7) + Date.now().toString(36).slice(-3);
-  });
   return p;
 }
 function loadDB(){
@@ -1465,15 +1580,6 @@ function hojeISO(){
 function addWeeks(date, weeks){ const d = new Date(date.getTime()); d.setDate(d.getDate() + weeks*7); return d; }
 function addDays(date, days){ const d = new Date(date.getTime()); d.setDate(d.getDate() + days); return d; }
 function diffDias(a, b){ return Math.round((a - b) / 86400000); }
-
-/* ✅ v10.5 — Dias de vida exatos */
-function calcDiasVida(nascimento){
-  if(!nascimento) return 0;
-  const nasc = new Date(nascimento + 'T12:00:00');
-  const hoje = new Date();
-  hoje.setHours(12,0,0,0);
-  return Math.max(0, Math.floor((hoje - nasc) / 86400000));
-}
 function calcIdade(nascimento){
   if(!nascimento) return '—';
   const nasc = new Date(nascimento + 'T12:00:00');
@@ -1488,6 +1594,15 @@ function calcIdade(nascimento){
   if(anos === 0) return m + (m===1?' mês':' meses');
   if(m === 0) return anos + (anos===1?' ano':' anos');
   return anos + 'a ' + m + 'm';
+}
+/* ✅ v10.5 — Dias de vida exatos */
+function calcDiasVida(nascimento){
+  if(!nascimento) return 0;
+  const nasc = new Date(nascimento + 'T12:00:00');
+  if(isNaN(nasc)) return 0;
+  const hoje = new Date();
+  hoje.setHours(12,0,0,0);
+  return Math.max(0, Math.round((hoje - nasc) / 86400000));
 }
 function idadeHumana(pet){
   if(!pet.nascimento) return '—';
@@ -1537,7 +1652,7 @@ function idadeDetalhada(pet){
   else if(anos === 0){ animalTxt = mesesRestantes + (mesesRestantes === 1 ? ' mês' : ' meses'); }
   else if(mesesRestantes === 0){ animalTxt = anos + (anos === 1 ? ' ano' : ' anos'); }
   else { animalTxt = anos + (anos === 1 ? ' ano' : ' anos') + ' e ' + mesesRestantes + (mesesRestantes === 1 ? ' mês' : ' meses'); }
-  return { meses, anos, mesesRestantes, animalTxt, humano: idadeHumana(pet), faixa: faixaEtaria(pet.nascimento), dias: calcDiasVida(pet.nascimento) };
+  return { meses, anos, mesesRestantes, animalTxt, humano: idadeHumana(pet), faixa: faixaEtaria(pet.nascimento) };
 }
 function calcularIdadeNaData(nascimento, dataFoto){
   if(!nascimento || !dataFoto) return '';
@@ -1606,7 +1721,7 @@ function redimensionarImagem(dataUrl, maxSize, qualidade, cb){
   img.src = dataUrl;
 }
 
-/* PROTOCOLO COMPLETO */
+/* PROTOCOLO v10.4 */
 const PROTOCOLO = {
   cao: [
     {id:'verm1',    nome:'Vermifugação — 1ª dose', sem:2,  dias:15,  obs:'Aos 15 dias de vida.',                         tipo:'vermifugo'},
@@ -2329,8 +2444,7 @@ const IA_KB = [
   {tipo:'info',peso:7,palavras:['ração','alimentar','o que dar'],resposta:'🍖 **Alimentação:**\n\n• Filhotes: 3-4 refeições/dia\n• Adultos: 2 refeições\n• Sêniores: condroprotetores\n\n💧 Água sempre!'},
   {tipo:'info',peso:6,palavras:['chocolate','uva','abacate','cebola'],resposta:'🚫 **Tóxicos:**\n\nChocolate, cebola, alho, uva, abacate, xilitol, cafeína, álcool.\n\nSe comeu: **0800 722 6001**.'},
   {tipo:'dica',peso:7,palavras:['banho','frequência'],resposta:'🚿 **Banhos:**\n\n• Pelo curto: 15-30 dias\n• Pelo longo: 7-15 dias\n• Gatos: não precisam'},
-  {tipo:'info',peso:8,palavras:['vermífugo','vermifugação','verme'],resposta:'🪱 **Protocolo de Vermifugação:**\n\n**1ª dose:** 15 dias de vida\n**2ª dose:** 30 dias (+15d)\n**3ª dose:** 45 dias (+15d)\n**Reforço:** 75 dias (+30d) e mensal até 6 meses\n\n**Depois:** inicia as vacinas V10\n\n⚠️ Use produto específico para filhotes (Vermi Plus, Drontal Plus, Endogard...)'},
-  {tipo:'dica',peso:7,palavras:['dias de vida','idade exata'],resposta:'🎂 **Dias de vida:**\n\nNa ficha do pet você vê a idade exata em **dias**, além dos meses e anos. Ex: 45 dias = 1 mês e 15 dias.\n\nÚtil para acompanhar **filhotes** e o **protocolo vacinal**.'}
+  {tipo:'info',peso:8,palavras:['vermífugo','vermifugação','verme'],resposta:'🪱 **Protocolo de Vermifugação:**\n\n**1ª dose:** 15 dias de vida\n**2ª dose:** 30 dias (+15d)\n**3ª dose:** 45 dias (+15d)\n**Reforço:** 75 dias (+30d) e mensal até 6 meses\n\n**Depois:** inicia as vacinas V10\n\n⚠️ Use produto específico para filhotes (Vermi Plus, Drontal Plus, Endogard...)'}
 ];
 function processarPerguntaLocal(pergunta, petCtx){
   const t = (pergunta || '').toLowerCase().trim();
@@ -2539,7 +2653,7 @@ function renderChat(){
   const status = $('#iaStatus'); const dot = $('#iaStatusDot');
   if(status) status.textContent = st.txt;
   if(dot) dot.className = 'ia-dot-' + (st.cor === 'online' ? 'online' : st.cor === 'warn' ? 'warn' : 'off');
-  const sugestoes = ['Qual o protocolo de vermifugação?','Quais vacinas meu pet precisa?','Como vejo os dias de vida?','Meu pet está vomitando, o que fazer?','Qual a melhor ração?','Sinais de emergência veterinária'];
+  const sugestoes = ['Qual o protocolo de vermifugação?','Quais vacinas meu pet precisa?','Meu pet está vomitando, o que fazer?','Qual a melhor ração?','Meu cão está com tosse','Sinais de emergência veterinária'];
   if(sug) sug.innerHTML = `<div class="sug-row">${sugestoes.map(s=>`<button class="sug-chip" onclick="enviarSugestao('${esc(s).replace(/'/g,"\\'")}')">${esc(s)}</button>`).join('')}</div>`;
   if(state.chat.length === 0){
     const statusInfo = st.cor === 'online' ? 'ok' : st.cor === 'warn' ? 'warn' : 'err';
@@ -2552,7 +2666,7 @@ function renderChat(){
         <div class="cw-cat">
           <button class="cw-cat-btn" onclick="enviarSugestao('Qual o protocolo de vermifugação?')"><div class="cw-cat-ic" style="background:#F3EAFE;color:#6B31B8">🪱</div><div class="cw-cat-body"><div class="cw-cat-titulo">Vermifugação</div><div class="cw-cat-desc">3 doses + reforço</div></div><svg class="cw-cat-arrow" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></button>
           <button class="cw-cat-btn" onclick="enviarSugestao('Quais vacinas meu pet precisa?')"><div class="cw-cat-ic" style="background:#EAF0FF;color:#3157C9">💉</div><div class="cw-cat-body"><div class="cw-cat-titulo">Vacinas</div><div class="cw-cat-desc">Protocolos</div></div><svg class="cw-cat-arrow" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></button>
-          <button class="cw-cat-btn" onclick="enviarSugestao('Como vejo os dias de vida?')"><div class="cw-cat-ic" style="background:#FFF2E0;color:#B47800">🎂</div><div class="cw-cat-body"><div class="cw-cat-titulo">Dias de vida</div><div class="cw-cat-desc">Idade exata</div></div><svg class="cw-cat-arrow" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></button>
+          <button class="cw-cat-btn" onclick="enviarSugestao('Meu pet está com sintomas estranhos')"><div class="cw-cat-ic" style="background:#FFE5E8;color:#C42B50">🚑</div><div class="cw-cat-body"><div class="cw-cat-titulo">Sintomas</div><div class="cw-cat-desc">Emergências</div></div><svg class="cw-cat-arrow" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></button>
         </div>
         ${aviso}
       </div>`;
@@ -2562,7 +2676,7 @@ function renderChat(){
     <div class="msg-row ${m.role}">
       <div class="msg-avatar">${m.role === 'ia' ? '🐾' : '👤'}</div>
       <div>
-        <div class="msg-bubble">${m.tipo ? `<span class="msg-tag ${m.tipo}">${rotuloTipo(m.tipo, m.fonte, m.mcomGrounding)}</span><br>` : ''}${formatarMensagem(m.texto)}</div>
+        <div class="msg-bubble">${m.tipo ? `<span class="msg-tag ${m.tipo}">${rotuloTipo(m.tipo, m.fonte, m.comGrounding)}</span><br>` : ''}${formatarMensagem(m.texto)}</div>
         <div class="msg-time">${m.hora || ''}</div>
       </div>
     </div>
@@ -2759,7 +2873,8 @@ function renderPage(i){
     'input', 'textarea', 'select', 'label',
     '.ps-body', '.ps-item',
     '.racao-card', '.racao-foto',
-    '.peso-item', '.peso-btn'
+    '.peso-list', '.peso-item',
+    '.peso-actions'
   ];
   function estaProtegido(el){
     if(!el || !el.closest) return false;
@@ -2863,8 +2978,11 @@ function calcularDueVacina(pet, v){
         intervaloDias = Math.max(1, getIntervaloDiasItem(v) - getIntervaloDiasItem(ant));
       } else {
         const semanas = getIntervaloSemanasMarca(pet.especie, ant.tipo, antAplicada.marca);
-        if(semanas !== null && semanas > 0){ intervaloDias = semanas * 7; }
-        else { intervaloDias = Math.max(1, getIntervaloDiasItem(v) - getIntervaloDiasItem(ant)); }
+        if(semanas !== null && semanas > 0){
+          intervaloDias = semanas * 7;
+        } else {
+          intervaloDias = Math.max(1, getIntervaloDiasItem(v) - getIntervaloDiasItem(ant));
+        }
       }
       return addDays(baseDate, intervaloDias);
     }
@@ -2877,8 +2995,11 @@ function calcularDueVacina(pet, v){
     if(antAplicada && antAplicada.data){
       const baseDate = new Date(antAplicada.data + 'T12:00:00');
       let intervaloDias;
-      if(isVerm){ intervaloDias = getIntervaloDiasItem(v); }
-      else { intervaloDias = Math.max(1, getIntervaloDiasItem(v) - getIntervaloDiasItem(ant)); }
+      if(isVerm){
+        intervaloDias = getIntervaloDiasItem(v);
+      } else {
+        intervaloDias = Math.max(1, getIntervaloDiasItem(v) - getIntervaloDiasItem(ant));
+      }
       return addDays(baseDate, intervaloDias);
     }
   }
@@ -3004,11 +3125,12 @@ function quickItem(emoji, cor, label, fn){
 }
 function blocoDica(){
   const dicas = [
-    {tag:'🎂 v10.5', t:'Dias de vida exatos', p:'Veja quantos dias seu pet tem de vida na ficha dele. Ideal para acompanhar filhotes!'},
-    {tag:'⚖️ v10.5', t:'Editar/Excluir pesagem', p:'Registrou um peso errado? Agora você pode editar ou excluir na aba Saúde → Visão.'},
-    {tag:'🪱 v10.4', t:'Protocolo de vermifugação completo', p:'3 doses (15/30/45 dias) + reforço mensal. V10 começa depois.'},
-    {tag:'🍖 v10.1', t:'Top 10 rações por pet', p:'Recomendações personalizadas por porte, idade e raça.'},
-    {tag:'📄 v10', t:'PDF da carteira', p:'Gere o PDF da carteira de vacinação e da ficha completa.'}
+    {tag:'⚖️ v10.5', t:'Gestão de peso completa', p:'Edite ou exclua pesagens erradas e veja a evolução (↑ ganho / ↓ perda) em cada registro.'},
+    {tag:'🎂 v10.5', t:'Dias de vida exatos', p:'Veja quantos dias de vida seu pet tem na ficha dele. Precisão total!'},
+    {tag:'🪱 v10.4', t:'Protocolo de vermifugação completo', p:'Agora com 3 doses (15/30/45 dias) + reforço mensal. V10 começa depois.'},
+    {tag:'🍖 v10.1', t:'Top 10 rações por pet', p:'Recomendações personalizadas por porte, idade e raça, com fotos e preços.'},
+    {tag:'📏 v10', t:'Curva de crescimento', p:'Compare o peso real do seu filhote com o padrão esperado.'},
+    {tag:'📄 v10', t:'PDF da carteira', p:'Gere o PDF da carteira de vacinação e da ficha completa do pet.'}
   ];
   const d = dicas[Math.floor(Math.random()*dicas.length)];
   return `<div class="sec-head"><div class="sec-title"><span class="dot"></span>Dica</div></div>
@@ -3040,13 +3162,11 @@ function petCardHTML(p, i){
   const esp = p.especie === 'gato' ? 'Gato' : 'Cão';
   const avatar = p.foto ? `<img src="${p.foto}" alt="${esc(p.nome)}">` : (p.emoji || (p.especie==='gato'?'🐈':'🐕'));
   const albumCount = (p.album || []).length;
-  const dias = calcDiasVida(p.nascimento);
-  // v10.5: mostrar dias de vida no card
   return `<div class="pet-card anim" onclick="abrirDetalhePet('${p.id}')">
     <div class="pet-avatar ${p.especie==='gato'?'cat':''}">${avatar}</div>
     <div class="pet-info">
       <div class="pet-name">${esc(p.nome)}</div>
-      <div class="pet-meta">${esp} · ${esc(p.raca || 'SRD')} · ${calcIdade(p.nascimento)} · ${dias} dias</div>
+      <div class="pet-meta">${esp} · ${esc(p.raca || 'SRD')} · ${calcIdade(p.nascimento)}</div>
       <div class="pet-badges">${badge}${albumCount > 0 ? `<span class="badge badge-info">📸 ${albumCount}</span>` : ''}</div>
     </div>
     <div class="pet-chevron"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></div>
@@ -3105,7 +3225,7 @@ function renderVacinas(){
   html += `<div class="card anim" style="margin-bottom:16px;padding:14px">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
       <div class="pet-avatar ${pet.especie==='gato'?'cat':''}" style="width:46px;height:46px;font-size:23px;border-radius:14px">${pet.foto?`<img src="${pet.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">`:(pet.emoji||'🐾')}</div>
-      <div style="flex:1"><div style="font-size:15px;font-weight:800">${esc(pet.nome)}</div><div style="font-size:11.5px;color:var(--muted);font-weight:600;margin-top:2px">${fmtData(pet.nascimento)} · ${calcIdade(pet.nascimento)} · ${calcDiasVida(pet.nascimento)} dias</div></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:800">${esc(pet.nome)}</div><div style="font-size:11.5px;color:var(--muted);font-weight:600;margin-top:2px">${fmtData(pet.nascimento)} · ${calcIdade(pet.nascimento)}</div></div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
       <div style="background:var(--secondary-soft);border-radius:12px;padding:9px 4px"><div style="font-size:17px;font-weight:800;color:#12897A">${res.ok}</div><div style="font-size:9.5px;font-weight:800;color:#12897A">OK</div></div>
@@ -3326,7 +3446,7 @@ function abrirCarteiraVacina(petId){
       <div class="carteira-pet">
         <div class="cp-avatar ${pet.especie==='gato'?'cat':''}">${avatar}</div>
         <div class="cp-info"><div class="cp-nome">${esc(pet.nome)}</div><div class="cp-sub">${pet.especie==='gato'?'Felino':'Canino'} · ${esc(pet.raca||'SRD')}</div>
-        <div class="cp-linha"><span class="cp-chip">${calcIdade(pet.nascimento)}</span><span class="cp-chip">${calcDiasVida(pet.nascimento)} dias</span><span class="cp-chip">${pet.sexo==='femea'?'Fêmea':'Macho'}</span>${pet.peso?`<span class="cp-chip">${esc(pet.peso)} kg</span>`:''}</div></div>
+        <div class="cp-linha"><span class="cp-chip">${calcIdade(pet.nascimento)}</span><span class="cp-chip">${pet.sexo==='femea'?'Fêmea':'Macho'}</span>${pet.peso?`<span class="cp-chip">${esc(pet.peso)} kg</span>`:''}</div></div>
       </div>
       <div class="carteira-info">
         <div class="ci-item"><div class="ci-label">Nascimento</div><div class="ci-valor">${fmtData(pet.nascimento)}</div></div>
@@ -3358,7 +3478,16 @@ function abrirModalIdadeReal(petId){
   if(!info){ toast('Data não informada'); return; }
   const recs = RECOMENDACOES_IDADE[pet.especie][info.faixa];
   const faixaLabel = {filhote:'Filhote', junior:'Júnior', adulto:'Adulto', senior:'Sênior'}[info.faixa];
-  let html = `<div class="idade-hero"><span class="ih-tag">${pet.especie==='gato'?'Felino':'Canino'}</span><span class="ih-emoji">${recs.emoji}</span><div class="ih-animal">${esc(info.animalTxt)}</div><div class="ih-humano">equivale a <strong>${info.humano}</strong></div><span class="ih-faixa">${faixaLabel}</span><span class="ih-dias">🎂 ${info.dias} dias de vida</span></div>`;
+  const dias = calcDiasVida(pet.nascimento);
+  let html = `<div class="idade-hero"><span class="ih-tag">${pet.especie==='gato'?'Felino':'Canino'}</span><span class="ih-emoji">${recs.emoji}</span><div class="ih-animal">${esc(info.animalTxt)}</div><div class="ih-humano">equivale a <strong>${info.humano}</strong></div><span class="ih-faixa">${faixaLabel}</span></div>`;
+  html += `<div class="dias-hero">
+    <div class="dias-ic">📆</div>
+    <div class="dias-body">
+      <div class="dias-num">${dias.toLocaleString('pt-BR')} dias</div>
+      <div class="dias-label">de vida (exatos)</div>
+      <div class="dias-sub">≈ ${(dias/30.44).toFixed(1)} meses · ${(dias/365.25).toFixed(2)} anos</div>
+    </div>
+  </div>`;
   recs.categorias.forEach(cat=>{
     html += `<div class="rec-idade"><div class="re-head"><div class="re-ic" style="background:${cat.bg};color:${cat.cor}">${cat.ic}</div><div class="re-titulo">${esc(cat.titulo)}</div></div><ul>${cat.itens.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></div>`;
   });
@@ -3414,7 +3543,7 @@ function gerarPDFFicha(petId){
       <h1>🐾 Ficha Completa do Pet</h1>
       <div class="pdf-sub">PetVida ${APP_VERSION} · Emitido em ${fmtData(hojeISO())}</div>
     </div>
-    <table class="pdf-info"><tr><td><b>Nome:</b> ${esc(pet.nome)}</td><td><b>Espécie:</b> ${pet.especie==='gato'?'Felino':'Canino'}</td></tr><tr><td><b>Raça:</b> ${esc(pet.raca||'SRD')}</td><td><b>Sexo:</b> ${pet.sexo==='femea'?'Fêmea':'Macho'}</td></tr><tr><td><b>Nascimento:</b> ${fmtData(pet.nascimento)}</td><td><b>Idade:</b> ${calcIdade(pet.nascimento)} ${infoIdade?`(${infoIdade.humano} humano)`:''}</td></tr><tr><td><b>Dias de vida:</b> ${calcDiasVida(pet.nascimento)}</td><td><b>Peso atual:</b> ${pet.peso?esc(pet.peso)+' kg':'—'}</td></tr></table>
+    <table class="pdf-info"><tr><td><b>Nome:</b> ${esc(pet.nome)}</td><td><b>Espécie:</b> ${pet.especie==='gato'?'Felino':'Canino'}</td></tr><tr><td><b>Raça:</b> ${esc(pet.raca||'SRD')}</td><td><b>Sexo:</b> ${pet.sexo==='femea'?'Fêmea':'Macho'}</td></tr><tr><td><b>Nascimento:</b> ${fmtData(pet.nascimento)}</td><td><b>Idade:</b> ${calcIdade(pet.nascimento)} (${calcDiasVida(pet.nascimento)} dias) ${infoIdade?`(${infoIdade.humano} humano)`:''}</td></tr><tr><td><b>Peso atual:</b> ${pet.peso?esc(pet.peso)+' kg':'—'}</td><td><b>Escore corporal:</b> ${pet.escore||'—'}/5</td></tr></table>
     ${vacAplic ? `<h2>Vacinas Aplicadas</h2><table class="pdf-tbl"><thead><tr><th>Vacina</th><th>Data</th><th>Marca</th></tr></thead><tbody>${vacAplic}</tbody></table>` : ''}
     ${pesoRows ? `<h2>Histórico de Peso</h2><table class="pdf-tbl"><thead><tr><th>Data</th><th>Peso</th></tr></thead><tbody>${pesoRows}</tbody></table>` : ''}
     ${listaHist('Consultas', h.consultas, c => `<b>${esc(c.motivo)}</b> — ${fmtData(c.data)} ${c.veterinario?'· '+esc(c.veterinario):''} ${c.diagnostico?'<br><i>'+esc(c.diagnostico)+'</i>':''}`)}
@@ -3513,11 +3642,8 @@ function renderSaudeVisao(pet){
       <div class="pet-avatar ${pet.especie==='gato'?'cat':''}" style="width:52px;height:52px;font-size:26px">${avatar}</div>
       <div style="flex:1"><div style="font-size:16px;font-weight:800">${esc(pet.nome)}</div><div style="font-size:11.5px;color:var(--muted);font-weight:600;margin-top:3px">${pet.especie==='gato'?'Gato':'Cão'} · ${esc(pet.raca||'SRD')} · ${calcIdade(pet.nascimento)}</div></div>
     </div>
-    <div style="text-align:center;margin-top:12px">
-      <span class="dias-vida-badge">🎂 <span class="dvb-n">${dias}</span> dias de vida</span>
-    </div>
     <div class="spec-grid" style="margin-top:14px;margin-bottom:0">
-      <div class="spec"><div class="spec-l">Peso</div><div class="spec-v">${pet.peso? esc(pet.peso)+' kg':'—'}</div></div>
+      <div class="spec"><div class="spec-l">Dias de vida</div><div class="spec-v">${dias.toLocaleString('pt-BR')} dias</div></div>
       <div class="spec"><div class="spec-l">Idade humana</div><div class="spec-v">${idadeHumana(pet)}</div></div>
       <div class="spec"><div class="spec-l">Nascimento</div><div class="spec-v">${fmtData(pet.nascimento)}</div></div>
       <div class="spec"><div class="spec-l">Álbum</div><div class="spec-v">${albumCount} foto${albumCount===1?'':'s'}</div></div>
@@ -3529,34 +3655,76 @@ function renderSaudeVisao(pet){
     ${quickItem('💊','#9B5DE5','Prevenção',`setSaudeSub('prevencao')`)}
     ${quickItem('📄','#4A7DFF','PDF',`gerarPDFFicha('${pet.id}')`)}
   </div>`;
-  html += `<div class="sec-head"><div class="sec-title"><span class="dot"></span>Peso</div><button class="sec-link" onclick="abrirModalPeso()">+ Registrar</button></div>`;
+
+  // ===== PESO — v10.5 com gestão e evolução =====
+  html += `<div class="sec-head"><div class="sec-title"><span class="dot"></span>Registro de peso</div><button class="sec-link" onclick="abrirModalPeso()">+ Registrar</button></div>`;
   const pesos = (pet.pesos || []).slice().sort((a,b)=> new Date(a.data) - new Date(b.data));
   if(pesos.length === 0){
-    html += `<div class="card" style="text-align:center;padding:22px"><div style="font-size:30px;margin-bottom:8px">⚖️</div><div style="font-size:13px;font-weight:800;margin-bottom:14px">Nenhuma pesagem</div><button class="btn btn-ghost btn-sm" style="width:100%" onclick="abrirModalPeso()">Registrar</button></div>`;
+    html += `<div class="card" style="text-align:center;padding:22px"><div style="font-size:30px;margin-bottom:8px">⚖️</div><div style="font-size:13px;font-weight:800;margin-bottom:14px">Nenhuma pesagem registrada</div><button class="btn btn-ghost btn-sm" style="width:100%" onclick="abrirModalPeso()">Registrar primeiro peso</button></div>`;
   } else {
     const max = Math.max(...pesos.map(p=>parseFloat(p.valor)));
     const min = Math.min(...pesos.map(p=>parseFloat(p.valor)));
     const range = Math.max(0.5, max - min);
-    html += `<div class="card anim" style="margin-bottom:12px"><div class="bar-chart">${pesos.slice(-6).map(p=>{const v = parseFloat(p.valor);const h = 20 + ((v - min) / range) * 70;const dt = new Date(p.data + 'T12:00:00');return `<div class="bar-col"><div class="bar-val">${v}</div><div class="bar" style="height:${h}%"></div><div class="bar-lbl">${dt.getDate()}/${dt.getMonth()+1}</div></div>`;}).join('')}</div></div>`;
-  }
-  // v10.5: Lista de pesagens com edição/exclusão
-  const pesosDesc = pesos.slice().sort((a,b) => new Date(b.data) - new Date(a.data));
-  const pesoAtualId = pesosDesc.length > 0 ? pesosDesc[0].id : null;
-  html += `<div class="peso-lista anim">
-    <div class="peso-lista-head">📋 Histórico de pesagens</div>
-    ${pesosDesc.map(p => {
-      const isAtual = p.id === pesoAtualId;
-      return `<div class="peso-item ${isAtual ? 'atual' : ''}">
-        <div class="pi-data">${fmtData(p.data)}</div>
-        <div class="pi-valor">${esc(p.valor)} kg</div>
-        ${isAtual ? '<span class="pi-badge">Atual</span>' : ''}
-        <div class="pi-actions">
-          <button class="peso-btn edit" onclick="abrirModalEditarPeso('${pet.id}','${p.id}')" type="button" aria-label="Editar"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
-          <button class="peso-btn del" onclick="confirmarExcluirPeso('${pet.id}','${p.id}')" type="button" aria-label="Excluir"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+    const inicial = parseFloat(pesos[0].valor);
+    const atual = parseFloat(pesos[pesos.length - 1].valor);
+    const variacaoTotal = atual - inicial;
+    const variacaoTxt = variacaoTotal === 0 ? '= 0 kg' : (variacaoTotal > 0 ? '+'+variacaoTotal.toFixed(2)+' kg' : variacaoTotal.toFixed(2)+' kg');
+    const variacaoColor = variacaoTotal > 0 ? '#12897A' : (variacaoTotal < 0 ? '#C42B50' : '#66738A');
+    const variacaoIcon = variacaoTotal > 0 ? '↑' : (variacaoTotal < 0 ? '↓' : '=');
+    
+    // Resumo
+    html += `<div class="peso-resumo">
+      <div class="peso-res-item"><div class="peso-res-v">${inicial.toFixed(1)}kg</div><div class="peso-res-l">Inicial</div></div>
+      <div class="peso-res-item"><div class="peso-res-v">${atual.toFixed(1)}kg</div><div class="peso-res-l">Atual</div></div>
+      <div class="peso-res-item" style="background:linear-gradient(140deg,#FFFFFF,#F7F8FB);border-color:${variacaoColor}33">
+        <div class="peso-res-v" style="color:${variacaoColor}">${variacaoIcon} ${variacaoTxt.replace('+','').replace('-','')}</div>
+        <div class="peso-res-l">Variação total</div>
+      </div>
+    </div>`;
+
+    // Gráfico de barras (últimas 6)
+    html += `<div class="peso-chart-card">
+      <div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px">Últimas ${Math.min(pesos.length, 6)} pesagens</div>
+      <div class="bar-chart" style="padding-top:0">${pesos.slice(-6).map(p=>{const v = parseFloat(p.valor);const h = 25 + ((v - min) / range) * 65;const dt = new Date(p.data + 'T12:00:00');return `<div class="bar-col"><div class="bar-val">${v}</div><div class="bar" style="height:${h}%"></div><div class="bar-lbl">${dt.getDate()}/${dt.getMonth()+1}</div></div>`;}).join('')}</div>
+    </div>`;
+
+    // Lista com evolução
+    html += `<div class="sec-head" style="margin-top:16px"><div class="sec-title"><span class="dot"></span>Evolução</div><span style="font-size:10.5px;font-weight:800;color:var(--muted)">${pesos.length} registro${pesos.length>1?'s':''}</span></div>`;
+    html += `<div class="peso-list">`;
+    // Ordem decrescente (mais recente primeiro)
+    pesos.slice().reverse().forEach((p, idx, arr) => {
+      const isAtual = idx === 0;
+      const prev = arr[idx + 1]; // anterior cronológico
+      let deltaHtml = '';
+      if(prev){
+        const delta = parseFloat(p.valor) - parseFloat(prev.valor);
+        if(Math.abs(delta) < 0.005){
+          deltaHtml = `<span class="peso-delta neutral">= 0 kg</span>`;
+        } else if(delta > 0){
+          deltaHtml = `<span class="peso-delta up">↑ +${delta.toFixed(2)} kg</span>`;
+        } else {
+          deltaHtml = `<span class="peso-delta down">↓ ${delta.toFixed(2)} kg</span>`;
+        }
+      } else {
+        deltaHtml = `<span class="peso-delta neutral">inicial</span>`;
+      }
+      html += `<div class="peso-item ${isAtual?'peso-atual':''}">
+        <div class="peso-num">${isAtual?'⭐':'📅'}</div>
+        <div class="peso-body">
+          <div class="peso-val">${parseFloat(p.valor).toFixed(2)} kg ${isAtual?'<span style="font-size:9.5px;color:#12897A;font-weight:800;background:#E4F8F5;padding:2px 6px;border-radius:6px;margin-left:4px">ATUAL</span>':''}</div>
+          <div class="peso-data">${fmtData(p.data)}</div>
+        </div>
+        ${deltaHtml}
+        <div class="peso-actions">
+          <button class="pa-edit" onclick="abrirModalEditarPeso('${pet.id}','${p.id}')" type="button" title="Editar"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+          <button class="pa-del" onclick="excluirPesoConfirm('${pet.id}','${p.id}')" type="button" title="Excluir"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
         </div>
       </div>`;
-    }).join('')}
-  </div>`;
+    });
+    html += `</div>`;
+  }
+  // ===== FIM PESO =====
+
   html += renderCurvaCrescimento(pet);
   html += `<div class="sec-head"><div class="sec-title"><span class="dot"></span>Primeiros cuidados</div><span style="font-size:10.5px;font-weight:800;color:var(--muted)">${(pet.cuidados||[]).length}/${PRIMEIROS_CUIDADOS[pet.especie].length}</span></div>`;
   html += PRIMEIROS_CUIDADOS[pet.especie].map(c=>{
@@ -4162,7 +4330,7 @@ function salvarPet(){
     p.nascimento = nasc; p.sexo = formPet.sexo; p.peso = pesoStr; p.emoji = formPet.emoji; p.foto = formPet.foto;
     toast('Atualizado! ✨');
   } else {
-    const pet = normalizarPet({id: uid(), nome, especie: formPet.especie, raca: raca || 'SRD', nascimento: nasc, sexo: formPet.sexo, peso: pesoStr, emoji: formPet.emoji, foto: formPet.foto, vacinas: {}, cuidados: [], pesos: pesoStr ? [{id: uid(), data: hojeISO(), valor: pesoStr}] : [], historico: {consultas:[],exames:[],medicamentos:[],cirurgias:[],alergias:[]}, antipulgas: [], vermifugos: [], banhos: [], cio: [], diario: [], tutores: [], album: [], gastos: [], listaCompras: [], criado: new Date().toISOString()});
+    const pet = normalizarPet({id: uid(), nome, especie: formPet.especie, raca: raca || 'SRD', nascimento: nasc, sexo: formPet.sexo, peso: pesoStr, emoji: formPet.emoji, foto: formPet.foto, vacinas: {}, cuidados: [], pesos: pesoStr ? [{id: gerarIdPeso(), data: hojeISO(), valor: pesoStr}] : [], historico: {consultas:[],exames:[],medicamentos:[],cirurgias:[],alergias:[]}, antipulgas: [], vermifugos: [], banhos: [], cio: [], diario: [], tutores: [], album: [], gastos: [], listaCompras: [], criado: new Date().toISOString()});
     state.pets.push(pet);
     state.petSelecionado = pet.id;
     toast('Pet cadastrado! 🎉');
@@ -4170,6 +4338,8 @@ function salvarPet(){
   saveDB(); closeModal();
   renderPage(state.currentPage); atualizarHeader();
 }
+
+/* ✅ v10.5 — Ficha do pet com dias de vida */
 function abrirDetalhePet(id){
   const p = state.pets.find(x=>x.id === id);
   if(!p) return;
@@ -4183,14 +4353,14 @@ function abrirDetalhePet(id){
       <div class="pet-avatar ${p.especie==='gato'?'cat':''}" style="width:82px;height:82px;font-size:42px;margin:0 auto 12px;border-radius:26px;overflow:hidden">${avatar}</div>
       <h2 style="margin:0;font-size:21px;font-weight:800">${esc(p.nome)}</h2>
       <div style="font-size:12.5px;color:var(--muted);font-weight:600;margin-top:5px">${p.especie==='gato'?'Gato':'Cão'} · ${esc(p.raca||'SRD')} · ${p.sexo==='femea'?'Fêmea':'Macho'}</div>
-      <div style="display:flex;gap:7px;justify-content:center;margin-top:12px;flex-wrap:wrap">
-        <span class="badge badge-info">${calcIdade(p.nascimento)}</span>
-        <span class="badge badge-dias">🎂 ${dias} dias</span>
-        <span class="badge badge-purple">${idadeHumana(p)} humano</span>
-        ${p.peso?`<span class="badge badge-neutro">${esc(p.peso)} kg</span>`:''}
-      </div>
-      <div style="margin-top:14px">
-        <span class="dias-vida-badge">🎂 <span class="dvb-n">${dias}</span> dias de vida exatos</span>
+      <div style="display:flex;gap:7px;justify-content:center;margin-top:12px;flex-wrap:wrap"><span class="badge badge-info">${calcIdade(p.nascimento)}</span><span class="badge badge-purple">${idadeHumana(p)} humano</span>${p.peso?`<span class="badge badge-neutro">${esc(p.peso)} kg</span>`:''}</div>
+    </div>
+    <div class="ficha-dias">
+      <div class="fd-ic">📆</div>
+      <div class="fd-body">
+        <div class="fd-num">${dias.toLocaleString('pt-BR')} dias</div>
+        <div class="fd-label">de vida (exatos)</div>
+        <div class="fd-sub">≈ ${(dias/30.44).toFixed(1)} meses · ${(dias/365.25).toFixed(2)} anos</div>
       </div>
     </div>
     <div class="quick-grid" style="margin-bottom:16px">
@@ -4201,9 +4371,9 @@ function abrirDetalhePet(id){
     </div>
     <div class="spec-grid">
       <div class="spec"><div class="spec-l">Nascimento</div><div class="spec-v">${fmtData(p.nascimento)}</div></div>
-      <div class="spec"><div class="spec-l">Dias de vida</div><div class="spec-v">${dias} dias</div></div>
       <div class="spec"><div class="spec-l">Vacinas</div><div class="spec-v">${res.ok} de ${res.total}</div></div>
       <div class="spec"><div class="spec-l">Fotos</div><div class="spec-v">${albumCount}</div></div>
+      <div class="spec"><div class="spec-l">Peso</div><div class="spec-v">${p.peso? esc(p.peso)+' kg':'—'}</div></div>
     </div>`;
   openModal(headPadrao('Ficha', 'Informações'), body,
     `<button class="btn btn-soft" onclick="confirmarExcluir('${p.id}')" style="flex:0 0 52px;padding:13px" type="button"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:var(--danger)"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
@@ -4248,13 +4418,18 @@ function abrirDetalheRaca(id){
     `<button class="btn btn-soft" onclick="closeModal()">Fechar</button>
      <button class="btn btn-purple" onclick="closeModal();goTo(7);setTimeout(()=>enviarSugestao('Fale sobre a raça ${esc(r.nome)}'),400)">🤖 Perguntar</button>`);
 }
+
+/* ============================================================
+   v10.5 — GESTÃO DE PESO (CRIAR / EDITAR / EXCLUIR)
+============================================================ */
 function abrirModalPeso(){
   if(state.pets.length === 0){ toast('Cadastre um pet'); return; }
   if(!state.petSelecionado) state.petSelecionado = state.pets[0].id;
   openModal(headPadrao('Registrar peso', 'Acompanhe o crescimento'),
     `<div class="field"><label>PET</label><select class="select" id="pesoPet">${state.pets.map(p=>`<option value="${p.id}" ${p.id===state.petSelecionado?'selected':''}>${esc(p.nome)}</option>`).join('')}</select></div>
-    <div class="field"><label>PESO (kg) *</label><input class="input" id="pesoVal" type="number" step="0.1" min="0" inputmode="decimal"></div>
-    <div class="field"><label>DATA</label><input class="input" id="pesoData" type="date" value="${hojeISO()}" max="${hojeISO()}"></div>`,
+    <div class="field"><label>PESO (kg) *</label><input class="input" id="pesoVal" type="number" step="0.01" min="0" inputmode="decimal" placeholder="Ex: 4.5"></div>
+    <div class="field"><label>DATA</label><input class="input" id="pesoData" type="date" value="${hojeISO()}" max="${hojeISO()}"></div>
+    <div class="calc-note"><span class="cn-ic">💡</span><div>Pese seu pet sempre no mesmo horário e balança para maior precisão.</div></div>`,
     `<button class="btn btn-soft" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="salvarPeso()">Salvar</button>`);
 }
 function salvarPeso(){
@@ -4265,70 +4440,74 @@ function salvarPeso(){
   const pet = state.pets.find(p=>p.id === petId);
   if(!pet) return;
   if(!pet.pesos) pet.pesos = [];
-  pet.pesos.push({id: uid(), data, valor: String(val).replace(',','.')});
-  // Recalcular peso atual (último por data)
-  const ord = pet.pesos.slice().sort((a,b) => new Date(b.data) - new Date(a.data));
-  pet.peso = ord.length > 0 ? ord[0].valor : '';
+  pet.pesos.push({id: gerarIdPeso(), data, valor: String(val).replace(',','.')});
+  pet.peso = String(val).replace(',','.');
   saveDB(); closeModal(); toast('Peso registrado! ⚖️');
   state.petSelecionado = petId;
   renderPage(state.currentPage); atualizarHeader();
 }
-/* ✅ v10.5 — Editar peso */
 function abrirModalEditarPeso(petId, pesoId){
-  const pet = state.pets.find(p => p.id === petId);
-  if(!pet){ toast('Pet não encontrado'); return; }
-  const peso = (pet.pesos || []).find(p => p.id === pesoId);
-  if(!peso){ toast('Pesagem não encontrada'); return; }
-  openModal(headPadrao('Editar pesagem', 'Corrigir valor/data'),
-    `<div class="blk" style="background:linear-gradient(140deg,#EAF0FF,#DCE6FF);border-color:#C4D5FF;margin-bottom:16px">
-      <p style="font-size:12px;color:#3157C9;font-weight:700;line-height:1.5"><strong>💡 Dica:</strong> corrija o peso ou a data se registrou errado. O peso atual do pet será recalculado automaticamente.</p>
-    </div>
-    <div class="field"><label>PESO (kg) *</label><input class="input" id="editPesoVal" type="number" step="0.1" min="0" inputmode="decimal" value="${esc(peso.valor)}"></div>
-    <div class="field"><label>DATA</label><input class="input" id="editPesoData" type="date" value="${peso.data}" max="${hojeISO()}"></div>`,
+  const pet = state.pets.find(p=>p.id === petId);
+  if(!pet) return;
+  const peso = (pet.pesos||[]).find(x=>x.id === pesoId);
+  if(!peso){ toast('Peso não encontrado'); return; }
+  openModal(headPadrao('Editar peso', 'Corrija o valor ou data'),
+    `<div class="field"><label>PET</label><input class="input" value="${esc(pet.nome)}" disabled style="background:#F1F4F9;color:var(--muted)"></div>
+    <div class="field"><label>PESO (kg) *</label><input class="input" id="pesoEditVal" type="number" step="0.01" min="0" inputmode="decimal" value="${esc(peso.valor)}"></div>
+    <div class="field"><label>DATA</label><input class="input" id="pesoEditData" type="date" value="${esc(peso.data)}" max="${hojeISO()}"></div>
+    <div class="calc-note"><span class="cn-ic">📅</span><div>Registro original: <strong>${fmtData(peso.data)}</strong> · <strong>${parseFloat(peso.valor).toFixed(2)} kg</strong></div></div>`,
     `<button class="btn btn-soft" onclick="closeModal()">Cancelar</button>
      <button class="btn btn-primary" onclick="salvarEdicaoPeso('${petId}','${pesoId}')">Salvar</button>`);
 }
 function salvarEdicaoPeso(petId, pesoId){
-  const pet = state.pets.find(p => p.id === petId);
+  const pet = state.pets.find(p=>p.id === petId);
   if(!pet) return;
-  const peso = (pet.pesos || []).find(p => p.id === pesoId);
-  if(!peso){ toast('Pesagem não encontrada'); return; }
-  const val = $('#editPesoVal').value;
-  const data = $('#editPesoData').value || hojeISO();
+  const peso = (pet.pesos||[]).find(x=>x.id === pesoId);
+  if(!peso){ toast('Peso não encontrado'); return; }
+  const val = $('#pesoEditVal').value;
+  const data = $('#pesoEditData').value || hojeISO();
   if(!val || parseFloat(val) <= 0){ toast('Peso inválido'); return; }
   peso.valor = String(val).replace(',','.');
   peso.data = data;
-  // Recalcular peso atual
-  const ord = pet.pesos.slice().sort((a,b) => new Date(b.data) - new Date(a.data));
-  pet.peso = ord.length > 0 ? ord[0].valor : '';
-  saveDB(); closeModal(); toast('Pesagem atualizada! ✏️');
-  renderSaude();
+  // Recalcula pet.peso com base no registro mais recente
+  const pesosOrd = pet.pesos.slice().sort((a,b)=> new Date(a.data) - new Date(b.data));
+  pet.peso = pesosOrd[pesosOrd.length - 1].valor;
+  saveDB(); closeModal(); toast('Peso atualizado! ✏️');
+  state.petSelecionado = petId;
+  renderPage(state.currentPage); atualizarHeader();
 }
-/* ✅ v10.5 — Excluir peso */
-function confirmarExcluirPeso(petId, pesoId){
-  const pet = state.pets.find(p => p.id === petId);
+function excluirPesoConfirm(petId, pesoId){
+  const pet = state.pets.find(p=>p.id === petId);
   if(!pet) return;
-  const peso = (pet.pesos || []).find(p => p.id === pesoId);
-  if(!peso){ toast('Pesagem não encontrada'); return; }
-  openModal(headPadrao('Excluir pesagem', 'Não pode ser desfeito'),
-    `<div style="text-align:center;padding:16px 0">
-      <div style="font-size:46px;margin-bottom:12px">🗑️</div>
-      <div style="font-size:15px;font-weight:800">Excluir esta pesagem?</div>
-      <div style="font-size:13px;color:var(--muted);margin-top:8px">${fmtData(peso.data)} · ${esc(peso.valor)} kg</div>
+  const peso = (pet.pesos||[]).find(x=>x.id === pesoId);
+  if(!peso){ toast('Peso não encontrado'); return; }
+  openModal(headPadrao('Excluir peso', 'Confirme a exclusão'),
+    `<div style="text-align:center;padding:8px 0 16px">
+      <div style="font-size:42px;margin-bottom:10px">⚖️</div>
+      <div style="font-size:14px;font-weight:800">Excluir este registro de peso?</div>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.5">
+        <strong>${parseFloat(peso.valor).toFixed(2)} kg</strong><br>${fmtData(peso.data)}
+      </div>
     </div>`,
     `<button class="btn btn-soft" onclick="closeModal()">Cancelar</button>
      <button class="btn btn-danger" onclick="excluirPeso('${petId}','${pesoId}')">Excluir</button>`);
 }
 function excluirPeso(petId, pesoId){
-  const pet = state.pets.find(p => p.id === petId);
-  if(!pet) return;
-  pet.pesos = (pet.pesos || []).filter(p => p.id !== pesoId);
-  // Recalcular peso atual
-  const ord = pet.pesos.slice().sort((a,b) => new Date(b.data) - new Date(a.data));
-  pet.peso = ord.length > 0 ? ord[0].valor : '';
-  saveDB(); closeModal(); toast('Pesagem excluída');
-  renderSaude();
+  const pet = state.pets.find(p=>p.id === petId);
+  if(!pet || !pet.pesos) return;
+  pet.pesos = pet.pesos.filter(x=>x.id !== pesoId);
+  // Recalcula pet.peso
+  if(pet.pesos.length > 0){
+    const ord = pet.pesos.slice().sort((a,b)=> new Date(a.data) - new Date(b.data));
+    pet.peso = ord[ord.length - 1].valor;
+  } else {
+    pet.peso = '';
+  }
+  saveDB(); closeModal(); toast('Peso excluído! 🗑️');
+  state.petSelecionado = petId;
+  renderPage(state.currentPage); atualizarHeader();
 }
+
 function abrirModalConsulta(){
   if(!state.petSelecionado){ toast('Selecione um pet'); return; }
   openModal(headPadrao('Consulta', 'Registrar'),
@@ -4616,10 +4795,10 @@ function abrirModalIDDigital(petId){
   const dias = calcDiasVida(pet.nascimento);
   openModal(headPadrao('ID Digital', 'Identificação de ' + pet.nome),
     `<div class="id-digital">
-      <div class="idd-top"><div><div class="idd-titulo">ID Digital PetVida</div><div class="idd-nome" style="margin-top:6px">${esc(pet.nome)}</div><div class="idd-sub">${pet.especie==='gato'?'Felino':'Canino'} · ${esc(pet.raca||'SRD')} · ${calcIdade(pet.nascimento)} · ${dias} dias</div></div><div class="idd-logo">🐾</div></div>
+      <div class="idd-top"><div><div class="idd-titulo">ID Digital PetVida</div><div class="idd-nome" style="margin-top:6px">${esc(pet.nome)}</div><div class="idd-sub">${pet.especie==='gato'?'Felino':'Canino'} · ${esc(pet.raca||'SRD')} · ${calcIdade(pet.nascimento)}</div></div><div class="idd-logo">🐾</div></div>
       <div class="idd-grid">
         <div class="idd-item"><div class="idd-item-l">Código</div><div class="idd-item-v" style="font-family:'Courier New',monospace">${codigo}</div></div>
-        <div class="idd-item"><div class="idd-item-l">Idade humana</div><div class="idd-item-v">${idadeHumana(pet)}</div></div>
+        <div class="idd-item"><div class="idd-item-l">Dias de vida</div><div class="idd-item-v">${dias.toLocaleString('pt-BR')} dias</div></div>
         <div class="idd-item"><div class="idd-item-l">Sexo</div><div class="idd-item-v">${pet.sexo==='femea'?'Fêmea':'Macho'}</div></div>
         <div class="idd-item"><div class="idd-item-l">Peso</div><div class="idd-item-v">${pet.peso?esc(pet.peso)+' kg':'—'}</div></div>
       </div>
@@ -4633,7 +4812,7 @@ function compartilharID(petId){
   const pet = state.pets.find(p=>p.id === petId);
   if(!pet) return;
   const codigo = gerarIdPet(pet);
-  const texto = `🐾 ID DIGITAL - ${pet.nome}\n\nCódigo: ${codigo}\nIdade: ${calcIdade(pet.nascimento)}\nDias de vida: ${calcDiasVida(pet.nascimento)}\nPeso: ${pet.peso?pet.peso+' kg':'—'}`;
+  const texto = `🐾 ID DIGITAL - ${pet.nome}\n\nCódigo: ${codigo}\nIdade: ${calcIdade(pet.nascimento)}\nPeso: ${pet.peso?pet.peso+' kg':'—'}`;
   if(navigator.share) navigator.share({title:'ID - ' + pet.nome, text: texto}).catch(()=>{});
   else if(navigator.clipboard) navigator.clipboard.writeText(texto).then(()=> toast('Copiado! 📋')).catch(()=>{});
   else toast('Indisponível');
@@ -4673,21 +4852,21 @@ function salvarEscore(){
 }
 function abrirModalAjuda(){
   openModal(headPadrao('Como usar o PetVida', 'Guia rápido — v10.5'),
-    `<div class="blk" style="background:linear-gradient(140deg,#FFF9EC,#FFEFD0);border-color:#FFE4B5">
-      <h4><span class="b-ic" style="background:rgba(232,155,78,.20);color:#B47800">🎂</span>Dias de vida exatos</h4>
-      <p>Na <strong>ficha do pet</strong> você vê a idade exata em <strong>dias</strong>, além dos meses e anos.</p>
+    `<div class="blk" style="background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border-color:#C8E8EE">
+      <h4><span class="b-ic" style="background:rgba(79,179,196,.20);color:#2A8A99">⚖️</span>Gestão de peso</h4>
+      <p>Cada pesagem agora tem botões de <strong>✏️ editar</strong> e <strong>🗑️ excluir</strong>. A evolução mostra em cada registro o ganho ou perda de peso em relação ao anterior.</p>
     </div>
-    <div class="blk" style="background:linear-gradient(140deg,#EAF0FF,#DCE6FF);border-color:#C4D5FF">
-      <h4><span class="b-ic" style="background:rgba(74,125,255,.20);color:#3157C9">⚖️</span>Editar/excluir peso</h4>
-      <p>Na <strong>aba Saúde → Visão</strong>, a lista de pesagens tem botões <strong>✏️ editar</strong> e <strong>🗑️ excluir</strong>. Ideal para corrigir erros.</p>
+    <div class="blk" style="background:linear-gradient(140deg,#FFF9EC,#FFEFD0);border-color:#FFE4B5">
+      <h4><span class="b-ic" style="background:rgba(232,155,78,.20);color:#B47800">📆</span>Dias de vida</h4>
+      <p>Na ficha do pet e na aba Saúde → Visão você vê exatamente quantos <strong>dias de vida</strong> seu pet tem.</p>
     </div>
     <div class="blk" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5">
       <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">🪱</span>Protocolo completo de vermifugação</h4>
-      <p>3 doses (15/30/45 dias) + reforço mensal (75d). Após esse ciclo, o V10 começa.</p>
+      <p><strong>3 doses</strong> (15/30/45 dias) + <strong>reforço mensal</strong> (75 dias). Após esse ciclo, o V10 começa.</p>
     </div>
-    <div class="blk" style="background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border-color:#C8E8EE">
-      <h4><span class="b-ic" style="background:rgba(79,179,196,.20);color:#2A8A99">🏆</span>Top 10 rações por pet</h4>
-      <p>Na aba <strong>Rações</strong>, veja as 10 mais usadas para o porte e idade do seu pet.</p>
+    <div class="blk" style="background:linear-gradient(140deg,#E4F8F5,#D0F2EB);border-color:#A8E4D8">
+      <h4><span class="b-ic" style="background:rgba(37,194,176,.20);color:#12897A">📏</span>Curva de crescimento</h4>
+      <p>Compare o peso real do filhote com o padrão da raça/porte.</p>
     </div>
     <div class="blk warn"><h4><span class="b-ic">⚕️</span>Aviso</h4><p>Não substitui consulta veterinária.</p></div>
     <div style="text-align:center;font-size:11px;color:var(--muted);font-weight:700;padding:10px 0">PetVida <strong style="color:var(--primary-d)">${APP_VERSION}</strong> · ${APP_VERSION_DATE}</div>`,
@@ -4708,9 +4887,9 @@ function init(){
   atualizarBadgeBackup();
   atualizarBadgeCloud();
   console.log('🐾 PetVida ' + APP_VERSION + ' iniciado');
-  console.log('🎂 Dias de vida exatos: ATIVO');
-  console.log('⚖️ Editar/Excluir pesagens: ATIVO');
-  console.log('🪱 Protocolo de vermifugação: 3 doses + reforço');
+  console.log('📆 Dias de vida exatos na ficha do pet');
+  console.log('⚖️ Gestão de peso (editar/excluir) + evolução com delta');
+  console.log('🪱 Protocolo de vermifugação: 3 doses (15/30/45d) + reforço mensal (75d)');
   console.log('📚 ' + RACAS.length + ' raças · ' + (DOENCAS.cao.length + DOENCAS.gato.length) + ' doenças');
   if(fbAuth.uid && navigator.onLine){
     setTimeout(()=> { sincronizarInteligente().catch(()=>{}); }, 1500);
