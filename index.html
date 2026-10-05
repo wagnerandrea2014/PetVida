@@ -643,6 +643,9 @@ ul{margin:0;padding:0;list-style:none}
 .tt-btn .tt-lb{font-size:9.5px;font-weight:800;color:#66738A;text-transform:uppercase;letter-spacing:.2px}
 .tt-btn.active .tt-lb{color:var(--primary-d)}
 .tt-btn .tt-sub{display:block;font-size:8.5px;font-weight:700;color:var(--muted);margin-top:2px}
+/* v10.4 — Protocolo info */
+.protocolo-info{background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border:1.5px solid #C8E8EE;border-radius:12px;padding:12px 14px;font-size:11.5px;font-weight:600;color:#2A8A99;line-height:1.55;margin-bottom:14px;display:flex;gap:9px;align-items:flex-start}
+.protocolo-info .pi-ic{font-size:16px;flex-shrink:0}
 @media(max-width:340px){
   .quick span{font-size:8.5px}
   .tab span{font-size:8px}
@@ -664,7 +667,7 @@ ul{margin:0;padding:0;list-style:none}
           <svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 4 5 7c0 1.6 1 3 2.5 3.8C5.6 12 4 14 4 16.5 4 19.5 7.5 22 12 22s8-2.5 8-5.5c0-2.5-1.6-4.5-3.5-5.7C18 10 19 8.6 19 7c0-3-3-5-7-5z"/></svg>
         </div>
         <div>
-          <div class="hdr-title">PetVida <span class="hdr-version">v10.3</span></div>
+          <div class="hdr-title">PetVida <span class="hdr-version">v10.4</span></div>
           <div class="hdr-sub" id="hdrSub">Cuide bem do seu melhor amigo</div>
         </div>
       </div>
@@ -826,8 +829,8 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    CONFIGURAÇÃO GLOBAL
 ============================================================ */
-const APP_VERSION = 'v10.3';
-const APP_VERSION_DATE = '2025-01-28';
+const APP_VERSION = 'v10.4';
+const APP_VERSION_DATE = '2025-01-29';
 
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyASdpnMWSeVFPGkzGZoSmk0Kxq6JI9gsqM",
@@ -1572,36 +1575,42 @@ function redimensionarImagem(dataUrl, maxSize, qualidade, cb){
 }
 
 /* ============================================================
-   ✅ v10.3 — PROTOCOLO COM DIAS PARA VERMÍFUGO
-   - `dias` tem prioridade sobre `sem` para cálculo
-   - verm1 = 15 dias (não 14)
+   ✅ v10.4 — PROTOCOLO COMPLETO
+   - Vermifugação: 3 doses (15/30/45 dias) + Reforço mensal (75 dias)
+   - V10 começa APÓS o protocolo de vermifugação
 ============================================================ */
 const PROTOCOLO = {
   cao: [
-    {id:'verm1', nome:'Vermifugação inicial', sem:2, dias:15, obs:'15 dias após o nascimento.', tipo:'vermifugo'},
-    {id:'v10_1', nome:'V10 — 1ª dose', sem:6, obs:'Cinomose, parvovirose.', tipo:'v10'},
-    {id:'giar1', nome:'Giárdia', sem:8, obs:'Regiões endêmicas.', tipo:'giardia'},
-    {id:'v10_2', nome:'V10 — 2ª dose', sem:9, obs:'21-30 dias.', tipo:'v10'},
-    {id:'gripe1', nome:'Gripe Canina (KC)', sem:10, obs:'Cães sociais.', tipo:'gripe'},
-    {id:'v10_3', nome:'V10 — 3ª dose', sem:12, obs:'Fecha protocolo.', tipo:'v10'},
-    {id:'rab1', nome:'Antirrábica', sem:16, obs:'Obrigatória.', tipo:'rabica'},
-    {id:'v10ref', nome:'Reforço V10', sem:52, obs:'Anual.', tipo:'v10'},
-    {id:'rabref', nome:'Reforço Antirrábica', sem:52, obs:'Anual.', tipo:'rabica'}
+    {id:'verm1',    nome:'Vermifugação — 1ª dose', sem:2,  dias:15,  obs:'Aos 15 dias de vida.',                         tipo:'vermifugo'},
+    {id:'verm2',    nome:'Vermifugação — 2ª dose', sem:4,  dias:30,  obs:'15 dias após a 1ª dose.',                    tipo:'vermifugo'},
+    {id:'verm3',    nome:'Vermifugação — 3ª dose', sem:6,  dias:45,  obs:'15 dias após a 2ª dose.',                    tipo:'vermifugo'},
+    {id:'vermref',  nome:'Vermifugação — Reforço', sem:10, dias:75,  obs:'Mensal após a 3ª dose até 6 meses de vida.', tipo:'vermifugo'},
+    {id:'v10_1',    nome:'V10 — 1ª dose',          sem:12, dias:90,  obs:'Após o protocolo de vermifugação.',          tipo:'v10'},
+    {id:'v10_2',    nome:'V10 — 2ª dose',          sem:15, dias:111, obs:'21 dias após a 1ª dose.',                    tipo:'v10'},
+    {id:'v10_3',    nome:'V10 — 3ª dose',          sem:18, dias:132, obs:'21 dias após a 2ª dose.',                    tipo:'v10'},
+    {id:'giar1',    nome:'Giárdia',                sem:20, dias:145, obs:'Regiões endêmicas.',                         tipo:'giardia'},
+    {id:'gripe1',   nome:'Gripe Canina (KC)',      sem:22, dias:160, obs:'Cães sociais.',                              tipo:'gripe'},
+    {id:'rab1',     nome:'Antirrábica',            sem:26, dias:180, obs:'Obrigatória por lei.',                       tipo:'rabica'},
+    {id:'v10ref',   nome:'Reforço V10',            sem:52, dias:365, obs:'Anual.',                                     tipo:'v10'},
+    {id:'rabref',   nome:'Reforço Antirrábica',    sem:52, dias:365, obs:'Anual.',                                     tipo:'rabica'}
   ],
   gato: [
-    {id:'verm1', nome:'Vermifugação inicial', sem:2, dias:15, obs:'15 dias após o nascimento.', tipo:'vermifugo'},
-    {id:'v3_1', nome:'V3/V4/V5 — 1ª dose', sem:6, obs:'Rinotraqueíte, calicivirose.', tipo:'v3'},
-    {id:'felv1', nome:'FeLV — 1ª dose', sem:8, obs:'Leucemia Felina.', tipo:'felv'},
-    {id:'v3_2', nome:'V3/V4/V5 — 2ª dose', sem:9, obs:'21-30 dias.', tipo:'v3'},
-    {id:'felv2', nome:'FeLV — 2ª dose', sem:11, obs:'Reforço.', tipo:'felv'},
-    {id:'v3_3', nome:'V3/V4/V5 — 3ª dose', sem:12, obs:'Fecha protocolo.', tipo:'v3'},
-    {id:'rab1', nome:'Antirrábica', sem:16, obs:'3 meses.', tipo:'rabica'},
-    {id:'v3ref', nome:'Reforço V3/V4/V5', sem:52, obs:'Anual.', tipo:'v3'},
-    {id:'rabref', nome:'Reforço Antirrábica', sem:52, obs:'Anual.', tipo:'rabica'}
+    {id:'verm1',    nome:'Vermifugação — 1ª dose', sem:2,  dias:15,  obs:'Aos 15 dias de vida.',                         tipo:'vermifugo'},
+    {id:'verm2',    nome:'Vermifugação — 2ª dose', sem:4,  dias:30,  obs:'15 dias após a 1ª dose.',                    tipo:'vermifugo'},
+    {id:'verm3',    nome:'Vermifugação — 3ª dose', sem:6,  dias:45,  obs:'15 dias após a 2ª dose.',                    tipo:'vermifugo'},
+    {id:'vermref',  nome:'Vermifugação — Reforço', sem:10, dias:75,  obs:'Mensal após a 3ª dose até 6 meses de vida.', tipo:'vermifugo'},
+    {id:'v3_1',     nome:'V3/V4/V5 — 1ª dose',     sem:12, dias:90,  obs:'Após o protocolo de vermifugação.',          tipo:'v3'},
+    {id:'felv1',    nome:'FeLV — 1ª dose',         sem:14, dias:100, obs:'Leucemia Felina.',                           tipo:'felv'},
+    {id:'v3_2',     nome:'V3/V4/V5 — 2ª dose',     sem:15, dias:111, obs:'21 dias após a 1ª dose.',                    tipo:'v3'},
+    {id:'felv2',    nome:'FeLV — 2ª dose',         sem:17, dias:125, obs:'Reforço da FeLV.',                           tipo:'felv'},
+    {id:'v3_3',     nome:'V3/V4/V5 — 3ª dose',     sem:18, dias:132, obs:'21 dias após a 2ª dose.',                    tipo:'v3'},
+    {id:'rab1',     nome:'Antirrábica',            sem:22, dias:160, obs:'Obrigatória por lei.',                       tipo:'rabica'},
+    {id:'v3ref',    nome:'Reforço V3/V4/V5',       sem:52, dias:365, obs:'Anual.',                                     tipo:'v3'},
+    {id:'rabref',   nome:'Reforço Antirrábica',    sem:52, dias:365, obs:'Anual.',                                     tipo:'rabica'}
   ]
 };
 
-/* ✅ v10.3 — Helper: converte item do protocolo em dias totais */
+/* ✅ v10.4 — Helper para converter item do protocolo em DIAS */
 function getIntervaloDiasItem(item){
   if(!item) return 0;
   if(item.dias !== undefined) return item.dias;
@@ -1638,18 +1647,14 @@ const INTERVALOS_MARCA = {
     v10: {'Vanguard (Zoetis)':3,'Nobivac (MSD)':3,'Defensor (Zoetis)':3,'Recombitek (Boehringer)':4,'Canigen (Virbac)':3,default:3},
     rabica: {'Raivac (Biovet)':52,'Defensor R (Zoetis)':52,'Rabisin (Boehringer)':52,'Rabigen (Virbac)':52,default:52},
     gripe: {'Nobivac KC (MSD)':52,'Bronchi-Shield (Elanco)':52,default:52},
-    giardia: {'GiardiaVax (Zoetis)':3,default:3},
-    vermifugo: {'Vermi Plus (VetBras)':15,'Drontal Plus':15,'Endogard':15,'Vermivet':15,'Panacur':15,'Drontal':15,'Interceptor':15,'Milbemax':15,default:15}
+    giardia: {'GiardiaVax (Zoetis)':3,default:3}
   },
   gato: {
     v3: {'Felocell (Zoetis)':3,'Purevax (Boehringer)':3,'Nobivac Tricat (MSD)':3,default:3},
     rabica: {'Raivac (Biovet)':52,'Defensor R (Zoetis)':52,'Rabisin (Boehringer)':52,default:52},
-    felv: {'Fel-O-Vax (Zoetis)':3,'Leucogen (Virbac)':3,default:3},
-    vermifugo: {'Vermi Plus (VetBras)':15,'Drontal Cat':15,'Milbemax':15,'Profender':15,'Panacur':15,default:15}
+    felv: {'Fel-O-Vax (Zoetis)':3,'Leucogen (Virbac)':3,default:3}
   }
 };
-
-/* ✅ v10.3 — getIntervaloSemanasMarca só é usado para não-vermífugo */
 function getIntervaloSemanasMarca(especie, tipo, marca){
   const porTipo = (INTERVALOS_MARCA[especie] || {})[tipo];
   if(!porTipo) return null;
@@ -1657,23 +1662,12 @@ function getIntervaloSemanasMarca(especie, tipo, marca){
   if(porTipo.default !== undefined) return porTipo.default;
   return null;
 }
-function getIntervaloEntre(pet, vacinaAnterior, vacinaAtual, marcaAnterior){
-  if(vacinaAnterior.tipo === vacinaAtual.tipo){
-    const marca = marcaAnterior || '';
-    const semanas = getIntervaloSemanasMarca(pet.especie, vacinaAnterior.tipo, marca);
-    if(semanas !== null && semanas > 0) return semanas;
-  }
-  return Math.max(1, vacinaAtual.sem - vacinaAnterior.sem);
-}
 function recomendarMarcas(pet, tipoVacina){
   const marcasEsp = (MARCAS_VACINA[pet.especie]||{})[tipoVacina] || [];
   const porRaca = MARCAS_POR_RACA[pet.raca] || {};
   return { marcas: marcasEsp, recomendada: porRaca[tipoVacina] || null };
 }
 
-/* ============================================================
-   PRODUTOS DE PREVENÇÃO
-============================================================ */
 const PRODUTOS_ANTIPULGAS = {
   'Bravecto': {intervalo: 84, tipo: 'comprimido', principio: 'Fluralaner', apresentacao: 'Comprimido mastigável'},
   'Bravecto Plus': {intervalo: 84, tipo: 'spot-on', principio: 'Fluralaner + Moxidectina', apresentacao: 'Solução tópica'},
@@ -1750,7 +1744,6 @@ function freqBanhoPet(pet){
   return FREQ_BANHO[porte] || FREQ_BANHO.medio;
 }
 
-/* FOTO REAL POR RAÇA */
 const FOTO_TERMOS = {
   'srd_c':'mixed-breed-dog','mucucho':'mixed-breed-dog','rafeiro':'mixed-breed-dog',
   'terrier_br':'terrier-dog','pe_roxo':'mixed-breed-dog',
@@ -1773,7 +1766,6 @@ function avatarRacaHTML(r){
   </div>`;
 }
 
-/* VISUAL SVG DAS RAÇAS (fallback offline) */
 const VISUAL_RACAS = {
   'srd_c':{bg1:'#FFE9DC',bg2:'#FFD6C2',pelo:'#C28B5A',orelha:'caida',focinho:'medio',orelhaCor:'#A87244'},
   'labrador':{bg1:'#FFF5E0',bg2:'#FFE6B5',pelo:'#E8C170',orelha:'caida',focinho:'medio',orelhaCor:'#D0A655',extra:'labrador'},
@@ -1837,15 +1829,15 @@ const RECOMENDACOES_IDADE = {
   cao: {
     filhote:{titulo:'Filhote',emoji:'🐶',categorias:[
       {ic:'🍖',cor:'#E89B4E',bg:'#FFF2E0',titulo:'Alimentação',itens:['Ração para filhotes, 3-4 refeições','Proteína mín. 28%','Cálcio/fósforo balanceados']},
-      {ic:'💉',cor:'#4FB3C4',bg:'#E0F4F8',titulo:'Saúde',itens:['Protocolo vacinal completo','Vermifugação a cada 15 dias','Castração 6+ meses']}
+      {ic:'💉',cor:'#4FB3C4',bg:'#E0F4F8',titulo:'Saúde',itens:['Protocolo vacinal completo','Vermifugação: 3 doses (15/30/45 dias) + reforço mensal','Castração 6+ meses']}
     ]},
     junior:{titulo:'Júnior',emoji:'🐕',categorias:[
       {ic:'🍖',cor:'#E89B4E',bg:'#FFF2E0',titulo:'Alimentação',itens:['Ração adulta','2 refeições']},
-      {ic:'💉',cor:'#4FB3C4',bg:'#E0F4F8',titulo:'Saúde',itens:['Reforços anuais','Vermifugação 3 meses']}
+      {ic:'💉',cor:'#4FB3C4',bg:'#E0F4F8',titulo:'Saúde',itens:['Reforços anuais','Vermifugação mensal até 6 meses']}
     ]},
     adulto:{titulo:'Adulto',emoji:'🦮',categorias:[
       {ic:'🍖',cor:'#E89B4E',bg:'#FFF2E0',titulo:'Alimentação',itens:['Ração premium','2 refeições fixas']},
-      {ic:'💉',cor:'#4FB3C4',bg:'#E0F4F8',titulo:'Saúde',itens:['Vacinas anuais','Check-up anual']}
+      {ic:'💉',cor:'#4FB3C4',bg:'#E0F4F8',titulo:'Saúde',itens:['Vacinas anuais','Vermifugação a cada 3-4 meses','Check-up anual']}
     ]},
     senior:{titulo:'Sênior',emoji:'🐕‍🦺',categorias:[
       {ic:'🍖',cor:'#E89B4E',bg:'#FFF2E0',titulo:'Alimentação',itens:['Ração sênior','Condroprotetores']},
@@ -1855,7 +1847,7 @@ const RECOMENDACOES_IDADE = {
   gato: {
     filhote:{titulo:'Filhote',emoji:'🐱',categorias:[
       {ic:'🍖',cor:'#E89B4E',bg:'#FFF2E0',titulo:'Alimentação',itens:['Ração kitten','Proteína 34%','Taurina']},
-      {ic:'💉',cor:'#4FB3C4',bg:'#E0F4F8',titulo:'Saúde',itens:['V3/V4/V5 6-8 sem','Teste FeLV/FIV']}
+      {ic:'💉',cor:'#4FB3C4',bg:'#E0F4F8',titulo:'Saúde',itens:['Protocolo vacinal após vermifugação','Vermifugação: 3 doses + reforço','Teste FeLV/FIV']}
     ]},
     junior:{titulo:'Júnior',emoji:'🐈',categorias:[
       {ic:'🍖',cor:'#E89B4E',bg:'#FFF2E0',titulo:'Alimentação',itens:['Proteína 30%+','2-3 refeições']},
@@ -1876,9 +1868,9 @@ const PRIMEIROS_CUIDADOS = {
   cao: [
     {id:'c1',t:'Ambiente aquecido',d:'26-28 °C nas primeiras semanas.'},
     {id:'c2',t:'Aleitamento materno',d:'Leite materno até 30 dias.'},
-    {id:'c3',t:'Vermifugação (15 dias)',d:'Repetir a cada 15 dias.'},
+    {id:'c3',t:'Vermifugação — 3 doses',d:'15, 30 e 45 dias de vida + reforço mensal.'},
     {id:'c4',t:'Desmame gradual',d:'30 dias: ração úmida.'},
-    {id:'c5',t:'Primeira vacina (6-8 sem.)',d:'Início do protocolo.'},
+    {id:'c5',t:'Vacinas após vermífugo',d:'V10 começa após o protocolo de vermifugação.'},
     {id:'c6',t:'Socialização (3-14 sem.)',d:'Janela crítica.'},
     {id:'c7',t:'Castração (6+ meses)',d:'Previne ninhadas.'},
     {id:'c8',t:'Microchipagem',d:'Identificação permanente.'}
@@ -1886,9 +1878,9 @@ const PRIMEIROS_CUIDADOS = {
   gato: [
     {id:'c1',t:'Ambiente aquecido',d:'Calor constante.'},
     {id:'c2',t:'Aleitamento materno',d:'Colostro 24h.'},
-    {id:'c3',t:'Vermifugação (15 dias)',d:'A partir de 15 dias.'},
+    {id:'c3',t:'Vermifugação — 3 doses',d:'15, 30 e 45 dias + reforço mensal.'},
     {id:'c4',t:'Desmame gradual',d:'30-45 dias.'},
-    {id:'c5',t:'Primeira vacina (6-8 sem.)',d:'V3/V4/V5.'},
+    {id:'c5',t:'Vacinas após vermífugo',d:'V3/V4/V5 após o protocolo de vermifugação.'},
     {id:'c6',t:'Caixa de areia',d:'Uma por gato + uma.'},
     {id:'c7',t:'Arranhador',d:'Bem-estar.'},
     {id:'c8',t:'Castração (6+ meses)',d:'Reduz cio.'}
@@ -2307,11 +2299,11 @@ const IA_KB = [
   {tipo:'emergencia',peso:10,palavras:['convulsão','convulsionando','tremendo','epilepsia'],resposta:'⚡ **Convulsão:**\n\n1. Afaste móveis\n2. Desligue TVs\n3. Cronometre\n\n🚫 NUNCA mão na boca\n\n⚠️ +5 min: emergência.'},
   {tipo:'emergencia',peso:10,palavras:['intoxicado','intoxicação','envenenado','comeu veneno'],resposta:'☠️ **Intoxicação!**\n\n1. Identifique substância\n2. Guarde embalagem\n3. Ligue para vet\n\n📞 0800 722 6001'},
   {tipo:'alerta',peso:8,palavras:['vomitando','vômito','vomitou'],resposta:'🤢 **Vômitos:**\n\n• Jejum 6-12h (adultos)\n• Água em pequenas quantidades\n• Mais de 24h → vet\n\n⚠️ Filhotes: imediato.'},
-  {tipo:'info',peso:7,palavras:['vacina','vacinação','protocolo'],resposta:'💉 **Protocolo:**\n\n**CÃES:** V8/V10 (3 doses + anual) + Antirrábica anual\n**GATOS:** V3/V4/V5 + Antirrábica anual\n\n📋 Veja na aba Vacinas!'},
+  {tipo:'info',peso:7,palavras:['vacina','vacinação','protocolo'],resposta:'💉 **Protocolo Completo:**\n\n**CÃES:**\n🪱 Vermifugação: 1ª (15d), 2ª (30d), 3ª (45d) + Reforço mensal (75d)\n💉 V10 (após vermífugo) + Antirrábica anual\n\n**GATOS:**\n🪱 Mesmo protocolo de vermífugo\n💉 V3/V4/V5 + FeLV + Antirrábica\n\n📋 Veja na aba Vacinas!'},
   {tipo:'info',peso:7,palavras:['ração','alimentar','o que dar'],resposta:'🍖 **Alimentação:**\n\n• Filhotes: 3-4 refeições/dia\n• Adultos: 2 refeições\n• Sêniores: condroprotetores\n\n💧 Água sempre!'},
   {tipo:'info',peso:6,palavras:['chocolate','uva','abacate','cebola'],resposta:'🚫 **Tóxicos:**\n\nChocolate, cebola, alho, uva, abacate, xilitol, cafeína, álcool.\n\nSe comeu: **0800 722 6001**.'},
   {tipo:'dica',peso:7,palavras:['banho','frequência'],resposta:'🚿 **Banhos:**\n\n• Pelo curto: 15-30 dias\n• Pelo longo: 7-15 dias\n• Gatos: não precisam'},
-  {tipo:'info',peso:6,palavras:['vermífugo','vermifugação'],resposta:'🪱 **Vermifugação:**\n\n• Filhotes: 15/15 dias\n• Jovens: 3 meses\n• Adultos: 4-6 meses\n\n📋 Veja na aba Saúde → Prevenção!'}
+  {tipo:'info',peso:8,palavras:['vermífugo','vermifugação','verme'],resposta:'🪱 **Protocolo de Vermifugação:**\n\n**1ª dose:** 15 dias de vida\n**2ª dose:** 30 dias (+15d)\n**3ª dose:** 45 dias (+15d)\n**Reforço:** 75 dias (+30d) e mensal até 6 meses\n\n**Depois:** inicia as vacinas V10\n\n⚠️ Use produto específico para filhotes (Vermi Plus, Drontal Plus, Endogard...)'}
 ];
 function processarPerguntaLocal(pergunta, petCtx){
   const t = (pergunta || '').toLowerCase().trim();
@@ -2520,7 +2512,7 @@ function renderChat(){
   const status = $('#iaStatus'); const dot = $('#iaStatusDot');
   if(status) status.textContent = st.txt;
   if(dot) dot.className = 'ia-dot-' + (st.cor === 'online' ? 'online' : st.cor === 'warn' ? 'warn' : 'off');
-  const sugestoes = ['Quais vacinas meu pet precisa?','Meu pet está vomitando, o que fazer?','Qual a melhor ração?','Meu cão está com tosse','Como adestrar meu filhote?','Sinais de emergência veterinária'];
+  const sugestoes = ['Qual o protocolo de vermifugação?','Quais vacinas meu pet precisa?','Meu pet está vomitando, o que fazer?','Qual a melhor ração?','Meu cão está com tosse','Sinais de emergência veterinária'];
   if(sug) sug.innerHTML = `<div class="sug-row">${sugestoes.map(s=>`<button class="sug-chip" onclick="enviarSugestao('${esc(s).replace(/'/g,"\\'")}')">${esc(s)}</button>`).join('')}</div>`;
   if(state.chat.length === 0){
     const statusInfo = st.cor === 'online' ? 'ok' : st.cor === 'warn' ? 'warn' : 'err';
@@ -2531,9 +2523,9 @@ function renderChat(){
         <h2>Olá! Sou o Dr. Pet IA</h2>
         <p>Assistente veterinário inteligente.</p>
         <div class="cw-cat">
+          <button class="cw-cat-btn" onclick="enviarSugestao('Qual o protocolo de vermifugação?')"><div class="cw-cat-ic" style="background:#F3EAFE;color:#6B31B8">🪱</div><div class="cw-cat-body"><div class="cw-cat-titulo">Vermifugação</div><div class="cw-cat-desc">3 doses + reforço</div></div><svg class="cw-cat-arrow" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></button>
           <button class="cw-cat-btn" onclick="enviarSugestao('Quais vacinas meu pet precisa?')"><div class="cw-cat-ic" style="background:#EAF0FF;color:#3157C9">💉</div><div class="cw-cat-body"><div class="cw-cat-titulo">Vacinas</div><div class="cw-cat-desc">Protocolos</div></div><svg class="cw-cat-arrow" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></button>
           <button class="cw-cat-btn" onclick="enviarSugestao('Meu pet está com sintomas estranhos')"><div class="cw-cat-ic" style="background:#FFE5E8;color:#C42B50">🚑</div><div class="cw-cat-body"><div class="cw-cat-titulo">Sintomas</div><div class="cw-cat-desc">Emergências</div></div><svg class="cw-cat-arrow" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></button>
-          <button class="cw-cat-btn" onclick="enviarSugestao('Como alimentar meu pet corretamente?')"><div class="cw-cat-ic" style="background:#FFF2E0;color:#B47800">🍖</div><div class="cw-cat-body"><div class="cw-cat-titulo">Alimentação</div><div class="cw-cat-desc">Ração e tóxicos</div></div><svg class="cw-cat-arrow" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></button>
         </div>
         ${aviso}
       </div>`;
@@ -2828,13 +2820,18 @@ function normalizarVacina(v){
   if(typeof v === 'string') return {data: v, marca:'', lote:'', vet:'', clinica:'', obs:''};
   return v;
 }
-/* ✅ v10.3 — Cálculo com dias para vermífugo */
+
+/* ✅ v10.4 — Cálculo unificado em DIAS
+   Suporta:
+   - Vermífugo: 15d, 15d, 30d (mensal)
+   - Vacinas: intervalo da marca OU diferença entre os itens
+   - Cascata entre vermifugo e vacina (v10_1 após vermref)
+*/
 function calcularDueVacina(pet, v){
   const lista = PROTOCOLO[pet.especie] || [];
   const isVerm = v.tipo === 'vermifugo';
-  const vDias = getIntervaloDiasItem(v);
   
-  // 1. Procura anterior da mesma série (mesmo tipo, menor "sem")
+  // 1. Tenta achar anterior do MESMO tipo (mesma série)
   const mesmaSerie = lista.filter(x => x.tipo === v.tipo && (x.sem || 0) < (v.sem || 0));
   for(let i = mesmaSerie.length - 1; i >= 0; i--){
     const ant = mesmaSerie[i];
@@ -2842,17 +2839,24 @@ function calcularDueVacina(pet, v){
     const antAplicada = normalizarVacina(rawAnt);
     if(antAplicada && antAplicada.data){
       const baseDate = new Date(antAplicada.data + 'T12:00:00');
+      let intervaloDias;
       if(isVerm){
-        // Para vermífugo, diferença em dias
-        const dias = Math.max(1, vDias - getIntervaloDiasItem(ant));
-        return addDays(baseDate, dias);
+        // Vermífugo: diferença entre as doses (ex: 30 - 15 = 15 dias; 75 - 45 = 30 dias)
+        intervaloDias = Math.max(1, getIntervaloDiasItem(v) - getIntervaloDiasItem(ant));
+      } else {
+        // Vacina: usar intervalo da marca (em semanas) ou diferença entre itens
+        const semanas = getIntervaloSemanasMarca(pet.especie, ant.tipo, antAplicada.marca);
+        if(semanas !== null && semanas > 0){
+          intervaloDias = semanas * 7;
+        } else {
+          intervaloDias = Math.max(1, getIntervaloDiasItem(v) - getIntervaloDiasItem(ant));
+        }
       }
-      const semanas = getIntervaloEntre(pet, ant, v, antAplicada.marca);
-      return addWeeks(baseDate, semanas);
+      return addDays(baseDate, intervaloDias);
     }
   }
   
-  // 2. Procura qualquer anterior (por índice)
+  // 2. Procura QUALQUER anterior (para cascata vermref → v10_1)
   const idx = lista.findIndex(x => x.id === v.id);
   for(let i = idx - 1; i >= 0; i--){
     const ant = lista[i];
@@ -2860,21 +2864,21 @@ function calcularDueVacina(pet, v){
     const antAplicada = normalizarVacina(rawAnt);
     if(antAplicada && antAplicada.data){
       const baseDate = new Date(antAplicada.data + 'T12:00:00');
+      let intervaloDias;
       if(isVerm){
-        // Padrão 15 dias se for vermífugo
-        return addDays(baseDate, 15);
+        // Vermífugo após outro tipo: usa dias do item
+        intervaloDias = getIntervaloDiasItem(v);
+      } else {
+        // Diferença em dias entre os itens do protocolo
+        intervaloDias = Math.max(1, getIntervaloDiasItem(v) - getIntervaloDiasItem(ant));
       }
-      const semanas = getIntervaloEntre(pet, ant, v, antAplicada.marca);
-      return addWeeks(baseDate, semanas);
+      return addDays(baseDate, intervaloDias);
     }
   }
   
-  // 3. Fallback: nascimento + intervalo
+  // 3. Fallback: nascimento + dias do item
   const baseDate = new Date(pet.nascimento + 'T12:00:00');
-  if(isVerm){
-    return addDays(baseDate, vDias);
-  }
-  return addWeeks(baseDate, v.sem);
+  return addDays(baseDate, getIntervaloDiasItem(v));
 }
 function statusVacina(pet, v){
   const raw = pet.vacinas && pet.vacinas[v.id];
@@ -2995,11 +2999,10 @@ function quickItem(emoji, cor, label, fn){
 }
 function blocoDica(){
   const dicas = [
-    {tag:'🪱 v10.3', t:'Vermífugo 15 dias', p:'A vermifugação inicial agora é calculada como 15 dias (não 2 semanas). Veja na aba Vacinas → Vermifugação inicial.'},
-    {tag:'💊 v10.2', t:'Base de medicações expandida', p:'Vermi Plus, Drontal Plus, Endogard, Bravecto Plus, Simparic Plus e muito mais.'},
+    {tag:'🪱 v10.4', t:'Protocolo de vermifugação completo', p:'Agora com 3 doses (15/30/45 dias) + reforço mensal. V10 começa depois.'},
+    {tag:'💊 v10.2', t:'Base de medicações expandida', p:'Vermi Plus, Drontal Plus, Endogard, Bravecto Plus, Simparic Plus e mais.'},
     {tag:'🍖 v10.1', t:'Top 10 rações por pet', p:'Recomendações personalizadas por porte, idade e raça, com fotos e preços.'},
     {tag:'📏 v10', t:'Curva de crescimento', p:'Compare o peso real do seu filhote com o padrão esperado.'},
-    {tag:'🛍️ v10', t:'Lista de compras', p:'Organize as compras e acompanhe os gastos mensais.'},
     {tag:'📄 v10', t:'PDF da carteira', p:'Gere o PDF da carteira de vacinação e da ficha completa do pet.'}
   ];
   const d = dicas[Math.floor(Math.random()*dicas.length)];
@@ -3087,7 +3090,8 @@ function renderVacinas(){
   const pet = state.pets.find(p=>p.id === state.petSelecionado);
   const lista = PROTOCOLO[pet.especie] || [];
   const res = resumoVacinas(pet);
-  let html = `<div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-bottom:16px">
+  let html = `<div class="protocolo-info"><span class="pi-ic">🪱</span><div><strong>Protocolo v10.4:</strong> Vermifugação com 3 doses (15/30/45 dias) + reforço mensal. As vacinas V10 começam <strong>após</strong> o protocolo de vermifugação.</div></div>`;
+  html += `<div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-bottom:16px">
     <button class="btn btn-primary" onclick="abrirCarteiraVacina('${pet.id}')" type="button" style="margin:0"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm-8 12H6v-2h6v2zm6-4H6v-2h12v2zm0-4H6V6h12v2z"/></svg>Abrir Carteira</button>
     <button class="btn btn-success" onclick="gerarPDFCarteira('${pet.id}')" type="button" style="margin:0"><svg viewBox="0 0 24 24"><path d="M19 8H5a2 2 0 00-2 2v8a2 2 0 002 2h14a2 2 0 002-2v-8a2 2 0 00-2-2zm-8 7H8v-2h3v2zm6 0h-3v-2h3v2zm0-4H8v-2h9v2zM12 2L8 6h3v4h2V6h3z"/></svg>PDF</button>
   </div>`;
@@ -3109,13 +3113,19 @@ function renderVacinas(){
   });
   html += '<div class="timeline">' + itens.map(({v,st})=>{
     let dateTxt = '', marcaHtml = '', cascadeBadge = '';
+    const isVerm = v.tipo === 'vermifugo';
     if(st.status === 'ok'){
       dateTxt = '✅ Aplicada em ' + fmtData(st.aplicada.data);
       if(st.aplicada.marca){
-        const isVerm = v.tipo === 'vermifugo';
-        const iv = isVerm ? 15 : getIntervaloSemanasMarca(pet.especie, v.tipo, st.aplicada.marca);
-        const infoInt = isVerm ? ` <span class="vac-intervalo">↻ ${iv} dias</span>` : (iv ? ` <span class="vac-intervalo">↻ ${iv} sem</span>` : '');
-        marcaHtml = `<div class="vac-marca">💉 ${esc(st.aplicada.marca)}${infoInt}</div>`;
+        let ivTxt = '';
+        if(isVerm){
+          const prox = lista.find(x => x.tipo === 'vermifugo' && x.sem > v.sem);
+          ivTxt = prox ? '↻ ' + (getIntervaloDiasItem(prox) - getIntervaloDiasItem(v)) + ' dias' : '';
+        } else {
+          const iv = getIntervaloSemanasMarca(pet.especie, v.tipo, st.aplicada.marca);
+          ivTxt = iv ? '↻ ' + iv + ' sem' : '';
+        }
+        marcaHtml = `<div class="vac-marca">💉 ${esc(st.aplicada.marca)}${ivTxt ? ' <span class="vac-intervalo">' + ivTxt + '</span>' : ''}</div>`;
       }
     } else if(st.status === 'atrasada'){
       dateTxt = '⚠️ Atrasada há ' + st.dias + 'd';
@@ -3127,7 +3137,6 @@ function renderVacinas(){
       dateTxt = '📅 ' + fmtData(st.due.toISOString().slice(0,10));
       if(dueVeioDeCascata(pet, v)) cascadeBadge = '<span style="font-size:9px;font-weight:800;background:#FFF2E0;color:#B47800;padding:2px 6px;border-radius:6px;margin-left:4px">🔗 baseada na anterior</span>';
     }
-    const isVerm = v.tipo === 'vermifugo';
     const semTxt = isVerm ? (v.dias || 15) + ' dias' : v.sem + ' sem.';
     return `<div class="tl-item ${st.status}">
       <div class="tl-node"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></div>
@@ -3154,15 +3163,21 @@ function abrirModalAplicarVacina(petId, vacId){
   state.__vacAplicandoId = vacId;
   state.__vacPetId = petId;
   const isVerm = vac.tipo === 'vermifugo';
+  let protocoloInfo = '';
+  if(isVerm){
+    protocoloInfo = `<div class="protocolo-info"><span class="pi-ic">🪱</span><div>Faça as <strong>3 doses iniciais</strong> (15/30/45 dias) e depois <strong>reforço mensal</strong> até 6 meses de vida. Só após isso começa o V10.</div></div>`;
+  }
   openModal(headPadrao('Aplicar vacina', vac.nome),
-    `<div class="field"><label>DATA *</label><input class="input" type="date" id="vData" value="${hojeISO()}" max="${hojeISO()}" onchange="atualizarInfoIntervalo()"></div>
+    `${protocoloInfo}
+    <div class="field"><label>DATA *</label><input class="input" type="date" id="vData" value="${hojeISO()}" max="${hojeISO()}" onchange="atualizarInfoIntervalo()"></div>
     <div class="field"><label>MARCA</label>
       <div class="marca-list" id="marcaList">
         ${rec.marcas.map(m=>{
           let ivTxt = '';
           if(isVerm){
-            // v10.3: para vermífugo, sempre dias
-            ivTxt = ' (15 dias)';
+            const prox = PROTOCOLO[pet.especie].find(x => x.tipo === 'vermifugo' && x.sem > vac.sem);
+            const dias = prox ? (getIntervaloDiasItem(prox) - getIntervaloDiasItem(vac)) : (vac.dias || 15);
+            ivTxt = ` (${dias} dias)`;
           } else {
             const iv = getIntervaloSemanasMarca(pet.especie, vac.tipo, m);
             ivTxt = iv ? ` (${iv} sem)` : '';
@@ -3181,7 +3196,6 @@ function abrirModalAplicarVacina(petId, vacId){
      <button class="btn btn-primary" onclick="salvarAplicacaoVacina('${petId}','${vacId}')">Salvar</button>`);
   setTimeout(()=> atualizarInfoIntervalo(), 100);
 }
-/* ✅ v10.3 — Mostra dias para vermífugo */
 function atualizarInfoIntervalo(){
   const el = $('#marcaIntervaloInfo');
   if(!el) return;
@@ -3196,18 +3210,10 @@ function atualizarInfoIntervalo(){
   const isVerm = vac.tipo === 'vermifugo';
   
   if(isVerm){
-    // v10.3: Para vermífugo, sempre trabalhar com dias
-    let ivDias = vac.dias || 15;
-    // Se a marca tem intervalo específico, verificar se é filhote/adulto
-    const info = PRODUTOS_VERMIFUGO[marca];
-    if(info){
-      const meses = idadeDetalhada(pet) ? idadeDetalhada(pet).meses : 99;
-      if(meses < 6 && info.intervaloFilhote) ivDias = info.intervaloFilhote;
-      // Mas para verm1, manter 15 dias como padrão
-      if(vac.id === 'verm1') ivDias = 15;
-    }
+    const prox = PROTOCOLO[pet.especie].find(x => x.tipo === 'vermifugo' && x.sem > vac.sem);
+    const ivDias = prox ? (getIntervaloDiasItem(prox) - getIntervaloDiasItem(vac)) : (vac.dias || 15);
     const proxData = addDays(new Date(data + 'T12:00:00'), ivDias);
-    el.innerHTML = `<div class="marca-info"><span class="mi-ic">📅</span><div>Com <strong>${esc(marca)}</strong>, a próxima dose desta série será em <strong>${ivDias} dias</strong> → <strong>${fmtData(proxData.toISOString().slice(0,10))}</strong></div></div>`;
+    el.innerHTML = `<div class="marca-info"><span class="mi-ic">📅</span><div>Com <strong>${esc(marca)}</strong>, a próxima dose será em <strong>${ivDias} dias</strong> → <strong>${fmtData(proxData.toISOString().slice(0,10))}</strong></div></div>`;
   } else {
     const iv = getIntervaloSemanasMarca(pet.especie, vac.tipo, marca);
     if(!iv){ el.innerHTML = ''; return; }
@@ -3224,7 +3230,6 @@ function selMarca(marca){
 function atualizarChips(){
   $$('#marcaList .marca-chip').forEach(c => c.classList.toggle('active', c.dataset.marca === state.marcaVacinaSel));
 }
-/* ✅ v10.3 — Mensagem de sucesso em dias para vermífugo */
 function salvarAplicacaoVacina(petId, vacId){
   const pet = state.pets.find(p=>p.id === petId);
   if(!pet) return;
@@ -3244,8 +3249,9 @@ function salvarAplicacaoVacina(petId, vacId){
       if(!rawProx){
         const isVerm = atual.tipo === 'vermifugo';
         if(isVerm){
-          const proxData = addDays(new Date(data + 'T12:00:00'), 15);
-          msgProx = ` Próxima (${prox.nome}): ${fmtData(proxData.toISOString().slice(0,10))} (15 dias)`;
+          const ivDias = getIntervaloDiasItem(prox) - getIntervaloDiasItem(atual);
+          const proxData = addDays(new Date(data + 'T12:00:00'), ivDias);
+          msgProx = ` Próxima (${prox.nome}): ${fmtData(proxData.toISOString().slice(0,10))} (${ivDias} dias)`;
         } else {
           const iv = getIntervaloSemanasMarca(pet.especie, atual.tipo, marca) || Math.max(1, prox.sem - atual.sem);
           const proxData = addWeeks(new Date(data + 'T12:00:00'), iv);
@@ -3290,12 +3296,19 @@ function abrirCarteiraVacina(petId){
     numSeq++;
     const {v, st} = item;
     let statusTxt = '', dataTxt = '', marcaHtml = '';
+    const isVerm = v.tipo === 'vermifugo';
     if(tipo === 'aplicada'){
       statusTxt = 'Aplicada'; dataTxt = '📅 ' + fmtData(st.aplicada.data);
       if(st.aplicada.marca){
-        const isVerm = v.tipo === 'vermifugo';
-        const iv = isVerm ? 15 : getIntervaloSemanasMarca(pet.especie, v.tipo, st.aplicada.marca);
-        marcaHtml = `<div class="cv-marca">💉 ${esc(st.aplicada.marca)}${iv ? ' · ' + iv + (isVerm?'d':'sem') : ''}</div>`;
+        let ivTxt = '';
+        if(isVerm){
+          const prox = lista.find(x => x.tipo === 'vermifugo' && x.sem > v.sem);
+          if(prox) ivTxt = (getIntervaloDiasItem(prox) - getIntervaloDiasItem(v)) + 'd';
+        } else {
+          const iv = getIntervaloSemanasMarca(pet.especie, v.tipo, st.aplicada.marca);
+          if(iv) ivTxt = iv + 'sem';
+        }
+        marcaHtml = `<div class="cv-marca">💉 ${esc(st.aplicada.marca)}${ivTxt ? ' · ' + ivTxt : ''}</div>`;
       }
     } else if(tipo === 'atrasada'){ statusTxt = 'Atrasada'; dataTxt = '⏰ ' + fmtData(st.due.toISOString().slice(0,10)); }
     else { statusTxt = 'Pendente'; dataTxt = '📅 ' + fmtData(st.due.toISOString().slice(0,10)); }
@@ -3621,7 +3634,7 @@ function renderSaudePrevencao(pet){
       return `<div class="hist-card tipo-vermifugo"><div class="hc-icon">🪱</div><div class="hc-body"><div class="hc-title">${esc(v.produto)}</div><div class="principio-ativo">${esc(info.principio)}</div><div class="hc-sub">📅 ${fmtData(v.data)} · Próxima: ${fmtData(proxData.toISOString().slice(0,10))} (${intervalo}d)</div><div class="apresentacao-tag">${esc(info.apresentacao)}</div></div><button class="hc-del" onclick="delVermifugo('${pet.id}','${v.id}')" type="button"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></div>`;
     }).join('');
   }
-  html += `<div class="calc-note" style="margin-top:16px"><span class="cn-ic">💡</span><div><b>Intervalos de referência:</b><br>Bravecto 12 semanas · Simparic 5 semanas · NexGard/Frontline 4 semanas<br><b>Vermífugo:</b> filhote a cada 15 dias, adulto a cada 3 meses (varia por produto)</div></div>`;
+  html += `<div class="calc-note" style="margin-top:16px"><span class="cn-ic">💡</span><div><b>Protocolo de vermifugação:</b><br>1ª dose (15d), 2ª (30d), 3ª (45d) + Reforço mensal (75d).<br>Após o protocolo, inicia as vacinas V10.</div></div>`;
   return html;
 }
 function renderSaudeCompras(pet){
@@ -4339,7 +4352,8 @@ function abrirModalVermifugo(){
   const tipoInicial = filhote ? 'filhote' : 'adulto';
   state.__vermifugoTipo = tipoInicial;
   openModal(headPadrao('Vermífugo', 'Registrar aplicação'),
-    `<div class="field"><label>PRODUTO *</label><select class="select" id="hvfProduto" onchange="atualizarInfoVermifugo()"><option value="">Selecione</option>${produtos.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('')}</select></div>
+    `<div class="protocolo-info"><span class="pi-ic">🪱</span><div><strong>Protocolo completo:</strong> 3 doses (15/30/45 dias) + reforço mensal (75d). Marque no cronograma de Vacinas para seguir a cascata automática.</div></div>
+    <div class="field"><label>PRODUTO *</label><select class="select" id="hvfProduto" onchange="atualizarInfoVermifugo()"><option value="">Selecione</option>${produtos.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('')}</select></div>
     <div id="vermifugoInfo"></div>
     <div class="field"><label>MODO DE TRATAMENTO</label>
       <div class="tipo-tratamento" id="tipoTratamento">
@@ -4361,8 +4375,7 @@ function abrirModalVermifugo(){
       </div>
     </div>
     <div class="field" id="customIntervaloField" style="display:none"><label>INTERVALO (dias)</label><input class="input" type="number" id="hvfCustomIntervalo" min="1" max="365" value="90"></div>
-    <div class="field"><label>DATA</label><input class="input" type="date" id="hvfData" value="${hojeISO()}"></div>
-    <div class="idade-info-card" id="vermifugoIdadeInfo"><span class="iic-ic">💡</span><div>Filhotes (até 6 meses) geralmente vermifugam a cada 15 dias. Adultos a cada 3 meses.</div></div>`,
+    <div class="field"><label>DATA</label><input class="input" type="date" id="hvfData" value="${hojeISO()}"></div>`,
     `<button class="btn btn-soft" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="salvarVermifugo()">Salvar</button>`);
 }
 function setVermifugoTipo(tipo){
@@ -4564,21 +4577,21 @@ function salvarEscore(){
   saveDB(); closeModal(); toast('Escore salvo! ⚖️'); renderSaude();
 }
 function abrirModalAjuda(){
-  openModal(headPadrao('Como usar o PetVida', 'Guia rápido — v10.3'),
-    `<div class="blk" style="background:linear-gradient(140deg,#E4F8F5,#D0F2EB);border-color:#A8E4D8">
-      <h4><span class="b-ic" style="background:rgba(37,194,176,.20);color:#12897A">🪱</span>Vermífugo 15 dias (corrigido)</h4>
-      <p>A <strong>Vermifugação inicial</strong> agora calcula <strong>15 dias</strong> exatos (antes eram 2 semanas = 14 dias). O intervalo aparece nos chips, no info box e na próxima dose.</p>
+  openModal(headPadrao('Como usar o PetVida', 'Guia rápido — v10.4'),
+    `<div class="blk" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5">
+      <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">🪱</span>Protocolo completo de vermifugação</h4>
+      <p><strong>3 doses</strong> (15/30/45 dias) + <strong>reforço mensal</strong> (75 dias). Após esse ciclo, o V10 começa.</p>
     </div>
-    <div class="blk" style="background:linear-gradient(140deg,#F3EAFE,#E9DDFB);border-color:#D9C4F5">
-      <h4><span class="b-ic" style="background:rgba(155,93,229,.20);color:#6B31B8">💊</span>Medicações expandidas</h4>
-      <p>Base com <strong>Vermi Plus (VetBras), Drontal Plus, Endogard, Bravecto Plus, Simparic Plus, NexGard Spectra</strong> e mais.</p>
+    <div class="blk" style="background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border-color:#C8E8EE">
+      <h4><span class="b-ic" style="background:rgba(79,179,196,.20);color:#2A8A99">💉</span>Vacinas após vermífugo</h4>
+      <p>V10 (cães) ou V3/V4/V5 (gatos) começam <strong>após</strong> o protocolo de vermifugação. Cascata automática recalcula as próximas doses.</p>
     </div>
     <div class="blk" style="background:linear-gradient(140deg,#FFF9EC,#FFEFD0);border-color:#FFE4B5">
       <h4><span class="b-ic" style="background:rgba(232,155,78,.20);color:#B47800">🏆</span>Top 10 rações por pet</h4>
       <p>Na aba <strong>Rações</strong>, veja as 10 mais usadas para o porte e idade do seu pet.</p>
     </div>
-    <div class="blk" style="background:linear-gradient(140deg,#F0F9FB,#E0F4F8);border-color:#C8E8EE">
-      <h4><span class="b-ic" style="background:rgba(79,179,196,.20);color:#2A8A99">📏</span>Curva de crescimento</h4>
+    <div class="blk" style="background:linear-gradient(140deg,#E4F8F5,#D0F2EB);border-color:#A8E4D8">
+      <h4><span class="b-ic" style="background:rgba(37,194,176,.20);color:#12897A">📏</span>Curva de crescimento</h4>
       <p>Compare o peso real do filhote com o padrão da raça/porte.</p>
     </div>
     <div class="blk warn"><h4><span class="b-ic">⚕️</span>Aviso</h4><p>Não substitui consulta veterinária.</p></div>
@@ -4600,9 +4613,9 @@ function init(){
   atualizarBadgeBackup();
   atualizarBadgeCloud();
   console.log('🐾 PetVida ' + APP_VERSION + ' iniciado');
-  console.log('🪱 Vermífugo inicial: 15 dias (corrigido)');
+  console.log('🪱 Protocolo de vermifugação: 3 doses (15/30/45d) + reforço mensal (75d)');
+  console.log('💉 V10/V3 começam após o protocolo de vermifugação');
   console.log('💊 ' + Object.keys(PRODUTOS_VERMIFUGO).length + ' vermífugos e ' + Object.keys(PRODUTOS_ANTIPULGAS).length + ' antipulgas');
-  console.log('🍖 Top 10 rações por pet: ATIVO (' + RACOES_DB.length + ' rações)');
   console.log('📚 ' + RACAS.length + ' raças · ' + (DOENCAS.cao.length + DOENCAS.gato.length) + ' doenças');
   if(fbAuth.uid && navigator.onLine){
     setTimeout(()=> { sincronizarInteligente().catch(()=>{}); }, 1500);
